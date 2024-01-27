@@ -16,15 +16,15 @@ return new class extends Migration
             $table->timestamps();
             $table->decimal('price', 2);
             $table->integer('offerPrice')->nullable();
-            $table->string('voltage');
-            $table->string('guarantee');
-            $table->string('manufacturing_price');
-            $table->string('weigth');
-            $table->string('materials');
-            $table->string('description', 300);
-            $table->string('dimensions');
-            $table->string('battery');
-            $table->string('engine');
+            $table->string('voltage', 45);
+            $table->string('guarantee', 45);
+            $table->string('manufacturing_price', 45);
+            $table->string('weigth', 45);
+            $table->string('materials', 45);
+            $table->text('description');
+            $table->string('dimensions', 45);
+            $table->string('battery', 45);
+            $table->string('engine', 45);
             $table->string('Components', 45);
         });
     }
