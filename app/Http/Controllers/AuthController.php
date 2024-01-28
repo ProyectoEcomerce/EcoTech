@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function loginControll(Request $request)
 	{
 	    // Comprobamos que el email y la contraseña han sido introducidos
 	    $request->validate([
@@ -20,12 +20,11 @@ class AuthController extends Controller
 	
 	    // Si el usuario existe lo logamos y lo llevamos a la vista de "logados" con un mensaje
 	    if (Auth::attempt($credentials)) {
-	        return redirect()->intended('index')
+	        return redirect()->intended('inicio')
 	            ->withSuccess('Logado Correctamente');
 	    }
 	
 	    // Si el usuario no existe devolvemos al usuario al formulario de login con un mensaje de error
 	    return redirect("/login")->withSuccess('Los datos introducidos no son correctos');
 	}
-	
 }
