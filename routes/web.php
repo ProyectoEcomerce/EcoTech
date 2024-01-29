@@ -18,4 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'loginControll'])->name('inico');
+// Route::get('/home', function () {
+//     return view('auth.dashboard');
+//     })->middleware('auth');
