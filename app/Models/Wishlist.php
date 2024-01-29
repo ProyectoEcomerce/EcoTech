@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Wishlist extends Model
 {
     use HasFactory;
 
@@ -16,5 +16,4 @@ class Cart extends Model
     public function product(){
         return $this->belongsToMany(Product::class);
     }
-
 }
