@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products_wishlists', function (Blueprint $table) {
-            $table->id();
+            $table->id('product_wishlist_id');
             $table->timestamps();
             $table->unsignedInteger('wishlist_id');
             $table->unsignedInteger('product_id');
