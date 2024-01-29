@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Fortify;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/home', function () {
-//     return view('auth.dashboard');
-//     })->middleware('auth');
+Route::get('/home', function () {
+    return view('auth.dashboard');
+})->middleware('auth','verified');
+
+Fortify::verifyEmailView(function(){
+    return view('auth.verify-email');
+});
