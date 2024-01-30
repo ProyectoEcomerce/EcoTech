@@ -1,10 +1,22 @@
-$--verde-base: #83B271;
+$--verde-base: #83b271;
+$--gris-claro: #D9D9D9;
 
-header {
+nav {
     background-color: $--verde-base;
     color: white;
-    padding: 1rem;
+    padding: 1em;
     text-align: center;
-    font-size: 1.5rem;
     font-weight: bold;
+}
+
+#cart-sidebar {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 300px;
+    background-color: #f8f9fa;
+    overflow: auto;
+    padding: 20px;
 }
