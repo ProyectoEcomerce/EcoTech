@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('products_wishlists', function (Blueprint $table) {
             $table->id('product_wishlist_id');
             $table->timestamps();
-            $table->unsignedInteger('wishlist_id');
-            $table->unsignedInteger('product_id');
+            $table->foreignId('wishlist_id')->references('wishlist_id')->on('wishlists');
+            $table->foreignId('product_id')->references('product_id')->on('products');
         });
     }
 

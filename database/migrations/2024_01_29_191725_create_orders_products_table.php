@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('orders_products', function (Blueprint $table) {
             $table->id('order_product_id');
             $table->timestamps();
-            $table->unsignedInteger('order_id');
-            $table->unsignedInteger('product_id');
+            $table->foreignId('order_id')->references('order_id')->on('orders');
+            $table->foreignId('product_id')->references('product_id')->on('products');
             $table->integer('amount');
         });
     }
