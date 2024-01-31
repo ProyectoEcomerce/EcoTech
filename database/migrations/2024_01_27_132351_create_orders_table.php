@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('order_id');
+            $table->id();
             $table->timestamps();
             $table->decimal('total_price', 8,2);
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->references('id')->on('users');
         });
     }
 

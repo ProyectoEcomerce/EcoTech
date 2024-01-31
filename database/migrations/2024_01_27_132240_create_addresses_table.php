@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id('address_id');
+            $table->id();
             $table->timestamps();
             $table->string('address', 45);
             $table->string('city', 45);
             $table->string('zip_code');
             $table->string('country', 45);
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->references('id')->on('users');
         });
     }
 

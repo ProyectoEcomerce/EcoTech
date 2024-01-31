@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories_products', function (Blueprint $table) {
-            $table->id('category_product_id');
+            $table->id();
             $table->timestamps();
-            $table->foreignId('category_id')->references('category_id')->on('categories');
-            $table->foreignId('product_id')->references('product_id')->on('products');
+            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('product_id')->references('id')->on('products');
         });
     }
 

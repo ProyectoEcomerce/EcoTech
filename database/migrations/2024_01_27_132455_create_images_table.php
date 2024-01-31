@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->id('image_id');
+            $table->id();
             $table->timestamps();
             $table->binary('product_photo');
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->references('id')->on('products');
         });
     }
 
