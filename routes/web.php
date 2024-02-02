@@ -29,4 +29,8 @@ Fortify::verifyEmailView(function(){
     return view('auth.verify-email');
 });
 
-Route::post('save_product', [CartController::class, 'saveProduct'])->name('save_product');
+Route::post('additem', [CartController::class, 'addItem'])->name('additem');
+Route::post('clearcart', [CartController::class, 'clearCart'])->name('clearcart');
+Route::post('removeitem', [CartController::class, 'removeItem'])->name('removeitem');
+
+
