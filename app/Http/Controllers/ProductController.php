@@ -35,6 +35,11 @@ class ProductController extends Controller
         return back() -> with('mensaje', 'Producto creado');
     }
 
+    public function edit($id){
+        $product=Product::findOrFail($id);
+        return view('layouts.editProduct', compact('product'));
+    }
+
     public function update(Request $request, $id){
         $request->validate([
             'price'=>'required',
@@ -48,8 +53,7 @@ class ProductController extends Controller
             'dimensions'=>'required',
             'battery'=>'required',
             'engine'=>'required',
-            'components'=>'required',
-            'show'=>'required'
+            'components'=>'required'
         ]);
         $updateProduct=Product::findOrFail($id);
         $updateProduct->price=$request->price;
@@ -64,7 +68,6 @@ class ProductController extends Controller
         $updateProduct->battery=$request->battery;
         $updateProduct->engine=$request->engine;
         $updateProduct->components=$request->components;
-        $updateProduct->show=$request->show;
         $updateProduct->save();
         return back() -> with('mensaje', 'Producto editado exitosamente');
     }

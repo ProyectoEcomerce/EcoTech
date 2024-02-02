@@ -7,8 +7,8 @@
 
 
 <body>
-    <h1>Notas desde base de datos</h1>
-    <a href="create_Product">Nueva nota</a>
+    <h1>Productos</h1>
+    <a href="create_Product">Nueva producto</a>
     <table border="1" class="table table-responsive">
         <thead>
             <tr>
@@ -40,10 +40,10 @@
                 <td>{{ $product->battery}}</td>
                 <td>{{ $product->engine}}</td>
                 <td>{{ $product->components}}</td>
-                <td><a href="{{ route('product.update', $product) }}" class="btn btn-warning btn-sm"> Editar </a>
+                <td><a href="{{ route('layouts.editProduct', $product->id) }}" class="btn btn-warning btn-sm"> Editar </a>
                 </td>
                 <td>
-                    <form action="{{ route('product.delete', $product->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('layouts.deleteProduct', $product->id) }}" method="POST" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>

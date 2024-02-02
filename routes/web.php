@@ -40,5 +40,6 @@ Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.rem
 
 
 Route::post('adminProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
-Route::post('update_product/{id}', [ProductController::class, 'update'])->name('product.update');
-Route::post('delete_product/{id}', [ProductController::class, 'delete'])->name('product.delete');
+Route::get('edit_product/{id}', [ProductController::class, 'edit'])->name('layouts.editProduct');
+Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
+Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
