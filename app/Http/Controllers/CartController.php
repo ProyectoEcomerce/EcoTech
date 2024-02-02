@@ -30,9 +30,10 @@ class CartController extends Controller
     public function removeItem(Request $request){
 
         $product= Product::find($request);
-
+        $user=auth()->user();
+        $cart = $user->cart;
         if($product){
-            $product->delete();
+            $cart->product()->detach($request);
             return redirect('home')->with('success', 'Producto eliminado exitosamente');
         }else{
             return redirect('home')->with('error', 'No se ha encontrado el producto');
