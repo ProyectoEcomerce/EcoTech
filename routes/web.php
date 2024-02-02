@@ -30,15 +30,15 @@ Fortify::verifyEmailView(function(){
     return view('auth.verify-email');
 });
 
-Route::get('/adminProduct', function(){
-    return view('layouts.adminProduct');
-});
+
+Route::get('adminProduct', [ProductController::class, 'getProducts']);
+Route::get('create_Product', [ ProductController::class, 'createProduct']);
 
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
 Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
 Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
 
 
-Route::post('create', [ProductController::class, 'create'])->name('product.create');
-Route::post('update', [ProductController::class, 'update'])->name('product.update');
-Route::post('delete', [ProductController::class, 'delete'])->name('product.delete');
+Route::post('adminProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
+Route::post('update_product/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::post('delete_product/{id}', [ProductController::class, 'delete'])->name('product.delete');

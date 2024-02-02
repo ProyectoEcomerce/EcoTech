@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function getProducts(){
+        $products = Product::paginate(10);
+        return view('layouts.adminProduct', @compact('products'));
+    }
+
+    public function createProduct(){
+        return view('layouts.createProduct');
+    }
+
     public function create(Request $request){
         $request->validate(['price'=>'required','offerPrice'=>'required','voltage'=>'required','guarantee'=>'required','manufacturing_price'=>'required','weigth'=>'required','materials'=>'required','description'=>'required','dimensions'=>'required','battery'=>'required','engine'=>'required','components'=>'required']);
         $newProduct= new Product;
