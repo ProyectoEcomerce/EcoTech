@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('dimensions', 45);
             $table->string('battery', 45);
             $table->string('engine', 45);
-            $table->string('Components', 45);
+            $table->string('components', 45);
             $table->boolean('show')->default(true);
         });
     }
