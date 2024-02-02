@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['price', 'offerPrice', 'voltage', 'guarantee', 'manufacturing_price', 'weigth', 'materials', 'description', 'dimensions', 'battery', 'engine', 'components'];
+
     public function image(){
         return $this->hasMany(Image::class);
     }
@@ -28,4 +30,6 @@ class Product extends Model
     public function category(){
         return $this->belongsToMany(Category::class);
     }
+
+    
 }
