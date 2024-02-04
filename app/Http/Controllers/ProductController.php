@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function getProducts(){
-        $products = Product::paginate(10);
-        return view('layouts.adminProduct', @compact('products'));
+    //listar los productos
+    public function index()
+    {
+        $products = Product::paginate(9); //paginación de 9 productos
+        return view('welcome', compact('products'));
     }
+
 
     public function createProduct(){
         return view('layouts.createProduct');

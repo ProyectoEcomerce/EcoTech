@@ -43,3 +43,6 @@ Route::post('adminProduct', [ProductController::class, 'create'])->name('layouts
 Route::get('edit_product/{id}', [ProductController::class, 'edit'])->name('layouts.editProduct');
 Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+
+//listar los productos
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
