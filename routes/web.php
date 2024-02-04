@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 
@@ -26,3 +29,17 @@ Route::get('/home', function () {
 Fortify::verifyEmailView(function(){
     return view('auth.verify-email');
 });
+
+
+Route::get('adminProduct', [ProductController::class, 'getProducts']);
+Route::get('create_Product', [ ProductController::class, 'createProduct']);
+
+Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
+Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
+Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
+
+
+Route::post('adminProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
+Route::get('edit_product/{id}', [ProductController::class, 'edit'])->name('layouts.editProduct');
+Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
+Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');

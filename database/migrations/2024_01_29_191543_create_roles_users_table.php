@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles_users', function (Blueprint $table) {
-            $table->id('role_user_id');
+            $table->id();
             $table->timestamps();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('role_id');
+            $table->foreignId('role_id')->references('id')->on('roles');
+            $table->foreignId('user_id')->references('id')->on('users');
         });
     }
 
