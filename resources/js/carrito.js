@@ -1,15 +1,14 @@
 "use strict";
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('cart-icon').addEventListener('click', function(event) {
-        event.preventDefault();
-        let cartSidebar = document.getElementById('cart-sidebar');
-        if (cartSidebar.style.display === 'none') {
-            cartSidebar.style.display = 'block';
-        } else {
-            cartSidebar.style.display = 'none';
-        }
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("dom cargado")
+    let cartToggle = document.getElementById("cart-toggle");
+    let cartSidebar = document.getElementById("cart-sidebar");
+
+    cartToggle.addEventListener("click", function () {
+        cartSidebar.classList.toggle("closed");
     });
 });
 
-console.log('carrito.js loaded');
+
+console.log("Carrito cargado");

@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    @vite(['resources/js/app.js', 'resources/css/app.scss']) 
+    @vite('resources/css/app.css', 'resources/css/app.scss', 'resources/js/carrito.js')
 </head>
 
 
 <body>
     <h1>Productos</h1>
-    <a href="create_Product">Nueva producto</a>
+    <a href="create_Product">añadir producto</a>
     <table border="1" class="table table-responsive">
         <thead>
             <tr>

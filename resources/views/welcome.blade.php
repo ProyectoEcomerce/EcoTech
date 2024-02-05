@@ -58,14 +58,44 @@
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->description }}</p>
                                 <p class="card-text">{{ $product->price }}€</p>
+                                @auth
+                                    <form action="{{ route('cart.additem') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
+                                    </form>
+                                @else
+                                    <p>Necesitas <a href="{{ route('login') }}">iniciar sesión</a> para añadir productos al
+                                        carrito.</p>
+                                @endauth
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
+        <div class="cart-sidebar">
+            @include('partials.cart')
+        </div>
+
 
     </main>
 </body>
+
+<script>
+    "use strict";
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("dom cargado")
+    let cartToggle = document.getElementById("cart-toggle");
+    let cartSidebar = document.getElementById("cart-sidebar");
+
+    cartToggle.addEventListener("click", function () {
+        cartSidebar.classList.toggle("closed");
+    });
+});
+
+console.log("Carrito cargado");
+</script>
 
 </html>

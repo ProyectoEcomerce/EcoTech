@@ -84,7 +84,8 @@ class ProductController extends Controller
 
     public function adminIndex()
     {
-        return view('adminProduct');
+        $products = Product::paginate(9); // Paginación de 9 productos
+        return view('layouts.adminProduct', compact('products'));
     }
 
 }

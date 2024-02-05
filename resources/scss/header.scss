@@ -20,3 +20,18 @@ nav {
     overflow: auto;
     padding: 20px;
 }
+
+#cart-sidebar {
+    transition: right 0.3s ease;
+    position: fixed; 
+    right: 0; 
+    top: 0; 
+    width: 300px; 
+    height: 100%; 
+    background-color: white; 
+    z-index: 100;
+}
+
+#cart-sidebar.closed {
+    right: -300px;
+}

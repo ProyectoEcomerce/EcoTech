@@ -15,12 +15,11 @@
         <div class="d-flex justify-content-center align-items-center">
             @if (Route::has('login'))
                 <div class="position-fixed top-0 end-0 p-3 text-end">
-                    <a href="#" class="text-secondary" id="cart-icon">
-                        <i class="bi bi-cart"></i>
-                    </a>
+                    <button id="cart-toggle"><i class="bi bi-cart"></i></button>
                     @auth
                         @if (auth()->user()->hasRole('admin'))
-                            <a href="{{ route('admin.index') }}" class="btn btn-primary">Panel de Administración</a>
+                            <a href="{{ route('admin.index') }}"
+                                class="fw-bold text-secondary text-decoration-none p-5">Panel de Administración</a>
                         @endif
                         <a href="{{ url('/home') }}" class="fw-bold text-secondary text-decoration-none">Home</a>
                     @else
@@ -35,26 +34,6 @@
             @endif
         </div>
     </nav>
-    <div class="bg-light">
-        <div class="container">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Categoría 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categoría 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categoría 3</a>
-                </li>
-                <!-- Más categorías -->
-            </ul>
-        </div>
-    </div>
-
-    <section>
-        <div id="cart-sidebar">dsd</div>
-    </section>
 </body>
 
 </html>
