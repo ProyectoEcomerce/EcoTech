@@ -46,6 +46,5 @@ Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('lay
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
