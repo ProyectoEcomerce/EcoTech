@@ -19,6 +19,9 @@
                         <i class="bi bi-cart"></i>
                     </a>
                     @auth
+                        @if (auth()->user()->hasRole('admin'))
+                            <a href="{{ route('admin.index') }}" class="btn btn-primary">Panel de Administración</a>
+                        @endif
                         <a href="{{ url('/home') }}" class="fw-bold text-secondary text-decoration-none">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="fw-bold text-secondary text-decoration-none">Log in</a>

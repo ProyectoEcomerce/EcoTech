@@ -31,7 +31,7 @@ Fortify::verifyEmailView(function () {
 });
 
 
-Route::get('adminProduct', [ProductController::class, 'getProducts']);
+Route::get('/', [ProductController::class, 'getProducts']); // Ruta de la página de inicio
 Route::get('create_Product', [ProductController::class, 'createProduct']);
 
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
@@ -39,9 +39,13 @@ Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clear
 Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
 
 
-Route::post('adminProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
+Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
+Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
 Route::get('edit_product/{id}', [ProductController::class, 'edit'])->name('layouts.editProduct');
 Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
-//listar los productos
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

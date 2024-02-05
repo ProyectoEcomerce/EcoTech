@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //listar los productos
-    public function Getproducts()
+    public function getProducts()
     {
-        $products = Product::paginate(9); //paginación de 9 productos
+        $products = Product::paginate(9); // Paginación de 9 productos
         return view('welcome', compact('products'));
     }
+
 
 
     public function createProduct(){
@@ -80,4 +81,10 @@ class ProductController extends Controller
         $deleteProduct->delete();
         return back() -> with('mensaje', 'Producto eliminado');
     }
+
+    public function adminIndex()
+    {
+        return view('adminProduct');
+    }
+
 }
