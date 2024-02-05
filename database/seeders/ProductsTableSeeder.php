@@ -14,6 +14,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         Product::create([
+            'name' => 'Producto 1',
             'description' => 'Descripción del producto 1',
             'price' => 99.99,
             'offerPrice' => 89.99,

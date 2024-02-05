@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //listar los productos
-    public function index()
+    public function Getproducts()
     {
         $products = Product::paginate(9); //paginación de 9 productos
         return view('welcome', compact('products'));

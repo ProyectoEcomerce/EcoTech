@@ -24,15 +24,15 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('auth.dashboard');
-})->middleware('auth','verified');
+})->middleware('auth', 'verified');
 
-Fortify::verifyEmailView(function(){
+Fortify::verifyEmailView(function () {
     return view('auth.verify-email');
 });
 
 
 Route::get('adminProduct', [ProductController::class, 'getProducts']);
-Route::get('create_Product', [ ProductController::class, 'createProduct']);
+Route::get('create_Product', [ProductController::class, 'createProduct']);
 
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
 Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
@@ -45,4 +45,3 @@ Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('lay
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
 //listar los productos
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
