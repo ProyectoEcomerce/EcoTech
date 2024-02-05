@@ -37,6 +37,7 @@ Route::get('create_Product', [ProductController::class, 'createProduct']);
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
 Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
 Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
+Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
 
 
 Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');

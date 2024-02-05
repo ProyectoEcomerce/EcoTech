@@ -6,6 +6,8 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -28,7 +30,7 @@ class CartController extends Controller
     }
     public function addItem(Request $request)
     {
-        $product = Product::find($request->product_id); // Asegúrate de que esto coincida con el nombre en tu formulario
+        $product = Product::find($request->product_id); 
 
         if (!$product) {
             return back()->withErrors(['subtype' => 'El producto no existe'])->withInput();
@@ -36,13 +38,11 @@ class CartController extends Controller
 
         $user = auth()->user();
 
-        // Asegúrate de que el usuario tiene un carrito, si no, créalo
         $cart = $user->cart ?? new Cart();
         $cart->user_id = $user->id;
-        $cart->save(); // Guarda el carrito si es nuevo
+        $cart->save();
 
-        // Asume que tienes una relación products() en tu modelo Cart
-        $cart->products()->attach($product->id);
+        $cart->products()->attach($product->id, ['amount' => 1]);;
 
         return back()->with('mensaje', 'Producto añadido con éxito');
     }
@@ -67,6 +67,22 @@ class CartController extends Controller
 
         $cart->product()->detach();
         return redirect('home')->with('success', 'Se han eliminado los productos');
+    }
+
+    public function purchase(Request $request)
+    {
+        $user = auth()->user();
+
+        $cart = $user->cart;
+        if ($cart) {
+            Mail::to($user->email)->send(new OrderConfirmation($cart));
+            $cart->products()->detach();
+            $cart->save();
+
+            return back()->with('success', 'Los productos han sido comprados correctamente');
+        }
+
+        return back()->withErrors('No hay un carrito para comprar.');
     }
 }
 
