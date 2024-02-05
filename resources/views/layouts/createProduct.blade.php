@@ -9,6 +9,7 @@
 
     <form action="{{ route('layouts.createProduct') }}" method="POST">
         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+        <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre del producto" class="form-control mb-2">
         <input type="text" name="price" value="{{ old('price') }}" placeholder="Precio" class="form-control mb-2" autofocus>
         <input type="text" name="offerPrice" value="{{ old('offerPrice') }}" placeholder="Precio especial" class="form-control mb-2">
         <input type="text" name="voltage" value="{{ old('voltage') }}" placeholder="Voltage" class="form-control mb-2">

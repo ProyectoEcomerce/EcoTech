@@ -23,6 +23,7 @@ class ProductController extends Controller
     public function create(Request $request){
         $request->validate(['price'=>'required','offerPrice'=>'required','voltage'=>'required','guarantee'=>'required','manufacturing_price'=>'required','weigth'=>'required','materials'=>'required','description'=>'required','dimensions'=>'required','battery'=>'required','engine'=>'required','components'=>'required']);
         $newProduct= new Product;
+        $newProduct->name=$request->name;
         $newProduct->price=$request->price;
         $newProduct->offerPrice=$request->offerPrice;
         $newProduct->voltage=$request->voltage;
