@@ -48,6 +48,8 @@ Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
+
 Route::middleware('admin')->group(function(){
     Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
 });

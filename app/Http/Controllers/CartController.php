@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
@@ -55,18 +56,39 @@ class CartController extends Controller
         }
     }
 
+    public function updateItemAmount(Request $request){
+        $productId=$request->input('product_id');
+        $amountChange=$request->input('amount_change');
+
+        $user = auth()->user();
+
+        $cart = $user->cart;
+
+        $currentQuantity = $cart->products()->where('product_id', $productId)->value('amount');
+        $newAmount = max(0, $currentQuantity + $amountChange);
+
+        if($newAmount===0){
+            $cart->products()->detach($productId);
+            return back()->with('mensaje', 'Producto eliminado del carrito');
+        }
+
+        $cart->products()->updateExistingPivot($productId, ['amount' => $newAmount]);
+
+        $message = $amountChange > 0 ? 'Cantidad aumentada con éxito' : 'Cantidad disminuida con éxito';
+        return back()->with('mensaje', $message);
+    }
 
 
     public function removeItem(Request $request){
 
-        $product= Product::find($request);
+        $product= Product::find($request->input('product_id'));
         $user=auth()->user();
         $cart = $user->cart;
         if($product){
-            $cart->product()->detach($request);
-            return redirect('home')->with('success', 'Producto eliminado exitosamente');
+            $cart->products()->detach($product);
+            return back()->with('success', 'Producto eliminado exitosamente');
         }else{
-            return redirect('home')->with('error', 'No se ha encontrado el producto');
+            return back()->with('error', 'No se encontro el producto');
         }
     }
 
