@@ -11,6 +11,8 @@
         @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
         @csrf
         {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+        <input type="text" name="name" class="form-control mb-2" value="{{ $product->name }}"
+        placeholder="Nombre" autofocus>
         <input type="text" name="price" class="form-control mb-2" value="{{ $product->price }}"
             placeholder="Precio" autofocus>
         <input type="text" name="offerPrice" placeholder="Precio oferta" class="form-control mb-2"
