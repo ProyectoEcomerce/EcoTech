@@ -21,7 +21,7 @@ class ProductController extends Controller
     }
 
     public function create(Request $request){
-        $request->validate(['price'=>'required','offerPrice'=>'required','voltage'=>'required','guarantee'=>'required','manufacturing_price'=>'required','weigth'=>'required','materials'=>'required','description'=>'required','dimensions'=>'required','battery'=>'required','engine'=>'required','components'=>'required']);
+        $request->validate(['name'=>'required','price'=>'required','offerPrice'=>'required','voltage'=>'required','guarantee'=>'required','manufacturing_price'=>'required','weigth'=>'required','materials'=>'required','description'=>'required','dimensions'=>'required','battery'=>'required','engine'=>'required','components'=>'required']);
         $newProduct= new Product;
         $newProduct->name=$request->name;
         $newProduct->price=$request->price;
@@ -47,6 +47,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
+            'name'=>'required',
             'price'=>'required',
             'offerPrice'=>'required',
             'voltage'=>'required',
@@ -61,6 +62,7 @@ class ProductController extends Controller
             'components'=>'required'
         ]);
         $updateProduct=Product::findOrFail($id);
+        $updateProduct->name=$request->name;
         $updateProduct->price=$request->price;
         $updateProduct->offerPrice=$request->offerPrice;
         $updateProduct->voltage=$request->voltage;

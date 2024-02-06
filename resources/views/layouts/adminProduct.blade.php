@@ -12,6 +12,7 @@
     <table border="1" class="table table-responsive">
         <thead>
             <tr>
+                <th>Nombre</th>
                 <th>Precio</th>
                 <th>Precio oferta</th>
                 <th>Voltage</th>
@@ -28,6 +29,7 @@
         </thead>
         @foreach ($products as $product)
             <tr>
+                <td>{{ $product->name}}</td>
                 <td>{{ $product->price}}</td>
                 <td>{{ $product->offerPrice}}</td>
                 <td>{{ $product->voltage}}</td>
