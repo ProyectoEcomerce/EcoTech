@@ -28,6 +28,8 @@ class CartController extends Controller
 
         return view('cart.show', compact('products'));
     }
+
+
     public function addItem(Request $request)
     {
         $product = Product::find($request->product_id); 
@@ -42,10 +44,17 @@ class CartController extends Controller
         $cart->user_id = $user->id;
         $cart->save();
 
-        $cart->products()->attach($product->id, ['amount' => 1]);;
-
-        return back()->with('mensaje', 'Producto añadido con éxito');
+        if($cart->products()->where('product_id' , $product->id)->exists()){
+            $amount=$cart->products()->where('product_id', $product->id)->first()->pivot->amount;
+            $newAmount= $amount+1;
+            $cart->products()->updateExistingPivot($product->id, ['amount' => $newAmount]);
+            return back()->with('mensaje', 'El producto ya está en el carrito');
+        }else{
+            $cart->products()->attach($product->id, ['amount' => 1]);
+            return back()->with('mensaje', 'Producto añadido con éxito');
+        }
     }
+
 
 
     public function removeItem(Request $request){
