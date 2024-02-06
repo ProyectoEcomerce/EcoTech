@@ -32,7 +32,6 @@ Fortify::verifyEmailView(function () {
 
 
 Route::get('/', [ProductController::class, 'getProducts']);
-Route::get('create_Product', [ProductController::class, 'createProduct']);
 
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
 Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
