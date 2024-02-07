@@ -78,8 +78,8 @@ footer {
 
 
 .carousel-item {
-    height: 65vh; /* Altura del carrusel */
-    min-height: 300px;
+    height: 65vh; /* Ajusta la altura del carrusel */
+    min-height: 300px; /* Altura mínima */
     background: no-repeat center center scroll; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -88,7 +88,15 @@ footer {
   }
   
   .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los textos */
-    border-radius: 0.25rem;
-    padding: 1rem;
+    background-color: rgba(0,0,0,0.5); /* Fondo semitransparente para las leyendas */
+    border-radius: 10px;
+    padding: 20px;
   }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(100%); /* Cambia el color de los íconos de control a blanco */
+  }
+  
+  /* Estilos adicionales para personalizar según tus necesidades */
+  
