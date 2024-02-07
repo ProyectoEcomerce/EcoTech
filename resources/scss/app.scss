@@ -1,3 +1,97 @@
-@import 'bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap';
 
 @import 'header.scss';
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/*Header*/
+.navbar {
+    background-color: #83B271 !important;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+/* Ajustes adicionales para mejorar la apariencia */
+.navbar-toggler {
+    border-color: #fff !important;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><path stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+/*Footer*/
+footer {
+    background-color: #83B271;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px; /* Asegura que el contenido no se apriete demasiado en pantallas pequeñas */
+    margin: 10px;
+    padding: 0 15px;
+}
+
+.footer-section h4 {
+    color: #f8f9fa;
+}
+
+.footer-section p, .footer-section a {
+    color: #dee2e6;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+/*Iconos redes sociales*/
+.social-icon {
+    text-decoration: none;
+    color: #333; 
+    margin: 0 10px;
+    font-size: 1.5em; 
+}
+
+.social-icon:hover {
+    color: #555; 
+}
+
+
+.carousel-item {
+    height: 65vh; /* Altura del carrusel */
+    min-height: 300px;
+    background: no-repeat center center scroll; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los textos */
+    border-radius: 0.25rem;
+    padding: 1rem;
+  }
+  
