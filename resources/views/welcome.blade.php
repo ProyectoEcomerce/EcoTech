@@ -42,6 +42,90 @@
     </button>
   </div>
 
+<!-- Sección de Productos -->
+<div class="container my-4">
+    <h2 class="mb-4">Nuestros Productos</h2>
+    <div class="row g-4">
+        <!-- Producto 1 -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <img src="/img/fabrica-noche.png" class="card-img-top" alt="Producto 1">
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="card-text">Descripción breve del producto 1.</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Producto 2 -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <img src="/img/oficina-dia.png" class="card-img-top" alt="Producto 2">
+                <div class="card-body">
+                    <h5 class="card-title">Producto 2</h5>
+                    <p class="card-text">Descripción breve del producto 2.</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Producto 3 -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <img src="/img/almacen-dia.png" class="card-img-top" alt="Producto 3">
+                <div class="card-body">
+                    <h5 class="card-title">Producto 3</h5>
+                    <p class="card-text">Descripción breve del producto 3.</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <img src="/img/fabrica-noche.png" class="card-img-top" alt="Producto 1">
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="card-text">Descripción breve del producto 1.</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Producto 2 -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <img src="/img/oficina-dia.png" class="card-img-top" alt="Producto 2">
+                <div class="card-body">
+                    <h5 class="card-title">Producto 2</h5>
+                    <p class="card-text">Descripción breve del producto 2.</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Producto 3 -->
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <img src="/img/almacen-dia.png" class="card-img-top" alt="Producto 3">
+                <div class="card-body">
+                    <h5 class="card-title">Producto 3</h5>
+                    <p class="card-text">Descripción breve del producto 3.</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
   <!-- Botón para abrir el sidebar -->
 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
