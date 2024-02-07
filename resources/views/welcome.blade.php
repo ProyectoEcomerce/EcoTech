@@ -41,5 +41,24 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+
+
+  <!-- Botón para abrir el sidebar -->
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
+    <i class="fas fa-shopping-cart"></i> Cesta
+</button>
+
+<!-- Sidebar para la cesta de compra -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
+    <div class="offcanvas-header">
+        <h5 id="shoppingCartLabel">Cesta de Compra</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Contenido de la cesta de compra aquí -->
+        <p>Aquí van los artículos de tu cesta.</p>
+    </div>
+</div>
+
   
 @endsection
