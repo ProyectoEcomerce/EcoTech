@@ -44,7 +44,8 @@
 
 <!-- Sección de Productos -->
 <div class="container my-4">
-    <h2 class="mb-4">Nuestros Productos</h2>
+    <h2 class="display-4">Descubre Nuestros Productos</h2>
+    <p class="lead text-muted">Una selección según para tus necesidades</p>    
     <div class="row g-4">
         <!-- Producto 1 -->
         <div class="col-12 col-md-4">
@@ -54,7 +55,7 @@
                     <h5 class="card-title">Producto 1</h5>
                     <p class="card-text">Descripción breve del producto 1.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                     <h5 class="card-title">Producto 2</h5>
                     <p class="card-text">Descripción breve del producto 2.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
                     </div>
                 </div>
             </div>
@@ -80,7 +81,7 @@
                     <h5 class="card-title">Producto 3</h5>
                     <p class="card-text">Descripción breve del producto 3.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
                     </div>
                 </div>
             </div>
@@ -92,7 +93,7 @@
                     <h5 class="card-title">Producto 1</h5>
                     <p class="card-text">Descripción breve del producto 1.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
                     </div>
                 </div>
             </div>
@@ -105,7 +106,7 @@
                     <h5 class="card-title">Producto 2</h5>
                     <p class="card-text">Descripción breve del producto 2.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
                     </div>
                 </div>
             </div>
@@ -118,7 +119,7 @@
                     <h5 class="card-title">Producto 3</h5>
                     <p class="card-text">Descripción breve del producto 3.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Agregar a la cesta</button>
+                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
                     </div>
                 </div>
             </div>

@@ -99,7 +99,7 @@ footer {
     filter: invert(100%);
   }  
 
-/* Opcional: Estilos personalizados para el sidebar o el botón */
+/**/
 .offcanvas-header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
@@ -125,8 +125,59 @@ footer {
 }
 
 /*BOTON CESTA*/
+#btn-cesta{
+    background-color: #416a00; 
+    border-color: #83B271; 
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s; /* Suaviza la transición de colores */
+}
+
+#btn-cesta:hover {
+    background-color: #83B271; 
+    border-color: #416a00; 
+    color: #000;
+}
+
 @media (max-width: 990px) {
     #btn-cesta {
-        margin-top: 20px; /* Ajusta este valor según tus necesidades */
+        margin-top: 20px;
     }
+}
+
+/*h2 PRODUCTOS*/
+h2.display-4 {
+    margin-top: 60px;
+    font-weight: 300; 
+    position: relative;
+    padding-bottom: 15px; 
+}
+
+h2.display-4::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 200px; 
+    height: 4px; 
+    background-color: #416a00; 
+    border-radius: 2px;
+}
+
+.lead.text-muted {
+    font-size: 1.25rem; 
+}
+
+/*BOTON CARDS*/
+#boton-card {
+    background-color: #416a00; 
+    border-color: #83B271; 
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s; /* Suaviza la transición de colores */
+}
+
+#boton-card:hover {
+    background-color: #83B271; 
+    border-color: #416a00; 
+    color: #000;
 }
