@@ -1,3 +1,6 @@
+@extends('layouts.plantilla')
+
+
 @if(auth()->check())
     <div class="cart-sidebar">
         <h4>Carrito de Compras</h4>
@@ -8,13 +11,20 @@
             <div class="cart-item">
                 <p>{{ $product->name }}</p>
                 <p>{{ $product->price }}€</p>
+                <p>Cantidad:{{$product->pivot->amount}}</p>
 
                 {{-- Sumar cantidad --}}
+                <input type="hidden" name="_token" id="token" value="{{csrf_token()}}">
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="amount_change" value="1">
+                    <button type="submit" class="btn btn-success">+</button>
+                <input>
+
                 <form action="{{ route('cart.updateAmount') }}" method="POST">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <input type="hidden" name="amount_change" value="1">
-                    <button type="submit" class="btn btn-success">+</button>
+                    <button onclick="changeAmount()" class="btn btn-success">+</button>
                 </form>
         
                 {{-- Quitar cantidad --}}
@@ -30,7 +40,7 @@
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <button type="submit" class="btn btn-danger">Eliminar</button>
-                </form>
+                </form>   
             </div>
         @empty
             <p>Tu carrito está vacío.</p>
