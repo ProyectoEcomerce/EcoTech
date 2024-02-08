@@ -29,7 +29,7 @@
                         </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Acerca de</a>
@@ -55,7 +55,7 @@
     </div>
     <div class="offcanvas-body">
         <!-- Contenido de la cesta de compra aquí -->
-        <p>Aquí van los artículos de tu cesta.</p>
+        <p>Aquí van los artículos de la cesta.</p>
     </div>
 </div>
    

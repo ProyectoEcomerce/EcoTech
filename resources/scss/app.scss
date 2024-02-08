@@ -181,3 +181,20 @@ h2.display-4::after {
     border-color: #416a00; 
     color: #000;
 }
+
+/*CARD PEDIDOS*/
+.card-productos {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    margin-bottom: 20px;
+    margin: 50px;
+}
+
+.card-productos-img-top {
+    height: 400px;
+    width: 400px; 
+    object-fit: cover; 
+}
+
+.card-productos-body {
+    padding: 20px; 
+}
