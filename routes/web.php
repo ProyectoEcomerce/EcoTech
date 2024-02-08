@@ -30,11 +30,6 @@ Fortify::verifyEmailView(function () {
     return view('auth.verify-email');
 });
 
-Route::get('/a', function () {
-    return view('welcome');
-});
-
-
 Route::get('/', [ProductController::class, 'getProducts']);
 Route::get('create_Product', [ProductController::class, 'createProduct']);
 
