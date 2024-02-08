@@ -22,6 +22,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li>
+                        <!-- Boton carrito -->
+                        <button class="btn btn-success" id="btn-cesta" type="button" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
+                            <i class="fas fa-shopping-cart"></i> 
+                        </button>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                     </li>
@@ -39,7 +45,19 @@
         </div>
     </nav>
 </header>
-    
+
+
+<!-- Sidebar para la cesta de compra -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
+    <div class="offcanvas-header">
+        <h5 id="shoppingCartLabel">Cesta de Compra</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Contenido de la cesta de compra aquí -->
+        <p>Aquí van los artículos de tu cesta.</p>
+    </div>
+</div>
    
    @yield("content")
    
