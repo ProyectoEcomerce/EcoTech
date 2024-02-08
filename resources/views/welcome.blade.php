@@ -55,7 +55,7 @@
                     <h5 class="card-title">Producto 1</h5>
                     <p class="card-text">Descripción breve del producto 1.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
+                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     <h5 class="card-title">Producto 2</h5>
                     <p class="card-text">Descripción breve del producto 2.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
+                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                     <h5 class="card-title">Producto 3</h5>
                     <p class="card-text">Descripción breve del producto 3.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
+                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                     <h5 class="card-title">Producto 1</h5>
                     <p class="card-text">Descripción breve del producto 1.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
+                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                     <h5 class="card-title">Producto 2</h5>
                     <p class="card-text">Descripción breve del producto 2.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
+                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                     <h5 class="card-title">Producto 3</h5>
                     <p class="card-text">Descripción breve del producto 3.</p>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" id="boton-card" type="button">Agregar a la cesta</button>
+                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
                     </div>
                 </div>
             </div>
