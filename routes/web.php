@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/productos', function () {
+    return view('productos');
+});
+
 Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware('auth', 'verified');
