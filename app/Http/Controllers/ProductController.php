@@ -74,10 +74,13 @@ class ProductController extends Controller
         return back() -> with('mensaje', 'Producto eliminado');
     }
 
-    public function adminIndex()
-    {
+    public function adminIndex(){
         $products = Product::paginate(9); // Paginación de 9 productos
         return view('layouts.adminProduct', compact('products'));
     }
 
+    public function showProduct($id){
+        $product=Product::findOrFail($id);
+        return view('productos', compact('product') );
+    }
 }

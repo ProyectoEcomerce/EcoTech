@@ -22,10 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/productos', function () {
-    return view('productos');
-});
-
 Route::get('/pedidos', function () {
     return view('pedidos');
 });
@@ -63,3 +59,6 @@ Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('
 Route::middleware('admin')->group(function(){
     Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
 });
+
+
+Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');

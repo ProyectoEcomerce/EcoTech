@@ -59,29 +59,29 @@
     <p class="lead text-muted">Una selección según para tus necesidades</p>    
     <div class="row g-4">
         @foreach ($products as $product)
-                    <div class="col-12 col-md-4">
-                        <div class="card">
-                            <img class="card-img-top" src="{{ $product->image_url }}" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">{{ $product->description }}</p>
-                                <p class="card-text">{{ $product->price }}€</p>
-                                <div class="d-grid gap-2">
-                                    <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
-                                </div>
-                                @auth
-                                    <form action="{{ route('cart.additem') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
-                                    </form>
-                                @else
-                                    <p>Necesitas <a href="{{ route('login') }}">iniciar sesión</a> para añadir productos al
-                                        carrito.</p>
-                                @endauth
-                            </div>
-                        </div>
-                    </div>
+          <div class="col-12 col-md-4">
+              <div class="card">
+                  <img class="card-img-top" src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ $product->name }}</h5>
+                      <p class="card-text">{{ $product->description }}</p>
+                      <p class="card-text">{{ $product->price }}€</p>
+                      <div class="d-grid gap-2">
+                          <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
+                      </div>
+                      @auth
+                          <form action="{{ route('cart.additem') }}" method="POST">
+                              @csrf
+                              <input type="hidden" name="product_id" value="{{ $product->id }}">
+                              <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
+                          </form>
+                      @else
+                          <p>Necesitas <a href="{{ route('login') }}">iniciar sesión</a> para añadir productos al
+                              carrito.</p>
+                      @endauth
+                  </div>
+              </div>
+          </div>
         @endforeach
     </div>
 </div>
