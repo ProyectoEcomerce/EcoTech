@@ -30,6 +30,10 @@ Route::get('/pedidos', function () {
     return view('pedidos');
 });
 
+Route::get('/cancelar-pedidos', function () {
+    return view('cancelar-pedidos');
+});
+
 Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware('auth', 'verified');

@@ -5,57 +5,79 @@
 @section('content')
 
 
-<div class="container mt-4">
-    <h2>Id Pedido: xxx</h2>
-    <!-- Tarjeta de pedido para el Producto 1 -->
-    <div class="card pedido-card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-3">
-            <img src="/img/almacen-dia.png" alt="Producto 1" class="img-fluid pedido-img">
-          </div>
-          <div class="col-6">
-            <h5 class="card-title">Producto 1</h5>
-            <p class="card-text">Descripción</p>
-          </div>
-        </div>
+<div class="container">
+    <!-- Barra de búsqueda -->
+    <div class="search-bar row">
+      <div class="col">
+        <input type="text" class="form-control search-input" placeholder="Año">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control search-input" placeholder="Mes">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control search-input" placeholder="Busqueda">
       </div>
     </div>
 
-        <!-- Tarjeta de pedido para el Producto 2 -->
-        <div class="card pedido-card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-3">
-                  <img src="/img/almacen-dia.png" alt="Producto 1" class="img-fluid pedido-img">
-                </div>
-                <div class="col-6">
-                  <h5 class="card-title">Producto 2</h5>
-                  <p class="card-text">Descripción</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-              <!-- Tarjeta de pedido para el Producto 3 -->
-    <div class="card pedido-card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-3">
-              <img src="/img/almacen-dia.png" alt="Producto 1" class="img-fluid pedido-img">
-            </div>
-            <div class="col-6">
-              <h5 class="card-title">Producto 3</h5>
-              <p class="card-text">Descripción</p>
-            </div>
-          </div>
+<!-- Estado del pedido 1 -->
+<a href="cancelar-pedido.blade.php" class="text-decoration-none text-dark">
+    <div class="order-status">
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Pedido 1</strong>
+        </div>
+        <div class="col-md-3">
+          Estado: Por llegar
+        </div>
+        <div class="col-md-3">
+          Fecha pedido: --/--/----
+        </div>
+        <div class="col-md-3">
+          Fecha entrega: --/--/----
         </div>
       </div>
-    <div class="d-flex justify-content-end"> 
-        <button class="btn btn-danger btn-sm mb-4"> 
-            <i class="fas fa-trash-alt"></i> Cancelar pedido
-        </button>
     </div>
-    </div>
+  </a>
   
+  <!-- Estado del pedido 2 -->
+  <a href="cancelar-pedido.blade.php" class="text-decoration-none text-dark">
+    <div class="order-status">
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Pedido 2</strong>
+        </div>
+        <div class="col-md-3">
+          Estado: Por llegar
+        </div>
+        <div class="col-md-3">
+          Fecha pedido: --/--/----
+        </div>
+        <div class="col-md-3">
+          Fecha entrega: --/--/----
+        </div>
+      </div>
+    </div>
+  </a>
+  
+  <!-- Estado del pedido 3 -->
+  <a href="cancelar-pedido.blade.php" class="text-decoration-none text-dark">
+    <div class="order-status">
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Pedido 3</strong>
+        </div>
+        <div class="col-md-3">
+          Estado: Por llegar
+        </div>
+        <div class="col-md-3">
+          Fecha pedido: --/--/----
+        </div>
+        <div class="col-md-3">
+          Fecha entrega: --/--/----
+        </div>
+      </div>
+    </div>
+  </a>
+  
+
 @endsection
