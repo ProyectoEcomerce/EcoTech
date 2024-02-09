@@ -61,9 +61,13 @@
     </div>
 </div>
    
-   @yield("content")
-   
-   <footer id="miFooter">
+<main>
+
+    @yield("content")
+    
+</main>
+
+    <footer id="miFooter">
        <div class="footer-container">
            <div class="footer-section">
                <h4>Contacto</h4>
