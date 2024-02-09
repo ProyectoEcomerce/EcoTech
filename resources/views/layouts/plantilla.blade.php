@@ -49,16 +49,6 @@
 
 
 <!-- Sidebar para la cesta de compra -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
-    <div class="offcanvas-header">
-        <h5 id="shoppingCartLabel">Cesta de Compra</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <!-- Contenido de la cesta de compra aquí -->
-        <p>Aquí van los artículos de la cesta.</p>
-    </div>
-</div>
    
    @yield("content")
    

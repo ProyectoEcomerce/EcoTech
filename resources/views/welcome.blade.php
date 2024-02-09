@@ -2,6 +2,17 @@
 
 @section('title', "Inicio")
 <main>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
+        <div class="offcanvas-header">
+            <h5 id="shoppingCartLabel">Cesta de Compra</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Contenido de la cesta de compra aquí -->
+            @include('partials.cart')
+        </div>
+    </div>
+    
 @section('content')
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
