@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 
 @section('title', "Inicio")
-
+<main>
 @section('content')
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -47,84 +47,32 @@
     <h2 class="display-4">Descubre Nuestros Productos</h2>
     <p class="lead text-muted">Una selección según para tus necesidades</p>    
     <div class="row g-4">
-        <!-- Producto 1 -->
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <img src="/img/fabrica-noche.png" class="card-img-top" alt="Producto 1">
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="card-text">Descripción breve del producto 1.</p>
-                    <div class="d-grid gap-2">
-                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
+        @foreach ($products as $product)
+                    <div class="col-12 col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">{{ $product->description }}</p>
+                                <p class="card-text">{{ $product->price }}€</p>
+                                <div class="d-grid gap-2">
+                                    <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
+                                </div>
+                                @auth
+                                    <form action="{{ route('cart.additem') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
+                                    </form>
+                                @else
+                                    <p>Necesitas <a href="{{ route('login') }}">iniciar sesión</a> para añadir productos al
+                                        carrito.</p>
+                                @endauth
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- Producto 2 -->
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <img src="/img/oficina-dia.png" class="card-img-top" alt="Producto 2">
-                <div class="card-body">
-                    <h5 class="card-title">Producto 2</h5>
-                    <p class="card-text">Descripción breve del producto 2.</p>
-                    <div class="d-grid gap-2">
-                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Producto 3 -->
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <img src="/img/almacen-dia.png" class="card-img-top" alt="Producto 3">
-                <div class="card-body">
-                    <h5 class="card-title">Producto 3</h5>
-                    <p class="card-text">Descripción breve del producto 3.</p>
-                    <div class="d-grid gap-2">
-                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <img src="/img/fabrica-noche.png" class="card-img-top" alt="Producto 1">
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="card-text">Descripción breve del producto 1.</p>
-                    <div class="d-grid gap-2">
-                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Producto 2 -->
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <img src="/img/oficina-dia.png" class="card-img-top" alt="Producto 2">
-                <div class="card-body">
-                    <h5 class="card-title">Producto 2</h5>
-                    <p class="card-text">Descripción breve del producto 2.</p>
-                    <div class="d-grid gap-2">
-                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Producto 3 -->
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <img src="/img/almacen-dia.png" class="card-img-top" alt="Producto 3">
-                <div class="card-body">
-                    <h5 class="card-title">Producto 3</h5>
-                    <p class="card-text">Descripción breve del producto 3.</p>
-                    <div class="d-grid gap-2">
-                        <a href="/productos" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
-  
+</main>
 @endsection

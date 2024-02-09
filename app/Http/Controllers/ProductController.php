@@ -10,7 +10,7 @@ class ProductController extends Controller
     //listar los productos
     public function getProducts()
     {
-        $products = Product::paginate(9); // Paginación de 9 productos
+        $products = Product::paginate(6); // Paginación de 9 productos
         return view('welcome', compact('products'));
     }
 
