@@ -29,102 +29,39 @@
                             <i class="fas fa-shopping-cart"></i> 
                         </button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pedidos">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <nav class="navbar navbar-expand-lg" style="background-color: #83B271;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/img/logo.png" alt="Logo" width="50" height="50">
-                Ecotech</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
                     @if (Route::has('login'))
-                    @auth
-                    <li>
-                        <!-- Boton carrito -->
-                        <button class="btn btn-success" id="btn-cesta" type="button" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
-                            <i class="fas fa-shopping-cart"></i> 
-                        </button>
-                    </li>
-                    @if (auth()->user()->hasRole('admin'))
+                        @auth
+                            @if (auth()->user()->hasRole('admin'))
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.index') }}" class="nav-link">Panel de Administración</a>
+                                </li>
+                            @endif
                         <li class="nav-item">
-                            <a href="{{ route('admin.index') }}"
-                                class="nav-link">Panel de Administración</a>
+                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                         </li>
-                     @endif
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pedidos">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                    @endauth
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pedidos">Pedidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                        @else
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="nav-link">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('register') }}" class="nav-link">Register</a>
+                            </li>
+                        @endauth
                     @endif
                 </ul>
-                    @if (Route::has('login'))
-                            @auth
-                                
-                                <a href="{{ url('/home') }}" class="fw-bold text-secondary text-decoration-none">Home</a>
-                            @else
-                                <a href="{{ route('login') }}" class="fw-bold text-secondary text-decoration-none">Log in</a>
-        
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}"
-                                        class="ms-2 fw-bold text-secondary text-decoration-none">Register</a>
-                                @endif
-                            @endauth
-                        </div>
-                    @endif
-                    
             </div>
         </div>
     </nav>
 </header>
-
-@if (Route::has('login'))
-                <div class="position-fixed top-0 end-0 p-3 text-end">
-                    <button id="cart-toggle"><i class="bi bi-cart"></i></button>
-                    @auth
-                        @if (auth()->user()->hasRole('admin'))
-                            <a href="{{ route('admin.index') }}"
-                                class="fw-bold text-secondary text-decoration-none p-5">Panel de Administración</a>
-                        @endif
-                        <a href="{{ url('/home') }}" class="fw-bold text-secondary text-decoration-none">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="fw-bold text-secondary text-decoration-none">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}"
-                                class="ms-2 fw-bold text-secondary text-decoration-none">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
 
 <!-- Sidebar para la cesta de compra -->
    
