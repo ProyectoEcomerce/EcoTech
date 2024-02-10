@@ -10,14 +10,8 @@ class ProductController extends Controller
     //listar los productos
     public function getProducts()
     {
-        $products = Product::paginate(9); // Paginación de 9 productos
+        $products = Product::paginate(6); // Paginación de 9 productos
         return view('welcome', compact('products'));
-    }
-
-
-
-    public function createProduct(){
-        return view('layouts.createProduct');
     }
 
     public function create(Request $request){
@@ -38,11 +32,6 @@ class ProductController extends Controller
         $newProduct->components=$request->components;
         $newProduct->save();
         return back() -> with('mensaje', 'Producto creado');
-    }
-
-    public function edit($id){
-        $product=Product::findOrFail($id);
-        return view('layouts.editProduct', compact('product'));
     }
 
     public function update(Request $request, $id){
@@ -85,10 +74,13 @@ class ProductController extends Controller
         return back() -> with('mensaje', 'Producto eliminado');
     }
 
-    public function adminIndex()
-    {
+    public function adminIndex(){
         $products = Product::paginate(9); // Paginación de 9 productos
         return view('layouts.adminProduct', compact('products'));
     }
 
+    public function showProduct($id){
+        $product=Product::findOrFail($id);
+        return view('productos', compact('product') );
+    }
 }

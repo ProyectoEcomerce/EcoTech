@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/pedidos', function () {
+    return view('pedidos');
+});
+
 Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware('auth', 'verified');
@@ -30,22 +34,31 @@ Fortify::verifyEmailView(function () {
     return view('auth.verify-email');
 });
 
-
 Route::get('/', [ProductController::class, 'getProducts']);
-Route::get('create_Product', [ProductController::class, 'createProduct']);
+
 
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
 Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
 Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
 Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
 
-
-Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
 Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
-Route::get('edit_product/{id}', [ProductController::class, 'edit'])->name('layouts.editProduct');
+Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
+Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+
+Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
 Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
+
+Route::middleware('admin')->group(function(){
+    Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
+});
+
+
+Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');

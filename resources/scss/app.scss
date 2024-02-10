@@ -1,3 +1,200 @@
-@import 'bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap';
 
-@import 'header.scss';
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+}
+
+
+/*Header*/
+.navbar {
+    background-color: #83B271 !important;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+.navbar-toggler {
+    border-color: #fff !important;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><path stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+/*Footer*/
+footer {
+    background-color: #83B271;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px; /* Asegura que el contenido no se apriete demasiado en pantallas pequeñas */
+    margin: 10px;
+    padding: 0 15px;
+}
+
+.footer-section h4 {
+    color: #f8f9fa;
+}
+
+.footer-section p, .footer-section a {
+    color: #dee2e6;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+/*Iconos redes sociales*/
+.social-icon {
+    text-decoration: none;
+    color: #333; 
+    margin: 0 10px;
+    font-size: 1.5em; 
+}
+
+.social-icon:hover {
+    color: #555; 
+}
+
+/*Carousel*/
+.carousel-item {
+    height: 50vh; 
+    min-height: 300px; 
+    background: no-repeat center center scroll; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  .carousel-caption {
+    background-color: rgba(0,0,0,0.5); /* Fondo semitransparente */
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(100%);
+  }  
+
+/**/
+.offcanvas-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.offcanvas-body {
+    /* Estilos personalizados para el cuerpo del sidebar */
+}
+
+/* Cards */
+.card {
+    transition: box-shadow .3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; 
+}
+
+/*BOTON CESTA*/
+#btn-cesta{
+    background-color: #416a00; 
+    border-color: #83B271; 
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s; /* Suaviza la transición de colores */
+}
+
+#btn-cesta:hover {
+    background-color: #83B271; 
+    border-color: #416a00; 
+    color: #000;
+}
+
+@media (max-width: 990px) {
+    #btn-cesta {
+        margin-top: 20px;
+    }
+}
+
+/*h2 PRODUCTOS*/
+h2.display-4 {
+    margin-top: 60px;
+    font-weight: 300; 
+    position: relative;
+    padding-bottom: 15px; 
+}
+
+h2.display-4::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 200px; 
+    height: 4px; 
+    background-color: #416a00; 
+    border-radius: 2px;
+}
+
+.lead.text-muted {
+    font-size: 1.25rem; 
+}
+
+/*BOTON CARDS*/
+#boton-card {
+    background-color: #416a00; 
+    border-color: #83B271; 
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s; /* Suaviza la transición de colores */
+}
+
+#boton-card:hover {
+    background-color: #83B271; 
+    border-color: #416a00; 
+    color: #000;
+}
+
+/*CARD PEDIDOS*/
+.card-productos {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    margin-bottom: 20px;
+    margin: 50px;
+}
+
+.card-productos-img-top {
+    height: 400px;
+    width: 400px; 
+    object-fit: cover; 
+}
+
+.card-productos-body {
+    padding: 20px; 
+}

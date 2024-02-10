@@ -8,6 +8,36 @@
             <div class="cart-item">
                 <p>{{ $product->name }}</p>
                 <p>{{ $product->price }}€</p>
+                <p>Cantidad:{{$product->pivot->amount}}</p>
+
+                {{-- Sumar cantidad --}}
+                <input type="hidden" name="_token" id="token" value="{{csrf_token()}}">
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="amount_change" value="1">
+                    <button type="submit" class="btn btn-success">+</button>
+                <input>
+
+                <form action="{{ route('cart.updateAmount') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="amount_change" value="1">
+                    <button onclick="changeAmount()" class="btn btn-success">+</button>
+                </form>
+        
+                {{-- Quitar cantidad --}}
+                <form action="{{ route('cart.updateAmount') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="amount_change" value="-1">
+                    <button type="submit" class="btn btn-danger">-</button>
+                </form>
+
+                {{-- Quitar producto --}}
+                <form action="{{ route('cart.removeitem') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>   
             </div>
         @empty
             <p>Tu carrito está vacío.</p>
