@@ -1,6 +1,5 @@
 @if(auth()->check())
     <div class="cart-sidebar">
-        <h4>Carrito de Compras</h4>
         @php
             $cartProducts = optional(auth()->user()->cart)->products ?? collect();
         @endphp
