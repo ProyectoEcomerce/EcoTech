@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Models\Cart;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 
@@ -52,7 +55,7 @@ Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
 
@@ -62,3 +65,8 @@ Route::middleware('admin')->group(function(){
 
 
 Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
+
+Route::get('locale/{locale}', function($locale){
+    session()->put('locale', $locale);
+    return Redirect::back();
+});

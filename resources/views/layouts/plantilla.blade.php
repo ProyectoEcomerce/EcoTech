@@ -57,6 +57,17 @@
                             </li>
                         @endauth
                     @endif
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{__('Lenguajes')}}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="locale/es">{{__('Español')}}</a></li>
+                              <li><a class="dropdown-item" href="locale/en">{{__('Ingles')}}</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

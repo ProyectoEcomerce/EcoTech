@@ -55,7 +55,7 @@
 
 <!-- Sección de Productos -->
 <div class="container my-4">
-    <h2 class="display-4">Descubre Nuestros Productos</h2>
+    <h2 class="display-4">{{__('Descubre Nuestros Productos')}}</h2>
     <p class="lead text-muted">Una selección según para tus necesidades</p>    
     <div class="row g-4">
         @foreach ($products as $product)
