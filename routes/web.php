@@ -21,23 +21,14 @@ use Laravel\Fortify\Fortify;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/pedidos', function () {
     return view('pedidos');
 });
 
-Route::get('/home', function () {
-    return view('auth.dashboard');
-})->middleware('auth', 'verified');
 
 Fortify::verifyEmailView(function () {
     return view('auth.verify-email');
 });
-
-Route::get('/', [ProductController::class, 'getProducts']);
 
 
 Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
@@ -45,24 +36,27 @@ Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clear
 Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
 Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
 
+
+
 Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
 Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
-Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
-Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
-Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
-
-
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
 
 Route::middleware('admin')->group(function(){
     Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
+    Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
+    Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
+    Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 });
 
+Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
+
+Route::middleware('auth', 'verified')->group(function(){
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
 
 Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
 
