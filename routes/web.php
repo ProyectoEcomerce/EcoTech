@@ -3,12 +3,14 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WishlistController;
 
+use App\Http\Controllers\WishlistController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
@@ -33,10 +35,6 @@ Route::get('/pedidos', function () {
 Route::get('/cancelar-pedidos', function () {
     return view('cancelar-pedidos');
 });
-
-Route::get('/home', function () {
-    return view('auth.dashboard');
-})->middleware('auth', 'verified');
 
 Fortify::verifyEmailView(function () {
     return view('auth.verify-email');
@@ -64,7 +62,7 @@ Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.e
 
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
 
@@ -85,6 +83,9 @@ Route::middleware('auth', 'verified')->group(function(){
     Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
     Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
     Route::post('manageWishlist', [WishlistController::class, 'manageWishlist'])->name('wish.additem');
+    Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
+    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+    Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 });
 
 Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
