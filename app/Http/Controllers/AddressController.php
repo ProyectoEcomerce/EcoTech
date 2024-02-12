@@ -17,20 +17,34 @@ class AddressController extends Controller
 
     public function create()
     {
-        return view('address.create');
+        return view('adresses.create');
     }
 
     public function store(Request $request)
     {
+        // Validación de los campos del formulario
         $request->validate([
-            // Validaciones para tu dirección
+            'address' => 'required|string|max:45',
+            'city' => 'required|string|max:45',
+            'zip_code' => 'required|string|max:10', // Ajusta el tamaño máximo según sea necesario
+            'country' => 'required|string|max:45',
         ]);
 
-        $address = new Address($request->all());
+        // Creación de la nueva dirección
+        $address = new Address([
+            'address' => $request->address,
+            'city' => $request->city,
+            'zip_code' => $request->zip_code,
+            'country' => $request->country,
+        ]);
+
+        // Asociar la nueva dirección al usuario autenticado y guardarla
         Auth::user()->addresses()->save($address);
 
-        return redirect()->route('addresses.index')->with('success', 'Dirección añadida con éxito.');
+        // Redireccionar al usuario a la lista de direcciones con un mensaje de éxito
+        return redirect()->route('addresses.adresses')->with('success', 'Dirección añadida con éxito.');
     }
+
 
     public function edit(Address $address)
     {
