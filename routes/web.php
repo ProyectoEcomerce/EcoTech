@@ -63,6 +63,8 @@ Route::middleware('auth', 'verified')->group(function(){
 
 Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
 
+Route::get('wishlist', [WishlistController::class , 'showWishlist'])->name('show.wishlist');
+
 Route::get('locale/{locale}', function($locale){
     session()->put('locale', $locale);
     return Redirect::back();

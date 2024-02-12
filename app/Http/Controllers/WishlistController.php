@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
+    public function showWishlist(){
+        $user = auth()->user();
+        $wishlist = Wishlist::where('user_id', $user->id)->first();
+        if($wishlist){
+            $products = $wishlist->product()->paginate(10);
+            return view('wishlist', compact('products'));
+        }else{
+            return view('wishlist')->with('error', 'No se encontró la lista de deseos para este usuario.');
+        }
+    }
+
     public function manageWishlist(Request $request){
         $product =Product::find($request->product_id); 
 
