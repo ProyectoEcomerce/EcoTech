@@ -24,7 +24,7 @@
         <div class="card shadow">
             <div class="card-head">
                 <div class="row product_data">
-                    <h4>Mi lista de deseos</h4>
+                    <h4>{{__("Mi lista de deseos")}}</h4>
                 </div>
             </div>
             <div class="card-body">
