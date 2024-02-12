@@ -4,12 +4,16 @@
 <main>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
         <div class="offcanvas-header">
-            <h5 id="shoppingCartLabel">Cesta de Compra</h5>
+            <h5 id="shoppingCartLabel">{{__("Carrito de compra")}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <!-- Contenido de la cesta de compra aquí -->
-            @include('partials.cart')
+          @auth
+          @include('partials.cart')
+          @else
+          <!--Para la traducción, en caso de no ser puras cadenas de texto usar variables (Vease rutas, variables php...)-->
+          <p>@lang('messages.login_required',['login' => route('login')])</p>
+          @endauth
         </div>
     </div>
     
@@ -49,14 +53,14 @@
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hplidden">Next</span>
+      <span class="visually-hidden">Next</span>
     </button>
   </div>
 
 <!-- Sección de Productos -->
 <div class="container my-4">
-    <h2 class="display-4">Descubre Nuestros Productos</h2>
-    <p class="lead text-muted">Una selección según para tus necesidades</p>    
+    <h2 class="display-4">{{__('Descubre Nuestros Productos')}}</h2>
+    <p class="lead text-muted">{{__("La mejor selección para tus necesidades")}}</p>    
     <div class="row g-4">
         @foreach ($products as $product)
           <div class="col-12 col-md-4">
@@ -67,17 +71,21 @@
                       <p class="card-text">{{ $product->description }}</p>
                       <p class="card-text">{{ $product->price }}€</p>
                       <div class="d-grid gap-2">
-                          <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">Ver producto</a>
+                          <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
                       </div>
                       @auth
                           <form action="{{ route('cart.additem') }}" method="POST">
                               @csrf
                               <input type="hidden" name="product_id" value="{{ $product->id }}">
-                              <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
+                              <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
+                          </form>
+                          <form action="{{ route('wish.additem') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
                           </form>
                       @else
-                          <p>Necesitas <a href="{{ route('login') }}">iniciar sesión</a> para añadir productos al
-                              carrito.</p>
+                          <p>@lang('messages.login_required',['login' => route('login')])</p>
                       @endauth
                   </div>
               </div>
