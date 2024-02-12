@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AddressController;
+
 use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
@@ -49,6 +53,10 @@ Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name
 Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
 Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
 Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+
+Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
+Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 
 
 
