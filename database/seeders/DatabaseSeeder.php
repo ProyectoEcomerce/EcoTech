@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             ProductsTableSeeder::class,
-            // Cualquier otro seeder que necesites ejecutar
         ]);
     }
 }
