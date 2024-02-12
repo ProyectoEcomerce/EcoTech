@@ -36,7 +36,7 @@
 
                 <!-- Direcciones -->
                 <div class="col">
-                    <a href="{{ route('addresses.address') }}" class="card-link text-decoration-none">
+                    <a href="{{ route('addresses.adresses') }}" class="card-link text-decoration-none">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-map-marker-alt"></i> {{__("Direcciones")}}</h5>

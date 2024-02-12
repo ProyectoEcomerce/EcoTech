@@ -65,7 +65,7 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Ruta para mostrar todas las direcciones del usuario autenticado
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.adresses')->middleware('auth');
-    
+
     // Ruta para mostrar el formulario de creación de una nueva dirección
     Route::get('/addresses/create', [AddressController::class, 'create'])->name('addresses.create')->middleware('auth');
 
@@ -83,6 +83,12 @@ Route::middleware('auth', 'verified')->group(function () {
 
     //ACCOUNT
     Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
+
+    // Ruta para mostrar el formulario de cambio de contraseña
+    Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth');
+
+    // Ruta para procesar el cambio de contraseña
+    Route::put('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword')->middleware('auth');
 });
 
 Route::get('product/{id}', [ProductController::class, 'showProduct'])->name('show.item');
