@@ -42,13 +42,7 @@
                             <a class="nav-link active" aria-current="page" href="/">{{__("Inicio")}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="{{ url('/home') }}" class="fw-bold text-secondary text-decoration-none">Mi cuenta</a>
+                            <a href="{{ url('/home') }}" class="nav-link">{{__("Mi cuenta")}}</a>
                         </li>
                         @else
                             <li class="nav-item">
