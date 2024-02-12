@@ -113,7 +113,7 @@ class CartController extends Controller
         $cart = $user->cart;
         Log::info('Iniciando proceso de compra');
 
-        if ($cart && $cart->products->isNotEmpty()) {
+        if ($cart) {
             DB::beginTransaction();
             try {
                 // Calcular el total del precio de los productos en el carrito
