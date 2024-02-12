@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
+use App\Models\Order;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -107,31 +108,37 @@ class CartController extends Controller
     public function purchase(Request $request)
     {
         $user = auth()->user();
+
         $cart = $user->cart;
-
         if ($cart && $cart->products->isNotEmpty()) {
-            // Iniciar una transacción de base de datos
             DB::beginTransaction();
-
             try {
+                // Calcular el total del precio de los productos en el carrito
+                $totalPrice = $cart->products->reduce(function ($carry, $product) {
+                    return $carry + ($product->pivot->amount * $product->price);
+                }, 0);
+
                 // Crear un nuevo pedido
-                $order = $user->orders()->create([
-                    // Añadir los atributos necesarios para el pedido, por ejemplo:
-                    'total' => $cart->products->sum('price'), // Esto es un ejemplo simple
-                    // 'status' => 'pending',
-                    // ... otros atributos del pedido ...
+                $order = Order::create([
+                    'user_id' => $user->id,
+                    'total_price' => $totalPrice,
+                    'status' => 'pendiente', // Estado inicial del pedido
                 ]);
 
-                // Asociar los productos del carrito con el pedido
+                // Asociar los productos del carrito con el pedido y registrar cantidades
                 foreach ($cart->products as $product) {
-                    $order->products()->attach($product->id, [
-                        'quantity' => $product->pivot->amount,
+                    DB::table('orders_products')->insert([
+                        'order_id' => $order->id,
+                        'product_id' => $product->id,
+                        'amount' => $product->pivot->amount,
+                        'created_at' => now(),
+                        'updated_at' => now(),
                     ]);
                 }
 
+                // Vaciar el carrito
                 $cart->products()->detach();
 
-                // Confirmar la transacción
                 DB::commit();
 
                 // Enviar correo electrónico de confirmación
@@ -140,6 +147,7 @@ class CartController extends Controller
                 return back()->with('success', 'Los productos han sido comprados correctamente');
             } catch (\Exception $e) {
                 DB::rollback();
+                // Considera loguear el error con Log::error($e);
                 return back()->withErrors('Hubo un problema al procesar tu compra.');
             }
         }
