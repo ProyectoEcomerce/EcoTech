@@ -40,7 +40,7 @@ Fortify::verifyEmailView(function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::middleware('admin')->group(function(){
+Route::middleware('admin')->group(function () {
     Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
     Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
     Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
@@ -49,22 +49,45 @@ Route::middleware('admin')->group(function(){
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
 
-Route::middleware('auth', 'verified')->group(function(){
+Route::middleware('auth', 'verified')->group(function () {
     Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
     Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
     Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
     Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
     Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
     Route::post('manageWishlist', [WishlistController::class, 'manageWishlist'])->name('wish.additem');
+
+    //ORDERS
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
     Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
-    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+
+    //ADDRESSES
+
+    // Ruta para mostrar todas las direcciones del usuario autenticado
+    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.adresses')->middleware('auth');
+    
+    // Ruta para mostrar el formulario de creación de una nueva dirección
+    Route::get('/addresses/create', [AddressController::class, 'create'])->name('addresses.create')->middleware('auth');
+
+    // Ruta para almacenar una nueva dirección
+    Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store')->middleware('auth');
+
+    // Ruta para mostrar el formulario de edición de una dirección existente
+    Route::get('/addresses/{address}/edit', [AddressController::class, 'edit'])->name('addresses.edit')->middleware('auth');
+
+    // Ruta para actualizar una dirección existente
+    Route::put('/addresses/{address}', [AddressController::class, 'update'])->name('addresses.update')->middleware('auth');
+
+    // Ruta para borrar una dirección existente
+    Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy')->middleware('auth');
+
+    //ACCOUNT
     Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 });
 
-Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
+Route::get('product/{id}', [ProductController::class, 'showProduct'])->name('show.item');
 
-Route::get('locale/{locale}', function($locale){
+Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return Redirect::back();
 });

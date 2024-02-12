@@ -36,11 +36,11 @@
 
                 <!-- Direcciones -->
                 <div class="col">
-                    <a href="{{ route('addresses.index') }}" class="card-link text-decoration-none">
+                    <a href="{{ route('addresses.address') }}" class="card-link text-decoration-none">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-map-marker-alt"></i> {{__("Direcciones")}}</h5>
-                                <p class="card-text">{{__("Editar, eliminar o añadir direcciones")}}</p>
+                                <p class="card-text">{{__("Añadir, editar o eliminar direcciones")}}</p>
                             </div>
                         </div>
                     </a>
