@@ -35,30 +35,35 @@
                         @auth
                             @if (auth()->user()->hasRole('admin'))
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.index') }}" class="nav-link">Panel de Administración</a>
+                                    <a href="{{ route('admin.index') }}" class="nav-link">{{__("Panel de Administración")}}</a>
                                 </li>
                             @endif
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="/">{{__("Inicio")}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/pedidos">Pedidos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
+                            <a class="nav-link" href="/pedidos">{{__("Pedidos")}}</a>
                         </li>
                         @else
                             <li class="nav-item">
-                                <a href="{{ route('login') }}" class="nav-link">Log in</a>
+                                <a href="{{ route('login') }}" class="nav-link">{{__("Iniciar sesión")}}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('register') }}" class="nav-link">Register</a>
+                                <a href="{{ route('register') }}" class="nav-link">{{__("Registro")}}</a>
                             </li>
                         @endauth
                     @endif
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{__('Lenguajes')}}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="locale/es">{{__('Español')}}</a></li>
+                              <li><a class="dropdown-item" href="locale/en">{{__('Ingles')}}</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -76,19 +81,19 @@
     <footer id="miFooter">
        <div class="footer-container">
            <div class="footer-section">
-               <h4>Contacto</h4>
-               <p>Teléfono: +1 234 567 890</p>
+               <h4>{{__("Contacto")}}</h4>
+               <p>{{__("Teléfono")}}: +1 234 567 890</p>
                <p>Email: ecotech@gmail.com</p>
            </div>
            <div class="footer-section">
-               <h4>Redes Sociales</h4>
-               <p>Síguenos en nuestras redes sociales:</p>
+               <h4>{{__("Redes sociales")}}</h4>
+               <p>{{__("¡Síguenos en nuestras redes sociales!")}}</p>
                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
            </div>            
            <div class="footer-section">
-               <h4>Acerca de Nosotros</h4>
+               <h4>{{__("Acerca de Nosotros")}}</h4>
                <p>Somos una empresa dedicada a [descripción breve]...</p>
            </div>
        </div>
