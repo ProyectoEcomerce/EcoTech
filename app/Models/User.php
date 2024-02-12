@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Order;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -48,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Address::class);
     }
 
-    public function order(){
+    public function orders(){
         return $this->hasMany(Order::class);
     }
 
