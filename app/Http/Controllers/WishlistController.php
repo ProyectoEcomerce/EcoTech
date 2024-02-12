@@ -23,9 +23,11 @@ class WishlistController extends Controller
 
         if($wishlist->product()->where('product_id' , $product->id)->exists()){
             $wishlist->product()->detach($product);
+            $product->decrement('favouriteCounter');
             return back()->with('mensaje', 'El producto se ha eliminado de la lista');
         }else{
             $wishlist->product()->attach($product->id);
+            $product->increment('favouriteCounter');
             return back()->with('mensaje', 'Producto añadido con éxito');
         }
     }
