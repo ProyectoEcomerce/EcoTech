@@ -126,9 +126,9 @@ class CartController extends Controller
 
                 // Crear un nuevo pedido
                 $order = Order::create([
-                    'user_id' => $user->id,
                     'total_price' => $totalPrice,
                     'status' => 'pendiente', // Estado inicial del pedido
+                    'user_id' => $user->id
                 ]);
 
                 // Asociar los productos del carrito con el pedido y registrar cantidades
@@ -137,11 +137,10 @@ class CartController extends Controller
                         'order_id' => $order->id,
                         'product_id' => $product->id,
                         'amount' => $product->pivot->amount,
-                        'status' => 'pendiente',
-                        'created_at' => now(),
-                        'updated_at' => now(),
                     ]);
                 }
+
+                Mail::to($user->email)->send(new OrderConfirmation($cart));
 
                 // Vaciar el carrito
                 $cart->products()->detach();
@@ -151,7 +150,7 @@ class CartController extends Controller
 
 
                 // Enviar correo electrónico de confirmación
-                Mail::to($user->email)->send(new OrderConfirmation($order));
+
 
                 return back()->with('success', 'Los productos han sido comprados correctamente');
             } catch (\Exception $e) {

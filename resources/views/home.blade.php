@@ -1,6 +1,21 @@
 @extends('layouts.plantilla')
 
-@section('title', 'perfil')
+@section('title', 'Perfil')
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
+    <div class="offcanvas-header">
+        <h5 id="shoppingCartLabel">{{__("Carrito de compra")}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      @auth
+      @include('partials.cart')
+      @else
+      <!--Para la traducción, en caso de no ser puras cadenas de texto usar variables (Vease rutas, variables php...)-->
+      <p>@lang('messages.login_required',['login' => route('login')])</p>
+      @endauth
+    </div>
+</div>
 
 @section('content')
     <main>
