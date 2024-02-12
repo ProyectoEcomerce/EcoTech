@@ -45,20 +45,26 @@ class AddressController extends Controller
         return redirect()->route('addresses.adresses')->with('success', 'Dirección añadida con éxito.');
     }
 
-
     public function edit(Address $address)
     {
-        return view('address.edit', compact('address'));
+        if (Auth::id() !== $address->user_id) {
+            abort(403);
+        }
+
+        return view('adresses.edit', compact('address'));
     }
 
     public function update(Request $request, Address $address)
     {
         $request->validate([
-            // Validaciones para tu dirección
+            'address' => 'required|string|max:45',
+            'city' => 'required|string|max:45',
+            'zip_code' => 'required|string|max:10',
+            'country' => 'required|string|max:45',
         ]);
 
         $address->update($request->all());
-        return redirect()->route('addresses.index')->with('success', 'Dirección actualizada con éxito.');
+        return redirect()->route('addresses.adresses')->with('success', 'Dirección actualizada con éxito.');
     }
 
     public function destroy(Address $address)
