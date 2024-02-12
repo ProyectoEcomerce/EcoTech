@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
@@ -48,11 +49,11 @@ Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name
 
 Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
 Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
-Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');+
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::post('updateAmount', [CartController::class, 'updateItemAmount'])->name('cart.updateAmount');
 
