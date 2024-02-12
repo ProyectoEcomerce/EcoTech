@@ -24,7 +24,7 @@ class Product extends Model
     }
 
     public function wishlist(){
-        return $this->belongsToMany(Wishlist::class);
+        return $this->belongsToMany(Wishlist::class, 'products_wishlists');
     }
 
     public function category(){

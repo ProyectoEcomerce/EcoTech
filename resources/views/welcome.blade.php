@@ -79,6 +79,11 @@
                               <input type="hidden" name="product_id" value="{{ $product->id }}">
                               <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
                           </form>
+                          <form action="{{ route('wish.additem') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
+                          </form>
                       @else
                           <p>@lang('messages.login_required',['login' => route('login')])</p>
                       @endauth
