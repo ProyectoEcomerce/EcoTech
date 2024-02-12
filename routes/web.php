@@ -30,6 +30,11 @@ Route::get('/cancelar-pedido', function () {
     return view('cancelar-pedido');
 });
 
+Route::get('/categorias', function () {
+    return view('categorias');
+});
+
+
 Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware('auth', 'verified');
