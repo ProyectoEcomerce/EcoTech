@@ -57,6 +57,7 @@ Route::middleware('auth', 'verified')->group(function(){
     Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
     Route::post('manageWishlist', [WishlistController::class, 'manageWishlist'])->name('wish.additem');
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
     Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 });
