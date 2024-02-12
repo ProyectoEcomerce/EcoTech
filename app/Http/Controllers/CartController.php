@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
 use GuzzleHttp\Handler\Proxy;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
@@ -33,7 +34,7 @@ class CartController extends Controller
 
     public function addItem(Request $request)
     {
-        $product = Product::find($request->product_id); 
+        $product = Product::find($request->product_id);
 
         if (!$product) {
             return back()->withErrors(['subtype' => 'El producto no existe'])->withInput();
@@ -45,20 +46,21 @@ class CartController extends Controller
         $cart->user_id = $user->id;
         $cart->save();
 
-        if($cart->products()->where('product_id' , $product->id)->exists()){
-            $amount=$cart->products()->where('product_id', $product->id)->first()->pivot->amount;
-            $newAmount= $amount+1;
+        if ($cart->products()->where('product_id', $product->id)->exists()) {
+            $amount = $cart->products()->where('product_id', $product->id)->first()->pivot->amount;
+            $newAmount = $amount + 1;
             $cart->products()->updateExistingPivot($product->id, ['amount' => $newAmount]);
             return back()->with('mensaje', 'El producto ya está en el carrito');
-        }else{
+        } else {
             $cart->products()->attach($product->id, ['amount' => 1]);
             return back()->with('mensaje', 'Producto añadido con éxito');
         }
     }
 
-    public function updateItemAmount(Request $request){
-        $productId=$request->input('product_id');
-        $amountChange=$request->input('amount_change');
+    public function updateItemAmount(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $amountChange = $request->input('amount_change');
 
         $user = auth()->user();
 
@@ -67,7 +69,7 @@ class CartController extends Controller
         $currentQuantity = $cart->products()->where('product_id', $productId)->value('amount');
         $newAmount = max(0, $currentQuantity + $amountChange);
 
-        if($newAmount===0){
+        if ($newAmount === 0) {
             $cart->products()->detach($productId);
             return back()->with('mensaje', 'Producto eliminado del carrito');
         }
@@ -79,22 +81,24 @@ class CartController extends Controller
     }
 
 
-    public function removeItem(Request $request){
+    public function removeItem(Request $request)
+    {
 
-        $product= Product::find($request->input('product_id'));
-        $user=auth()->user();
+        $product = Product::find($request->input('product_id'));
+        $user = auth()->user();
         $cart = $user->cart;
-        if($product){
+        if ($product) {
             $cart->products()->detach($product);
             return back()->with('success', 'Producto eliminado exitosamente');
-        }else{
+        } else {
             return back()->with('error', 'No se encontro el producto');
         }
     }
 
-    public function clearCart(Request $request){
+    public function clearCart(Request $request)
+    {
 
-        $cart= Cart::find($request);
+        $cart = Cart::find($request);
 
         $cart->product()->detach();
         return redirect('home')->with('success', 'Se han eliminado los productos');
@@ -103,18 +107,43 @@ class CartController extends Controller
     public function purchase(Request $request)
     {
         $user = auth()->user();
-
         $cart = $user->cart;
-        if ($cart) {
-            Mail::to($user->email)->send(new OrderConfirmation($cart));
-            $cart->products()->detach();
-            $cart->save();
 
-            return back()->with('success', 'Los productos han sido comprados correctamente');
+        if ($cart && $cart->products->isNotEmpty()) {
+            // Iniciar una transacción de base de datos
+            DB::beginTransaction();
+
+            try {
+                // Crear un nuevo pedido
+                $order = $user->orders()->create([
+                    // Añadir los atributos necesarios para el pedido, por ejemplo:
+                    'total' => $cart->products->sum('price'), // Esto es un ejemplo simple
+                    // 'status' => 'pending',
+                    // ... otros atributos del pedido ...
+                ]);
+
+                // Asociar los productos del carrito con el pedido
+                foreach ($cart->products as $product) {
+                    $order->products()->attach($product->id, [
+                        'quantity' => $product->pivot->amount,
+                    ]);
+                }
+
+                $cart->products()->detach();
+
+                // Confirmar la transacción
+                DB::commit();
+
+                // Enviar correo electrónico de confirmación
+                Mail::to($user->email)->send(new OrderConfirmation($order));
+
+                return back()->with('success', 'Los productos han sido comprados correctamente');
+            } catch (\Exception $e) {
+                DB::rollback();
+                return back()->withErrors('Hubo un problema al procesar tu compra.');
+            }
         }
 
         return back()->withErrors('No hay un carrito para comprar.');
     }
 }
-
-
