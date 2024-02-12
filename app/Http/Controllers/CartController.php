@@ -11,6 +11,8 @@ use App\Models\Order;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+
 
 class CartController extends Controller
 {
@@ -108,8 +110,9 @@ class CartController extends Controller
     public function purchase(Request $request)
     {
         $user = auth()->user();
-
         $cart = $user->cart;
+        Log::info('Iniciando proceso de compra');
+
         if ($cart && $cart->products->isNotEmpty()) {
             DB::beginTransaction();
             try {
@@ -117,6 +120,9 @@ class CartController extends Controller
                 $totalPrice = $cart->products->reduce(function ($carry, $product) {
                     return $carry + ($product->pivot->amount * $product->price);
                 }, 0);
+
+                Log::info('Productos en el carrito: ' . $cart->products->count());
+
 
                 // Crear un nuevo pedido
                 $order = Order::create([
@@ -131,6 +137,7 @@ class CartController extends Controller
                         'order_id' => $order->id,
                         'product_id' => $product->id,
                         'amount' => $product->pivot->amount,
+                        'status' => 'pendiente',
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
@@ -140,6 +147,8 @@ class CartController extends Controller
                 $cart->products()->detach();
 
                 DB::commit();
+                Log::info('Compra completada con éxito');
+
 
                 // Enviar correo electrónico de confirmación
                 Mail::to($user->email)->send(new OrderConfirmation($order));
