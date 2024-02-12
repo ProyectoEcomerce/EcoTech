@@ -26,8 +26,8 @@ Route::get('/pedidos', function () {
     return view('pedidos');
 });
 
-Route::get('/cancelar-pedidos', function () {
-    return view('cancelar-pedidos');
+Route::get('/cancelar-pedido', function () {
+    return view('cancelar-pedido');
 });
 
 Route::get('/home', function () {

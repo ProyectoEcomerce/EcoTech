@@ -20,7 +20,7 @@
     </div>
 
 <!-- Estado del pedido 1 -->
-<a href="cancelar-pedido.blade.php" class="text-decoration-none text-dark">
+<a href="/cancelar-pedido" class="text-decoration-none text-dark">
     <div class="order-status">
       <div class="row">
         <div class="col-md-3">
@@ -40,7 +40,7 @@
   </a>
   
   <!-- Estado del pedido 2 -->
-  <a href="cancelar-pedido.blade.php" class="text-decoration-none text-dark">
+  <a href="/cancelar-pedido" class="text-decoration-none text-dark">
     <div class="order-status">
       <div class="row">
         <div class="col-md-3">
@@ -60,7 +60,7 @@
   </a>
   
   <!-- Estado del pedido 3 -->
-  <a href="cancelar-pedido.blade.php" class="text-decoration-none text-dark">
+  <a href="/cancelar-pedido" class="text-decoration-none text-dark">
     <div class="order-status">
       <div class="row">
         <div class="col-md-3">
