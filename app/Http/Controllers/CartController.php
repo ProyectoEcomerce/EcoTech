@@ -42,21 +42,28 @@ class CartController extends Controller
         if (!$product) {
             return back()->withErrors(['subtype' => 'El producto no existe'])->withInput();
         }
-
+        DB::beginTransaction();
+        try{
         $user = auth()->user();
 
         $cart = $user->cart ?? new Cart();
         $cart->user_id = $user->id;
         $cart->save();
 
-        if ($cart->products()->where('product_id', $product->id)->exists()) {
-            $amount = $cart->products()->where('product_id', $product->id)->first()->pivot->amount;
-            $newAmount = $amount + 1;
-            $cart->products()->updateExistingPivot($product->id, ['amount' => $newAmount]);
-            return back()->with('mensaje', 'El producto ya está en el carrito');
-        } else {
-            $cart->products()->attach($product->id, ['amount' => 1]);
-            return back()->with('mensaje', 'Producto añadido con éxito');
+            if ($cart->products()->where('product_id', $product->id)->exists()) {
+                $amount = $cart->products()->where('product_id', $product->id)->first()->pivot->amount;
+                $newAmount = $amount + 1;
+                $cart->products()->updateExistingPivot($product->id, ['amount' => $newAmount]);
+                DB::commit();
+                return back()->with('mensaje', 'La cantidad del producto ha sido aumentada');
+            } else {
+                $cart->products()->attach($product->id, ['amount' => 1]);
+                DB::commit();
+                return back()->with('mensaje', 'Producto añadido con éxito');
+            }
+        }catch(\Exception $e){
+            DB::rollback();
+            return back()->withErrors('No se pudo añadir el producto');
         }
     }
 
@@ -72,27 +79,41 @@ class CartController extends Controller
         $currentQuantity = $cart->products()->where('product_id', $productId)->value('amount');
         $newAmount = max(0, $currentQuantity + $amountChange);
 
-        if ($newAmount === 0) {
-            $cart->products()->detach($productId);
-            return back()->with('mensaje', 'Producto eliminado del carrito');
+        DB::beginTransaction();
+        try{
+            if ($newAmount === 0) {
+                $cart->products()->detach($productId);
+                DB::commit();
+                return back()->with('mensaje', 'Producto eliminado del carrito');
+            }
+    
+            $cart->products()->updateExistingPivot($productId, ['amount' => $newAmount]);
+    
+            $message = $amountChange > 0 ? 'Cantidad aumentada con éxito' : 'Cantidad disminuida con éxito';
+            DB::commit();
+            return back()->with('mensaje', $message);
+        }catch(\Exception $e){
+            DB::rollback();
+            return back()->withErrors('Hubo un problema al actualizar la cantidad.');
         }
-
-        $cart->products()->updateExistingPivot($productId, ['amount' => $newAmount]);
-
-        $message = $amountChange > 0 ? 'Cantidad aumentada con éxito' : 'Cantidad disminuida con éxito';
-        return back()->with('mensaje', $message);
     }
 
 
     public function removeItem(Request $request)
     {
-
         $product = Product::find($request->input('product_id'));
         $user = auth()->user();
         $cart = $user->cart;
         if ($product) {
-            $cart->products()->detach($product);
-            return back()->with('success', 'Producto eliminado exitosamente');
+            DB::beginTransaction();
+            try{
+                $cart->products()->detach($product);
+                DB::commit();
+                return back()->with('success', 'Producto eliminado exitosamente');
+            }catch(\Exception $e){
+                DB::rollBack();
+                return back()->with('error', 'No se pudo eliminar el producto');
+            }
         } else {
             return back()->with('error', 'No se encontro el producto');
         }

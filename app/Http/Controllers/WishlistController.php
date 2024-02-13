@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
@@ -24,22 +25,30 @@ class WishlistController extends Controller
 
         if (!$product) {
             return back()->withErrors(['subtype' => 'El producto no existe'])->withInput();
-        }
-
-        $user = auth()->user();
-
-        $wishlist = $user->wishlist ?? new Wishlist();
-        $wishlist->user_id = $user->id;
-        $wishlist->save();
-
-        if($wishlist->product()->where('product_id' , $product->id)->exists()){
-            $wishlist->product()->detach($product);
-            $product->decrement('favouriteCounter');
-            return back()->with('mensaje', 'El producto se ha eliminado de la lista');
         }else{
-            $wishlist->product()->attach($product->id);
-            $product->increment('favouriteCounter');
-            return back()->with('mensaje', 'Producto añadido con éxito');
+            DB::beginTransaction();
+            try{
+                $user = auth()->user();
+
+                $wishlist = $user->wishlist ?? new Wishlist();
+                $wishlist->user_id = $user->id;
+                $wishlist->save();
+        
+                if($wishlist->product()->where('product_id' , $product->id)->exists()){
+                    $wishlist->product()->detach($product);
+                    $product->decrement('favouriteCounter');
+                    DB::commit();
+                    return back()->with('mensaje', 'El producto se ha eliminado de la lista');
+                }else{
+                    $wishlist->product()->attach($product->id);
+                    $product->increment('favouriteCounter');
+                    DB::commit();
+                    return back()->with('mensaje', 'Producto añadido con éxito');
+                }
+            }catch (\Exception $e) {
+                DB::rollBack();
+                return back()->withErrors('Algo falló al procesar la lista de deseos.');
+            }           
         }
     }
 }
