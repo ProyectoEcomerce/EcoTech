@@ -59,8 +59,8 @@
                                 {{__('Lenguajes')}}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="locale/es">{{__('Español')}}</a></li>
-                              <li><a class="dropdown-item" href="locale/en">{{__('Ingles')}}</a></li>
+                              <li><a class="dropdown-item" href="{{ route('changeLanguage', ['locale' => 'es']) }}">{{__('Español')}}</a></li>
+                              <li><a class="dropdown-item" href="{{ route('changeLanguage', ['locale' => 'en']) }}">{{__('Ingles')}}</a></li>
                             </ul>
                         </div>
                     </li>

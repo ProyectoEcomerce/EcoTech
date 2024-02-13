@@ -30,6 +30,10 @@ Route::get('/pedidos', function () {
     return view('pedidos');
 });
 
+Route::get('/d', function () {
+    return view('auth.dashboard');
+});
+
 Route::get('/cancelar-pedidos', function () {
     return view('cancelar-pedidos');
 });
@@ -95,7 +99,4 @@ Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('sh
 
 Route::get('wishlist', [WishlistController::class , 'showWishlist'])->name('show.wishlist');
 
-Route::get('locale/{locale}', function ($locale) {
-    session()->put('locale', $locale);
-    return Redirect::back();
-});
+Route::get('locale/{locale}', [AccountController::class, 'changeLocal'])->name('changeLanguage');
