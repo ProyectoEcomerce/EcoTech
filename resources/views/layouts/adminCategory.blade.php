@@ -42,6 +42,7 @@
                     <h1 class="modal-title">Añadir Categoría</h1>
                     <button type="button" class="close" data-dismiss="modal">&times; </button>
                 </div>
+                
                 <div class="modal-body">
                     <form action="{{ route('layouts.createCategory') }}" method="POST">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
@@ -50,11 +51,58 @@
                         <button class="btn btn-primary btn-block" type="submit">
                             Crear nueva categoría
                         </button>
+
+                        
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
+    @foreach ($categories as $category)
+<tr>
+    <td>{{ $category->name }}</td>
+    <td>
+        <!-- Otros botones (Editar, Eliminar) -->
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProductsModal{{ $category->id }}">Añadir Productos</button>
+    </td>
+</tr>
+@endforeach
+@foreach ($categories as $category)
+<div class="modal fade" id="addProductsModal{{ $category->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Añadir Productos a {{ $category->name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('category.addProducts', $category->id) }}" method="POST">
+                    @csrf
+                    <select name="product_ids[]" class="form-select" multiple>
+                        @foreach ($allProducts as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
+                    </select>
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Añadir Seleccionados</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+@foreach ($categories as $category)
+    <h3>{{ $category->name }}</h3>
+    <ul>
+        @foreach ($category->products as $product)
+            <li>{{ $product->name }}</li>
+        @endforeach
+    </ul>
+@endforeach
+
 
     @foreach ($categories as $category)
     <div class="modal fade" id="editCategoryModal{{$category->id}}">

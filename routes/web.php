@@ -54,6 +54,7 @@ Route::middleware('admin')->group(function(){
 });
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
+Route::post('/categories/{category}/add-products', [CategoryController::class, 'addProducts'])->name('category.addProducts');
 
 
 Route::middleware('admin')->group(function(){
@@ -82,3 +83,4 @@ Route::get('locale/{locale}', function($locale){
     session()->put('locale', $locale);
     return Redirect::back();
 });
+Route::get('/categorias-con-productos', [CategoryController::class, 'showCategoriesWithProducts'])->name('categorias.con.productos');
