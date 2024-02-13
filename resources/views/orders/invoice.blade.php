@@ -71,7 +71,6 @@
                             <th>Concepto</th>
                             <th>Cantidad</th>
                             <th>Base Imponible</th>
-                            <th>I.V.A.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +83,6 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->pivot->amount }}</td>
                                 <td>{{ number_format($subtotal, 2, ',', '.') }} €</td>
-                                <td>{{ number_format($ivaAmount, 2, ',', '.') }} € (21%)</td>
                             </tr>
                         @endforeach
 
@@ -94,14 +92,12 @@
 
                 <div class="row">
                     <div class="col-6">
-                        <p>Fecha de vencimiento: 22/06/2017</p>
+                        <p>Fecha de vencimiento: 01/01/2025</p>
                     </div>
                     <div class="col-6 text-end">
-                        <p>Total Base Imponible: {{ number_format($totalBaseImponible, 2, ',', '.') }} €</p>
-                        <p>I.V.A. 21%: {{ number_format($totalIVA, 2, ',', '.') }} €</p>
-                        <p>Retención 15%: -{{ number_format($totalRetencion, 2, ',', '.') }} €</p>
-                        <h3>TOTAL: {{ number_format($total, 2, ',', '.') }} €</h3>
+                        <h3>TOTAL: {{ number_format($order->total_price, 2, ',', '.') }} €</h3>
                     </div>
+
                 </div>
             </div>
             <button id="printButton">Imprimir</button>
