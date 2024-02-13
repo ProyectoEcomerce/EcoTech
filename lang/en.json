@@ -23,6 +23,13 @@
     "Direcciones":"Addresses",
     "Editar, eliminar o añadir direcciones":"Edit, delete or add addresses",
     "Editar mi cuenta":"Edit my account",
-    "Cambiar la contraseña":"Change my password"
-
+    "Cambiar la contraseña":"Change my password",
+    "Lista de deseos":"Wishlist",
+    "Quitar de la lista":"Remove from the list",
+    "Añadir a favoritos":"Add to wishlist",
+    "Mi lista de deseos":"My wishlist",
+    "Cantidad:":"Amount:",
+    "Eliminar":"Delete",
+    "Comprar":"Pucharse",
+    "Tu carrito está vacío":"Your cart is empty"
 }

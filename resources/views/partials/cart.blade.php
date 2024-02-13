@@ -7,7 +7,7 @@
             <div class="cart-item">
                 <p>{{ $product->name }}</p>
                 <p>{{ $product->price }}€</p>
-                <p>Cantidad:{{$product->pivot->amount}}</p>
+                <p>{{__("Cantidad:")}}{{$product->pivot->amount}}</p>
 
                 {{-- Sumar cantidad --}}
                 <input type="hidden" name="_token" id="token" value="{{csrf_token()}}">
@@ -35,17 +35,17 @@
                 <form action="{{ route('cart.removeitem') }}" method="POST">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">{{__("Eliminar")}}</button>
                 </form>   
             </div>
         @empty
-            <p>Tu carrito está vacío.</p>
+            <p>{{__("Tu carrito está vacío")}}</p>
         @endforelse
         {{-- Asegúrate de que hay productos antes de mostrar el botón de comprar --}}
         @if($cartProducts->isNotEmpty())
             <form action="{{ route('cart.purchase') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-success">Comprar</button>
+                <button type="submit" class="btn btn-success">{{__("Comprar")}}</button>
             </form>
         @endif
         @if(session('success'))

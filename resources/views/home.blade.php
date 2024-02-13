@@ -57,6 +57,17 @@
                         </div>
                     </a>
                 </div>
+                
+                <div class="col">
+                    <a href="{{ route('show.wishlist') }}" class="card-link text-decoration-none">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-lock"></i> {{__("Lista de deseos")}}</h5>
+                                <p class="card-text">{{__("Cambiar la contraseña")}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </main>

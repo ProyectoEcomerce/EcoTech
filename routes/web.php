@@ -91,7 +91,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::put('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword')->middleware('auth');
 });
 
-Route::get('product/{id}', [ProductController::class, 'showProduct'])->name('show.item');
+Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
+
+Route::get('wishlist', [WishlistController::class , 'showWishlist'])->name('show.wishlist');
 
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);

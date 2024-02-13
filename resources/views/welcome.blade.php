@@ -70,20 +70,26 @@
                       <h5 class="card-title">{{ $product->name }}</h5>
                       <p class="card-text">{{ $product->description }}</p>
                       <p class="card-text">{{ $product->price }}€</p>
-                      <div class="d-grid gap-2">
+                      <div class="d-grid gap-2 pb-1">
                           <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
                       </div>
                       @auth
+                      <div class="d-flex">
+                        <div class="m-auto">
                           <form action="{{ route('cart.additem') }}" method="POST">
                               @csrf
                               <input type="hidden" name="product_id" value="{{ $product->id }}">
                               <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
                           </form>
+                        </div>
+                        <div class="m-auto">
                           <form action="{{ route('wish.additem') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
+                            <button type="submit" class="btn btn-primary">{{__("Añadir a favoritos")}}</button>
                           </form>
+                        </div>
+                      </div>
                       @else
                           <p>@lang('messages.login_required',['login' => route('login')])</p>
                       @endauth
