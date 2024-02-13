@@ -19,7 +19,9 @@
     <div class="row justify-content-center mb-4">
         <div class="col-lg-6 col-md-12">
             <div class="card border-0">
-                <img src="{{ asset('img/almacen-dia.png') }}" class="card-img-top img-fluid" alt="Productos">
+                @foreach($product->image()->paginate(1) as $img)
+                <img class="card-img-top img-fluid" src="{{ asset($img->product_photo) }}" alt="{{ $product->name }}">
+                @endforeach
             </div>
         </div>
         <div class="col-lg-6 col-md-12">

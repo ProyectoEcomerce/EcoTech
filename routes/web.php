@@ -29,10 +29,6 @@ Route::get('/pedidos', function () {
     return view('pedidos');
 });
 
-Route::get('/d', function () {
-    return view('auth.dashboard');
-});
-
 Route::get('/cancelar-pedidos', function () {
     return view('cancelar-pedidos');
 });

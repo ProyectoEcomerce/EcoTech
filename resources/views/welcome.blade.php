@@ -65,8 +65,8 @@
         @foreach ($products as $product)
           <div class="col-12 col-md-4">
               <div class="card">
-                @foreach($product->image as $img)
-                  <img class="card-img-top" src="{{ asset($img->product_photo) }}" alt="{{ $product->name }}">
+                @foreach($product->image()->paginate(1) as $img)
+                  <img class="card-img-top img-fluid" src="{{ asset($img->product_photo) }}" alt="{{ $product->name }}">
                 @endforeach
                   <div class="card-body">
                       <h5 class="card-title">{{ $product->name }}</h5>
