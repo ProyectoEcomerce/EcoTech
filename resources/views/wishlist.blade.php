@@ -32,30 +32,34 @@
             <hr>
             <div class="card-body">
                 @if(isset($products))
-                @foreach($products as $product )
-                    <div class="row pb-3">
-                        <div class="col-md-3 my-auto">
-                            <h6>{{$product->name}}</h6>
+                    @forelse($products as $product )
+                        <div class="row pb-3">
+                            <div class="col-md-3 my-auto">
+                                <h6>{{$product->name}}</h6>
+                            </div>
+                            <div class="col-md-3 my-auto">
+                                <h6>{{$product->price}}</h6>
+                            </div>
+                            <div class="col-md-3 my-auto">
+                                <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
+                            </div>
+                            <div class="col-md-3 my-auto">
+                                <form action="{{ route('wish.additem') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit" class="btn btn-primary">{{__("Quitar de la lista")}}</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="col-md-3 my-auto">
-                            <h6>{{$product->price}}</h6>
+                    @empty
+                        <div class="col-12 my-auto text-center">
+                            <p>{{__("Tu lista de deseos está vacía")}}</p>
                         </div>
-                        <div class="col-md-3 my-auto">
-                            <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
-                        </div>
-                        <div class="col-md-3 my-auto">
-                            <form action="{{ route('wish.additem') }}" method="POST" class="m-0">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <button type="submit" class="btn btn-primary">{{__("Quitar de la lista")}}</button>
-                            </form>
-                        </div>
+                    @endforelse
+                @else <!--Se muestra si el usuario nunca a añadido nada a su lista, por lo cual no tendra una en base de datos-->
+                    <div class="col-12 my-auto text-center">
+                        <p>{{__("No cuentas con una lista de deseos")}}</p>
                     </div>
-                @endforeach
-                @else
-                <div class="col-12 my-auto">
-                    <p>{{__("Tu lista de deseos está vacía")}}</p>
-                </div>
                 @endif
             </div>
         </div>

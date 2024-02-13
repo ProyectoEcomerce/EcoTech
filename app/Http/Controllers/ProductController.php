@@ -32,7 +32,8 @@ class ProductController extends Controller
                 'dimensions'=>'required',
                 'battery'=>'required',
                 'engine'=>'required',
-                'components'=>'required'
+                'components'=>'required',
+                'image.*' => 'required|image|mimes:jpeg,png,jpg|max:2048'
             ]);
     
             $newProduct= new Product;
@@ -50,6 +51,19 @@ class ProductController extends Controller
             $newProduct->engine=$request->engine;
             $newProduct->components=$request->components;
             $newProduct->save();
+
+            if($request->hasFile('image')){
+                foreach($request->file('image') as $img){ //Iteramos por el array de imagenes
+                    $imageName = $img->getClientOriginalName(); //Guardamos el nombre del archivo 
+                    $img->move(public_path('/img'), $imageName); //Lo movemos a public
+                    
+                    $newImage = new Image(); //Guardamos la imagen con su id y su ruta
+                    $newImage->product_id = $newProduct->id;
+                    $newImage->product_photo = '/img/' . $imageName;
+                    $newImage->save();
+                }
+            }
+
             DB::commit();
             return back() -> with('mensaje', 'Producto creado');
         }catch(\Exception $e){

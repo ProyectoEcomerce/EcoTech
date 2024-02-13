@@ -62,7 +62,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times; </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('layouts.createProduct') }}" method="POST">
+                    <form action="{{ route('layouts.createProduct') }}" method="POST" enctype="multipart/form-data">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre del producto"
                             class="form-control mb-2">
@@ -90,6 +90,7 @@
                             class="form-control mb-2">
                         <input type="text" name="components" value="{{ old('components') }}" placeholder="Componentes"
                             class="form-control mb-2">
+                        <input type="file" name="image[]" accept="image/" class="form-control mb-2" multiple>
                         <button class="btn btn-primary btn-block" type="submit">
                             Crear nuevo producto
                         </button>
