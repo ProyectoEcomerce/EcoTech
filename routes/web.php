@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WishlistController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\App;
@@ -53,6 +54,17 @@ Route::middleware('admin')->group(function(){
 });
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
+
+
+Route::middleware('admin')->group(function(){
+    Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.index');
+    Route::post('createCategory', [CategoryController::class, 'create'])->name('layouts.createCategory');
+    Route::put('edit_category/{id}', [CategoryController::class, 'update'])->name('layouts.updateCategory');
+    Route::delete('delete_category/{id}', [CategoryController::class, 'delete'])->name('layouts.deleteCategory');
+});
+
+Route::get('/', [CategoryController::class, 'getCategories']); //Mostrar productos
+
 
 Route::middleware('auth', 'verified')->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
