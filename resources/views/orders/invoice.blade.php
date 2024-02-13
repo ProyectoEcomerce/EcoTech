@@ -65,4 +65,8 @@
             </div>
         </div>
     </div>
+<form action="{{ route('orders.invoice', $order->id) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-primary">Descargar Factura</button>
+</form>
 @endsection

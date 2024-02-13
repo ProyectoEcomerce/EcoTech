@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
 {
@@ -41,6 +42,12 @@ class OrderController extends Controller
     {
         $order->load('products'); // Carga los productos con el pedido
         return view('orders.invoice', compact('order'));
+    }
+
+    public function generateInvoice(Order $order)
+    {
+        $pdf = PDF::loadView('invoices.view', ['order' => $order]);
+        return $pdf->download('invoice.pdf');
     }
 
 }
