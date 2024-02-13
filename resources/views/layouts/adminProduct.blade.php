@@ -7,8 +7,10 @@
         <a href="#" data-bs-toggle="modal" data-bs-target="#createProductModal" class="btn btn-primary mb-5">Añadir
             producto</a>
     </div>
-    <table border="1" class="table table-responsive">
-        <thead>
+    
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
@@ -53,7 +55,7 @@
             </tr>
         @endforeach
     </table>
-
+    </div>
     <div class="modal fade" id="createProductModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

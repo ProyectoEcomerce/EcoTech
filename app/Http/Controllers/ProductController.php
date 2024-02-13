@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
 use App\Models\Image;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -118,6 +119,7 @@ class ProductController extends Controller
         $deleteProduct=Product::findOrFail($id);
         DB::beginTransaction();
         try{
+            DB::table('products_wishlists')->where('product_id', $id)->delete();
             $deleteProduct->delete();
             DB::commit();
             return back() -> with('mensaje', 'Producto eliminado');
@@ -135,5 +137,10 @@ class ProductController extends Controller
     public function showProduct($id){
         $product=Product::findOrFail($id);
         return view('productos', compact('product') );
+
+ 
     }
+
+    
 }
+

@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\WishlistController;
 
@@ -29,8 +30,12 @@ Route::get('/pedidos', function () {
     return view('pedidos');
 });
 
-Route::get('/cancelar-pedidos', function () {
-    return view('cancelar-pedidos');
+Route::get('/cancelar-pedido', function () {
+    return view('cancelar-pedido');
+});
+
+Route::get('/categorias', function () {
+    return view('categorias');
 });
 
 Fortify::verifyEmailView(function () {
@@ -48,7 +53,7 @@ Route::middleware('admin')->group(function () {
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware('auth', 'verified')->group(function(){
     Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
     Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
     Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
@@ -104,3 +109,4 @@ Route::get('product/{id}', [ProductController::class, 'showProduct'])->name('sho
 Route::get('wishlist', [WishlistController::class, 'showWishlist'])->name('show.wishlist');
 
 Route::get('locale/{locale}', [AccountController::class, 'changeLocal'])->name('changeLanguage');
+Route::get('/categorias-con-productos', [CategoryController::class, 'showCategoriesWithProducts'])->name('categorias.con.productos');
