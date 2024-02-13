@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -67,11 +68,19 @@ class ProductController extends Controller
         $updateProduct->save();
         return back() -> with('mensaje', 'Producto editado exitosamente');
     }
+    public function delete($id)
+    {
+        // Encuentra el producto por su ID
+        $product = Product::findOrFail($id);
 
-    public function delete($id){
-        $deleteProduct=Product::findOrFail($id);
-        $deleteProduct->delete();
-        return back() -> with('mensaje', 'Producto eliminado');
+        // Elimina las referencias en products_wishlists
+        DB::table('products_wishlists')->where('product_id', $id)->delete();
+
+        // Elimina el producto
+        $product->delete();
+
+        // Redirige de vuelta con un mensaje
+        return back()->with('mensaje', 'Producto eliminado exitosamente.');
     }
 
     public function adminIndex(){
