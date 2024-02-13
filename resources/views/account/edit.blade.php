@@ -6,6 +6,8 @@
 <div class="container mt-5">
     <h2 class="text-center">Cambiar Contraseña</h2>
 
+    
+
     <form action="{{ route('account.updatePassword') }}" method="POST">
         @csrf
         @method('PUT')
@@ -25,7 +27,22 @@
             <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
+        <button type="submit" class="btn btn-primary mb-5">Actualizar Contraseña</button>
     </form>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </div>
 @endsection

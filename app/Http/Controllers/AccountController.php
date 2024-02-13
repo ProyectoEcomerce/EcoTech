@@ -29,17 +29,19 @@ class AccountController extends Controller
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return view('account.edit')->with('success', 'Contraseña actualizada con éxito.');
+        return redirect()->route('account.edit')->with('success', 'Contraseña actualizada con éxito.');
     }
 
-    public function changeLocal(Request $request){
 
-        if(Auth::check()){
-            $user=Auth::user();
-            $language=$request->route('locale');
-            $user->language=$language;
+    public function changeLocal(Request $request)
+    {
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $language = $request->route('locale');
+            $user->language = $language;
             $user->save();
-        }else{
+        } else {
             $language = $request->route('locale');
             session()->put('locale', $language);
         }
