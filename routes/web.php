@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,11 +88,14 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Ruta para procesar el cambio de contraseña
     Route::put('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword')->middleware('auth');
+
+    // Ruta para cerrar sesión
+    Route::post('/logout', [AuthController::class, 'logout'])->name('custom.logout');
 });
 
-Route::get('product/{id}' , [ProductController::class, 'showProduct'])->name('show.item');
+Route::get('product/{id}', [ProductController::class, 'showProduct'])->name('show.item');
 
-Route::get('wishlist', [WishlistController::class , 'showWishlist'])->name('show.wishlist');
+Route::get('wishlist', [WishlistController::class, 'showWishlist'])->name('show.wishlist');
 
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
