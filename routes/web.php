@@ -58,7 +58,9 @@ Route::middleware('auth', 'verified')->group(function () {
 
     //ORDERS
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
-    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
+    Route::get('/orders/{order}', [OrderController::class, 'view'])->name('orders.view')->middleware('auth');
+    Route::put('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
+    Route::put('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice')->middleware('auth');
 
     //ADDRESSES
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -29,4 +30,17 @@ class OrderController extends Controller
         // Redireccionar al usuario con un mensaje de éxito
         return back()->with('success', 'El pedido ha sido cancelado con éxito.');
     }
+
+    public function view(Order $order)
+    {
+        $order->load('products'); // Carga los productos  con el pedido
+        return view('orders.viewOrder', compact('order'));
+    }
+
+    public function invoice(Order $order)
+    {
+        $order->load('products'); // Carga los productos con el pedido
+        return view('orders.invoice', compact('order'));
+    }
+
 }
