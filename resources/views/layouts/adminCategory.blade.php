@@ -3,29 +3,37 @@
 @section('title', "Pedidos")
 
 @section('content')
-    <h1>Categorias</h1>
-    <a href="#" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Añadir categoría</a>
-    <table border="1" class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-            </tr>
-        </thead>
-        @foreach ($categories as $category)
-            <tr>
-                <td>{{ $category->name}}</td>
-                <td><a href="#editCategoryModal{{$category->id}}" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{$category->id}}" class="btn btn-warning btn-sm"> Editar </a>
-                </td>
-                <td>
-                    <form action="{{ route('layouts.deleteCategory', $category->id) }}" method="POST" class="d-inline">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </table>
+<div class="container mt-5">
+    <h1 class="mb-4">Categorías</h1>
+    <div class="d-flex justify-content-between mb-2">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Añadir categoría</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($categories as $category)
+                <tr>
+                    <td>{{ $category->name}}</td>
+                    <td>
+                        <a href="#editCategoryModal{{$category->id}}" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{$category->id}}" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="{{ route('layouts.deleteCategory', $category->id) }}" method="POST" class="d-inline">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 
     <div class="modal fade" id="createCategoryModal">
         <div class="modal-dialog modal-dialog-centered">

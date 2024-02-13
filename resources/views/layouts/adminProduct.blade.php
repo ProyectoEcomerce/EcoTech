@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.plantilla')
 
-<head>
-    @vite(['resources/css/app.css', 'resources/scss/app.scss', 'resources/js/app.js'])
-</head>
+@section('title', "Pedidos")
 
+@section('content')
 
 <body>
-    <h1>Productos</h1>
-    <a href="#" data-bs-toggle="modal" data-bs-target="#createProductModal">Añadir producto</a>
-    <table border="1" class="table table-responsive">
-        <thead>
+    <div class="container mt-5">
+        <h1 class="mb-4">Productos</h1>
+        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createProductModal">Añadir producto</button>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="thead-dark">
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
@@ -139,6 +139,4 @@
     </div>
     @endforeach
 
-</body>
-
-</html>
+@endsection
