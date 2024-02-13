@@ -215,14 +215,7 @@ h2.display-4::after {
     width: 100px; 
     height: 100px; 
   }
-
-
-
-
-
-
-
-
+    
   .search-bar {
     padding: 20px 0;
   }
@@ -237,3 +230,15 @@ h2.display-4::after {
     padding: 20px;
     margin-top: 20px;
   }
+
+  .logo-invoice {
+    width: 100px;
+    height: auto;
+}
+
+@media print {
+    #printButton,
+    #backButton {
+        display: none;
+    }
+}

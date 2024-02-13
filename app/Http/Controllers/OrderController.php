@@ -41,6 +41,8 @@ class OrderController extends Controller
     public function invoice(Order $order)
     {
         $order->load('products'); // Carga los productos con el pedido
+        $order->load('products', 'user.addresses');
+
         return view('orders.invoice', compact('order'));
     }
 

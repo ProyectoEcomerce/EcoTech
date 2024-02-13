@@ -65,7 +65,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('orders.view')->middleware('auth');
     Route::put('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
     Route::put('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice')->middleware('auth');
-    Route::post('/invoice/{order}', [OrderController::class, 'generateInvoice'])->name('orders.invoice');
+
+    // Ruta para generar la factura de un pedido como PDF (no funciona)
+    //Route::post('/invoice/{order}', [OrderController::class, 'generateInvoice'])->name('orders.invoice');
 
 
     //ADDRESSES
