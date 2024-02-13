@@ -23,24 +23,28 @@
     <div class="container my-5">
         <div class="card shadow">
             <div class="card-head">
-                <div class="row product_data">
-                    <h4>{{__("Mi lista de deseos")}}</h4>
+                <div class="row">
+                    <div class="text-center mt-3">
+                        <h4>{{__("Mi lista de deseos")}}</h4>
+                    </div>
                 </div>
             </div>
+            <hr>
             <div class="card-body">
-                @foreach ($products as $product )
-                    <div class="row product_data pb-3">
-                        <div class="col-md-2 my-auto">
+                @if(isset($products))
+                @foreach($products as $product )
+                    <div class="row pb-3">
+                        <div class="col-md-3 my-auto">
                             <h6>{{$product->name}}</h6>
                         </div>
-                        <div class="col-md-2 my-auto">
+                        <div class="col-md-3 my-auto">
                             <h6>{{$product->price}}</h6>
                         </div>
-                        <div class="col-md-2 my-auto">
+                        <div class="col-md-3 my-auto">
                             <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
                         </div>
-                        <div class="col-md-2 my-auto">
-                            <form action="{{ route('wish.additem') }}" method="POST">
+                        <div class="col-md-3 my-auto">
+                            <form action="{{ route('wish.additem') }}" method="POST" class="m-0">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <button type="submit" class="btn btn-primary">{{__("Quitar de la lista")}}</button>
@@ -48,6 +52,11 @@
                         </div>
                     </div>
                 @endforeach
+                @else
+                <div class="col-12 my-auto">
+                    <p>{{__("Tu lista de deseos está vacía")}}</p>
+                </div>
+                @endif
             </div>
         </div>
     </div>

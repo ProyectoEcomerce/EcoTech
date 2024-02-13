@@ -31,4 +31,18 @@ class AccountController extends Controller
 
         return view('account.edit')->with('success', 'Contraseña actualizada con éxito.');
     }
+
+    public function changeLocal(Request $request){
+
+        if(Auth::check()){
+            $user=Auth::user();
+            $language=$request->route('locale');
+            $user->language=$language;
+            $user->save();
+        }else{
+            $language = $request->route('locale');
+            session()->put('locale', $language);
+        }
+        return redirect()->back()->with('success', 'Idioma cambiado.');
+    }
 }
