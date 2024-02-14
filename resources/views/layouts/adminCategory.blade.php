@@ -59,41 +59,69 @@
             </div>
         </div>
     </div>
-    @foreach ($categories as $category)
-<tr>
-    <td>{{ $category->name }}</td>
-    <td>
-        <!-- Otros botones (Editar, Eliminar) -->
-        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProductsModal{{ $category->id }}">Añadir Productos</button>
-    </td>
-</tr>
-@endforeach
+    <div class="container mt-5">
+        <!-- Título de la sección -->
+        <h2 class="mb-4">Añadir y Eliminar Productos</h2>
+    
+        <!-- Tabla de categorías con botones de añadir/eliminar -->
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre de la Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                    <tr>
+                        <td>{{ $category->name }}</td>
+                        <td>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProductsModal{{ $category->id }}">
+                                Añadir/Eliminar Productos
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
 @foreach ($categories as $category)
 <div class="modal fade" id="addProductsModal{{ $category->id }}" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Añadir Productos a {{ $category->name }}</h5>
+                <h5 class="modal-title">Gestionar Productos en {{ $category->name }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('category.addProducts', $category->id) }}" method="POST">
+                <form id="manageProductsForm{{ $category->id }}" method="POST" class="px-4 py-3">
                     @csrf
-                    <select name="product_ids[]" class="form-select" multiple>
+                    <label for="productSelect{{ $category->id }}" class="form-label">Selecciona los productos</label>
+                    <select id="productSelect{{ $category->id }}" name="product_ids[]" class="form-select" multiple>
                         @foreach ($allProducts as $product)
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach
                     </select>
-                    
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Añadir Seleccionados</button>
                 </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <!-- Botón para añadir productos a la categoría -->
+                <div>
+                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.addProducts', $category->id) }}" class="btn btn-primary me-2">Añadir Seleccionados</button>
+                    <!-- Botón para eliminar productos de la categoría -->
+                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.removeProducts', $category->id) }}" class="btn btn-warning">Eliminar Seleccionados</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endforeach
+
+
 @foreach ($categories as $category)
     <h3>{{ $category->name }}</h3>
     <ul>
@@ -114,7 +142,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('layouts.updateCategory', $category->id) }}" method="POST">
-                        @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
+                        @method('PUT')
                         @csrf
                         {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                         <input type="text" name="name" class="form-control mb-2" value="{{ $category->name }}"
@@ -128,3 +156,4 @@
     @endforeach
 
 @endsection
+

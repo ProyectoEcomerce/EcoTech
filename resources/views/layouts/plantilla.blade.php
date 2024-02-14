@@ -70,6 +70,30 @@
     </nav>
 </header>
 
+
+<div id="customCategoryBar" class="container-fluid p-3 bg-light">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-lg-flex justify-content-between w-100">
+            @foreach ($categories as $category)
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton{{$category->id}}" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ $category->name }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$category->id}}">
+                        @foreach ($category->products as $product)
+                            <li><a class="dropdown-item" href="#">{{ $product->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+
+
+
+
+    
 <!-- Sidebar para la cesta de compra -->
    
 <main>

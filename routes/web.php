@@ -49,6 +49,16 @@ Route::middleware('admin')->group(function () {
     Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
     Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
     Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+
+    Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.index');
+    Route::post('createCategory', [CategoryController::class, 'create'])->name('layouts.createCategory');
+    Route::put('edit_category/{id}', [CategoryController::class, 'update'])->name('layouts.updateCategory');
+    Route::delete('delete_category/{id}', [CategoryController::class, 'delete'])->name('layouts.deleteCategory');
+    Route::post('/categories/{category}/add-products', [CategoryController::class, 'addProducts'])->name('category.addProducts');
+    Route::post('categories/{category}/remove-products', [CategoryController::class, 'removeProducts'])->name('category.removeProducts');
+
+    Route::get('/categorias-productos', [ProductController::class, 'index'])->name('categorias.productos');
+
 });
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
