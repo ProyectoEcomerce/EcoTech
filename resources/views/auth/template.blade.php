@@ -52,11 +52,11 @@
                                         {{ Auth::user()->name }}
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                        <li><a class="dropdown-item" href="{{ route('custom.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                         </li>
                                     </ul>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('custom.logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                             {{-- @endif --}}

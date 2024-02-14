@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function getCategories()
     {
         $categories = Category::paginate(6);
-        return view('welcome', compact('categories'));
+        return view('layouts.adminCategory', compact('categories'));
     }
 
     public function create(Request $request)
