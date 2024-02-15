@@ -38,7 +38,7 @@
                                 <h6>{{$product->name}}</h6>
                             </div>
                             <div class="col-md-3 my-auto">
-                                <h6>{{$product->price}}</h6>
+                                <h6>{{$product->price}}€</h6>
                             </div>
                             <div class="col-md-3 my-auto">
                                 <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
