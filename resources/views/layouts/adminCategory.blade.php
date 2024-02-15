@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('title', "Pedidos")
+@section('title', "adminCategory")
 
 @section('content')
 <div class="container mt-5">
@@ -59,14 +59,38 @@
             </div>
         </div>
     </div>
+
+    @foreach ($categories as $category)
+    <div class="modal fade" id="editCategoryModal{{$category->id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Editando la nota {{ $category->name }}</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('layouts.updateCategory', $category->id) }}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <input type="text" name="name" class="form-control mb-2" value="{{ $category->name }}"
+                        placeholder="Nombre" autofocus>
+                        <button class="btn btn-secondary btn-block" type="submit">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
     <div class="container mt-5">
         <!-- Título de la sección -->
-        <h2 class="mb-4">Añadir y Eliminar Productos</h2>
+        <h2 class="mb-4">Añadir y Eliminar Productos de Categorías</h2>
     
         <!-- Tabla de categorías con botones de añadir/eliminar -->
         <div class="table-responsive">
             <table class="table">
-                <thead class="table-light">
+                <thead class="table-dark">
                     <tr>
                         <th>Nombre de la Categoría</th>
                         <th>Acciones</th>
@@ -77,7 +101,7 @@
                     <tr>
                         <td>{{ $category->name }}</td>
                         <td>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProductsModal{{ $category->id }}">
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#addProductsModal{{ $category->id }}">
                                 Añadir/Eliminar Productos
                             </button>
                         </td>
@@ -108,12 +132,11 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <!-- Botón para añadir productos a la categoría -->
                 <div>
-                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.addProducts', $category->id) }}" class="btn btn-primary me-2">Añadir Seleccionados</button>
+                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.addProducts', $category->id) }}" class="btn btn-secondary me-2">Añadir Seleccionados</button>
                     <!-- Botón para eliminar productos de la categoría -->
-                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.removeProducts', $category->id) }}" class="btn btn-warning">Eliminar Seleccionados</button>
+                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.removeProducts', $category->id) }}" class="btn btn-danger">Eliminar Seleccionados</button>
                 </div>
             </div>
         </div>
@@ -122,38 +145,16 @@
 @endforeach
 
 
-@foreach ($categories as $category)
-    <h3>{{ $category->name }}</h3>
-    <ul>
-        @foreach ($category->products as $product)
-            <li>{{ $product->name }}</li>
-        @endforeach
-    </ul>
-@endforeach
-
-
+<div class="container">
     @foreach ($categories as $category)
-    <div class="modal fade" id="editCategoryModal{{$category->id}}">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Editando la nota {{ $category->name }}</h2>
-                    <button type="button" class="close" data-dismiss="modal">&times; </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('layouts.updateCategory', $category->id) }}" method="POST">
-                        @method('PUT')
-                        @csrf
-                        {{-- Cláusula para obtener un token de formulario al enviarlo --}}
-                        <input type="text" name="name" class="form-control mb-2" value="{{ $category->name }}"
-                        placeholder="Nombre" autofocus>
-                        <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+        <h3 class="category-name">{{ $category->name }}</h3>
+        <ul class="products-list">
+            @foreach ($category->products as $product)
+                <li>{{ $product->name }}</li>
+            @endforeach
+        </ul>
     @endforeach
+</div>
 
 @endsection
 

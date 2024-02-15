@@ -277,6 +277,23 @@ h2.display-4::after {
     color: #ffffff; 
 }
 
-
-
-
+//Categorias con productos representados en adminCategory
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+.category-name {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+.products-list {
+    list-style-type: none;
+    padding: 0;
+}
+.products-list li {
+    font-size: 18px;
+    color: #666;
+}

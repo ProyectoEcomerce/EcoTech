@@ -119,4 +119,3 @@ Route::get('product/{id}', [ProductController::class, 'showProduct'])->name('sho
 Route::get('wishlist', [WishlistController::class, 'showWishlist'])->name('show.wishlist');
 
 Route::get('locale/{locale}', [AccountController::class, 'changeLocal'])->name('changeLanguage');
-Route::get('/categorias-con-productos', [CategoryController::class, 'showCategoriesWithProducts'])->name('categorias.con.productos');
