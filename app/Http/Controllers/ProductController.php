@@ -120,6 +120,9 @@ class ProductController extends Controller
         DB::beginTransaction();
         try{
             DB::table('products_wishlists')->where('product_id', $id)->delete();
+            DB::table('categories_products')->where('product_id', $id)->delete();
+            DB::table('carts_products')->where('product_id', $id)->delete();
+            DB::table('images')->where('product_id', $id)->delete();
             $deleteProduct->delete();
             DB::commit();
             return back() -> with('mensaje', 'Producto eliminado');
