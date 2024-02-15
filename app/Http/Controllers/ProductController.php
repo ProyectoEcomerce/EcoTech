@@ -22,8 +22,8 @@ class ProductController extends Controller
         try{
             $request->validate([
                 'name'=>'required',
-                'price'=>'required',
-                'offerPrice'=>'required',
+                'price'=>'required|integer|min:0',
+                'offerPrice'=>'required|integer|min:0',
                 'voltage'=>'required',
                 'guarantee'=>'required',
                 'manufacturing_price'=>'required',
