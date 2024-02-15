@@ -4,13 +4,13 @@
 @section('content')
     <h1 class="text-center">Productos</h1>
     <div class="d-flex justify-content-center">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#createProductModal" class="btn btn-primary mb-5">Añadir
+        <a href="#" data-bs-toggle="modal" data-bs-target="#createProductModal" class="btn btn-success mb-5">Añadir
             producto</a>
     </div>
     
     <div class="table-responsive">
         <table class="table table-hover table-striped">
-            <thead class="thead-dark">
+            <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
