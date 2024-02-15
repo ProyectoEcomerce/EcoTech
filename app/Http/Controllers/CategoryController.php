@@ -78,4 +78,17 @@ public function showCategoriesWithProducts()
 
     return view('categorias_con_productos', compact('categories'));
 }
+
+public function removeProducts(Request $request, $category)
+{
+    $category = Category::findOrFail($category);
+
+    // Asumiendo una relación muchos a muchos entre categorías y productos
+    if($request->has('product_ids')) {
+        $category->products()->detach($request->input('product_ids'));
+    }
+
+    return back()->with('success', 'Productos eliminados de la categoría con éxito.');
+}
+
 }

@@ -242,3 +242,41 @@ h2.display-4::after {
         display: none;
     }
 }
+
+//Desplegable de categorias
+#customCategoryBar {
+    background-color: #83B271;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#customCategoryBar .dropdown-toggle {
+    background-color: #ffffff;
+    color: #416a00; 
+    border: 1px solid #416a00; 
+    transition: all 0.3s ease; 
+}
+
+#customCategoryBar .dropdown-toggle:hover, #customCategoryBar .dropdown-toggle:focus {
+    background-color: #416a00; 
+    color: #ffffff; 
+    border-color: #2e4d00; 
+}
+
+#customCategoryBar .dropdown-menu {
+    border: none; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+}
+
+#customCategoryBar .dropdown-item {
+    color: #416a00; 
+    transition: background-color 0.2s ease-in-out; 
+}
+
+#customCategoryBar .dropdown-item:hover, #customCategoryBar .dropdown-item:focus {
+    background-color: #416a00; 
+    color: #ffffff; 
+}
+
+
+
+

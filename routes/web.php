@@ -55,6 +55,9 @@ Route::middleware('admin')->group(function () {
     Route::put('edit_category/{id}', [CategoryController::class, 'update'])->name('layouts.updateCategory');
     Route::delete('delete_category/{id}', [CategoryController::class, 'delete'])->name('layouts.deleteCategory');
     Route::post('/categories/{category}/add-products', [CategoryController::class, 'addProducts'])->name('category.addProducts');
+    Route::post('categories/{category}/remove-products', [CategoryController::class, 'removeProducts'])->name('category.removeProducts');
+
+    Route::get('/categorias-productos', [ProductController::class, 'index'])->name('categorias.productos');
 
 });
 
