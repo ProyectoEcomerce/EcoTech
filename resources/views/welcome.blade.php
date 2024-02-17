@@ -81,14 +81,18 @@
                           <form action="{{ route('cart.additem') }}" method="POST">
                               @csrf
                               <input type="hidden" name="product_id" value="{{ $product->id }}">
-                              <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
+                              <button type="submit" class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
                           </form>
                         </div>
                         <div class="m-auto">
                           <form action="{{ route('wish.additem') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-primary">{{__("Añadir a favoritos")}}</button>
+                            @if(auth()->user()->wishlist->products->where($product->id))
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-heart"></i></button>
+                            @else
+                            <button type="submit" class="btn btn-primary"><i class="far fa-heart"></i></button>
+                            @endif
                           </form>
                         </div>
                       </div>

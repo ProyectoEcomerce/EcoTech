@@ -71,6 +71,9 @@ Route::middleware('auth', 'verified')->group(function(){
     Route::post('/cart/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
     Route::post('manageWishlist', [WishlistController::class, 'manageWishlist'])->name('wish.additem');
 
+    //Route::get('/', [WishlistController::class, 'showFavourite']);
+
+
     //ORDERS
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('orders.view')->middleware('auth');
