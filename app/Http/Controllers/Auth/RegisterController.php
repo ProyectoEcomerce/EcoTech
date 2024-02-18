@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -65,20 +66,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user= User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-
-        if(!$user->wishlist){
-            Wishlist::create(['user_id'=>$user->id]);
+        DB::beginTransaction();
+        try{
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password'])
+            ]);
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->withErrors('No se crear el usuario');
         }
 
-        if(!$user->cart){
-            Cart::create(['user_id'=>$user->id]);
-        }
-
-        return $user;
     }
 }
