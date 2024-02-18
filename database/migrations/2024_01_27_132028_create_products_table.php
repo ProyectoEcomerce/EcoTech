@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('materials', 45);
             $table->text('description');
             $table->string('dimensions', 45);
-            $table->string('battery', 45);
-            $table->string('engine', 45);
-            $table->string('components', 45);
+            $table->string('battery', 65);
+            $table->string('engine', 65);
+            $table->string('components', 105);
             $table->integer('favouriteCounter')->default(0);
         });
     }
