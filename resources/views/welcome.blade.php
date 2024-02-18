@@ -88,10 +88,12 @@
                           <form action="{{ route('wish.additem') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            @if(auth()->user()->wishlist->products->where($product->id))
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-heart"></i></button>
-                            @else
-                            <button type="submit" class="btn btn-primary"><i class="far fa-heart"></i></button>
+                            @if(auth()->user()->wishlist)
+                              @if(auth()->user()->wishlist->product->contains($product->id))
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-heart"></i></button>
+                              @else
+                                <button type="submit" class="btn btn-primary"><i class="far fa-heart"></i></button>
+                              @endif
                             @endif
                           </form>
                         </div>
