@@ -26,6 +26,7 @@
                 <th class="d-none d-xxl-table-cell">Batería</th>
                 <th class="d-none d-xxl-table-cell">Motor</th>
                 <th class="d-none d-xxl-table-cell">Componentes</th>
+                <th class="d-none d-xxl-table-cell">Categoría/s</th>
                 <th>Acciones</th>
 
             </tr>
@@ -46,19 +47,26 @@
                 <td class="d-none d-xxl-table-cell">{{ $product->battery }}</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->engine }}</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->components }}</td>
+                <td class="d-none d-xxl-table-cell">
+                    @if($product->categories->isEmpty())
+                        Ninguna
+                    @else
+                        {{ $product->categories->pluck('name')->join(', ') }}
+                    @endif
+                </td>
                 <td>
-                    <button class="btn btn-primary d-inline-block d-xxl-none" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
+                    <button class="btn btn-primary btn-sm d-inline-block d-xxl-none" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
                         Ver Datos
                     </button>
                     
                 
                <a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
-                        data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm"> Editar </a>
+                        data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm" id="btn-tabla-productos"> Editar </a>
       
                     <form action="{{ route('layouts.deleteProduct', $product->id) }}" method="POST" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" type="submit" id="btn-tabla-productos">Eliminar</button>
                     </form>
                 </td>
             </tr>
@@ -252,19 +260,3 @@
     @endforeach
 
 @endsection
-<script>
-    function handleNoCategory() {
-        // Si 'Ninguna categoría' está seleccionado, deselecciona todos los otros checkboxes
-        if (document.getElementById('noCategory').checked) {
-            document.querySelectorAll('.category-checkbox').forEach((checkbox) => {
-                checkbox.checked = false;
-            });
-        }
-    }
-    // Añade un listener a cada checkbox de categoría para deseleccionar 'Ninguna categoría' si alguna categoría es seleccionada
-    document.querySelectorAll('.category-checkbox').forEach((checkbox) => {
-        checkbox.addEventListener('click', () => {
-            document.getElementById('noCategory').checked = false;
-        });
-    });
-</script>
