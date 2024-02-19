@@ -70,7 +70,7 @@
                 @endforeach
                   <div class="card-body">
                       <h5 class="card-title">{{ $product->name }}</h5>
-                      <p class="card-text">{{ $product->description }}</p>
+                      <p class="card-text">{{ substr($product->description,0,120) }}...</p>
                       <p class="card-text">{{ $product->price }}€</p>
                       <div class="d-grid gap-2 pb-1">
                           <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>
@@ -81,14 +81,20 @@
                           <form action="{{ route('cart.additem') }}" method="POST">
                               @csrf
                               <input type="hidden" name="product_id" value="{{ $product->id }}">
-                              <button type="submit" class="btn btn-primary">{{__("Añadir al Carrito")}}</button>
+                              <button type="submit" class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
                           </form>
                         </div>
                         <div class="m-auto">
                           <form action="{{ route('wish.additem') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-primary">{{__("Añadir a favoritos")}}</button>
+                            @if(auth()->user()->wishlist)
+                              @if(auth()->user()->wishlist->product->contains($product->id))
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-heart"></i></button>
+                              @else
+                                <button type="submit" class="btn btn-primary"><i class="far fa-heart"></i></button>
+                              @endif
+                            @endif
                           </form>
                         </div>
                       </div>
