@@ -115,18 +115,25 @@ if($request->has('categories')) {
             $updateProduct->engine=$request->engine;
             $updateProduct->components=$request->components;
             $updateProduct->save();
-            // Dentro del try del método update, después de $updateProduct->save();
-
-if($request->has('categories')) {
-    $updateProduct->categories()->sync($request->categories);
-}
+    
+            // Verificar si se seleccionó "Ninguna categoría"
+            if($request->input('no_category') == 'none') {
+                // Eliminar todas las asociaciones de categorías
+                $updateProduct->categories()->detach();
+            } else {
+                // Si se han seleccionado categorías, actualizar las asociaciones
+                $categoryIds = $request->input('categories', []);
+                $updateProduct->categories()->sync($categoryIds);
+            }
+    
             DB::commit();
-            return back() -> with('mensaje', 'Producto editado exitosamente');
+            return back()->with('mensaje', 'Producto editado exitosamente');
         }catch(\Exception $e){
             DB::rollBack();
-            return back()->withErrors('No se pudo editar el producto');
+            return back()->withErrors('No se pudo editar el producto. Error: ' . $e->getMessage());
         }
     }
+    
 
     public function delete($id){
         $deleteProduct=Product::findOrFail($id);

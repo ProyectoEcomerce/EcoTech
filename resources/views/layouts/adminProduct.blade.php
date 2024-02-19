@@ -16,7 +16,7 @@
                 <th>Nombre</th>
                 <th class="d-none d-xxl-table-cell">Precio</th>
                 <th class="d-none d-xxl-table-cell">Precio oferta</th>
-                <th class="d-none d-xxl-table-cell">Voltage</th>
+                <th class="d-none d-xxl-table-cell">Voltaje</th>
                 <th class="d-none d-xxl-table-cell">Garantía</th>
                 <th class="d-none d-xxl-table-cell">Precio manufactura</th>
                 <th class="d-none d-xxl-table-cell">Peso</th>
@@ -25,7 +25,7 @@
                 <th class="d-none d-xxl-table-cell">Dimensiones</th>
                 <th class="d-none d-xxl-table-cell">Batería</th>
                 <th class="d-none d-xxl-table-cell">Motor</th>
-                <th class="d-none d-xxl-table-cell">>Componentes</th>
+                <th class="d-none d-xxl-table-cell">Componentes</th>
                 <th>Acciones</th>
 
             </tr>
@@ -47,10 +47,10 @@
                 <td class="d-none d-xxl-table-cell">{{ $product->engine }}</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->components }}</td>
                 <td>
-                    <button class="btn btn-primary d-inline-block d-xxl-none" type="button" data-bs-toggle="collapse" data-bs-target="#details{{$product->id}}" aria-expanded="false" aria-controls="details{{$product->id}}">
+                    <button class="btn btn-primary d-inline-block d-xxl-none" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
                         Ver Datos
                     </button>
-                
+                    
                 
                <a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
                         data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm"> Editar </a>
@@ -62,10 +62,53 @@
                     </form>
                 </td>
             </tr>
-
         @endforeach
     </table>
     </div>
+
+    <!-- Ver datos -->
+    @foreach ($products as $product)
+    <div class="modal fade" id="viewDetailsModal{{ $product->id }}" tabindex="-1" aria-labelledby="viewDetailsModalLabel{{ $product->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewDetailsModalLabel{{ $product->id }}">Detalles del Producto</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nombre:</strong> {{ $product->name }}</p>
+                    <p><strong>Precio:</strong> {{ $product->price }}</p>
+                    <p><strong>Precio Oferta:</strong> {{ $product->offerPrice }}</p>
+                    <p><strong>Voltaje:</strong> {{ $product->voltage }}</p>
+                    <p><strong>Garantía:</strong> {{ $product->guarantee }}</p>
+                    <p><strong>Precio manufactura:</strong> {{ $product->manufacturing_price }}</p>
+                    <p><strong>Peso:</strong> {{ $product->weight }}</p>
+                    <p><strong>Materiales:</strong> {{ $product->materials }}</p>
+                    <p><strong>Descripción:</strong> {{ $product->description }}</p>
+                    <p><strong>Dimensiones:</strong> {{ $product->dimensions }}</p>
+                    <p><strong>Batería:</strong> {{ $product->battery }}</p>
+                    <p><strong>Motor:</strong> {{ $product->engine}}</p>
+                    <p><strong>Componentes:</strong> {{ $product->components }}</p>
+                    <p><strong>Categoría(s):</strong> 
+                        @if($product->categories->isEmpty())
+                            Ninguna categoría
+                        @else
+                            @foreach($product->categories as $category)
+                                {{ $category->name }}@if(!$loop->last), @endif
+                            @endforeach
+                        @endif
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
     <div class="modal fade" id="createProductModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -218,7 +261,6 @@
             });
         }
     }
-
     // Añade un listener a cada checkbox de categoría para deseleccionar 'Ninguna categoría' si alguna categoría es seleccionada
     document.querySelectorAll('.category-checkbox').forEach((checkbox) => {
         checkbox.addEventListener('click', () => {
