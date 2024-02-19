@@ -87,18 +87,21 @@
                     <h5 class="modal-title" id="viewDetailsModalLabel{{ $product->id }}">
                         Detalles del producto: {{ $product->name }}
                     </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                 </div>
+                @php
+                    $guaranteeText= ($product->guarantee > 1 )? __("años") : __("año");
+                @endphp
                 <div class="modal-body">
                     <p><strong>Nombre:</strong> {{ $product->name }}</p>
-                    <p><strong>Precio:</strong> {{ $product->price }}</p>
-                    <p><strong>Precio Oferta:</strong> {{ $product->offerPrice }}</p>
-                    <p><strong>Voltaje:</strong> {{ $product->voltage }}</p>
-                    <p><strong>Garantía:</strong> {{ $product->guarantee }}</p>
-                    <p><strong>Precio manufactura:</strong> {{ $product->manufacturing_price }}</p>
-                    <p><strong>Peso:</strong> {{ $product->weight }}</p>
-                    <p><strong>Materiales:</strong> {{ $product->materials }}</p>
+                    <p><strong>Precio:</strong> {{ $product->price }}€</p>
+                    <p><strong>Precio Oferta:</strong> {{ $product->offerPrice }}€</p>
+                    <p><strong>Voltaje:</strong> {{ $product->voltage }}V</p>
+                    <p><strong>Garantía:</strong> {{ $product->guarantee }} {{$guaranteeText}}</p>
+                    <p><strong>Precio manufactura:</strong> {{ $product->manufacturing_price }}€</p>
+                    <p><strong>Peso:</strong> {{ $product->weigth }}</p>
+                    <p><strong>Materiales:</strong> {{ $product->materials }} kg</p>
                     <p><strong>Descripción:</strong> {{ $product->description }}</p>
                     <p><strong>Dimensiones:</strong> {{ $product->dimensions }}</p>
                     <p><strong>Batería:</strong> {{ $product->battery }}</p>
@@ -135,17 +138,17 @@
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre del producto"
                             class="form-control mb-2">
                         <input type="number" name="price" value="{{ old('price') }}" placeholder="Precio"
-                            class="form-control mb-2" autofocus>
+                            class="form-control mb-2" autofocus step="0.01">
                         <input type="number" name="offerPrice" value="{{ old('offerPrice') }}"
-                            placeholder="Precio especial" class="form-control mb-2">
+                            placeholder="Precio especial" class="form-control mb-2" step="0.01">
                         <input type="number" name="voltage" value="{{ old('voltage') }}" placeholder="Voltage"
                             class="form-control mb-2">
                         <input type="number" name="guarantee" value="{{ old('guarantee') }}" placeholder="Garantía"
                             class="form-control mb-2">
                         <input type="number" name="manufacturing_price" value="{{ old('manufacturing_price') }}"
-                            placeholder="Precio de manufactura" class="form-control mb-2">
+                            placeholder="Precio de manufactura" class="form-control mb-2" step="0.01">
                         <input type="number" name="weigth" value="{{ old('weigth') }}" placeholder="Peso"
-                            class="form-control mb-2">
+                            class="form-control mb-2" step="0.01">
                         <input type="text" name="materials" value="{{ old('materials') }}" placeholder="Materiales"
                             class="form-control mb-2">
                         <input type="text" name="description" value="{{ old('description') }}" placeholder="Descripción"
@@ -205,17 +208,17 @@
                             <input type="text" name="name" class="form-control mb-2" value="{{ $product->name }}"
                                 placeholder="Nombre" autofocus>
                             <input type="number" name="price" class="form-control mb-2"
-                                value="{{ $product->price }}" placeholder="Precio" autofocus>
+                                value="{{ $product->price }}" placeholder="Precio" autofocus step="0.01">
                             <input type="number" name="offerPrice" placeholder="Precio oferta"
-                                class="form-control mb-2" value="{{ $product->offerPrice }}">
+                                class="form-control mb-2" value="{{ $product->offerPrice }}" step="0.01">
                             <input type="number" name="voltage" class="form-control mb-2"
                                 value="{{ $product->voltage }}" placeholder="Voltage" autofocus>
                             <input type="number" name="guarantee" class="form-control mb-2"
                                 value="{{ $product->guarantee }}" placeholder="Garantía" autofocus>
                             <input type="number" name="manufacturing_price" class="form-control mb-2"
-                                value="{{ $product->manufacturing_price }}" placeholder="Manufactura" autofocus>
+                                value="{{ $product->manufacturing_price }}" placeholder="Manufactura" autofocus step="0.01">
                             <input type="number" name="weigth" class="form-control mb-2"
-                                value="{{ $product->weigth }}" placeholder="Peso" autofocus>
+                                value="{{ $product->weigth }}" placeholder="Peso" autofocus step="0.01">
                             <input type="text" name="materials" class="form-control mb-2"
                                 value="{{ $product->materials }}" placeholder="Materiales" autofocus>
 
