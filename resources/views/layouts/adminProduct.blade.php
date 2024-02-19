@@ -8,57 +8,53 @@
             producto</a>
     </div>
     
-    <div class="table-responsive">
-        <table class="table table-hover table-striped">
+    
+    <div class="table-responsive mx-4 my-2">
+        <table class="table table-hover table-striped tabla-productos">
             <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
-                <th class="d-none d-md-table-cell">Precio</th>
-                <th class="d-none d-md-table-cell">Precio oferta</th>
-                <th class="d-none d-md-table-cell">Voltage</th>
-                <th class="d-none d-md-table-cell">Garantía</th>
-                <th class="d-none d-md-table-cell">Precio manufactura</th>
-                <th class="d-none d-md-table-cell">Peso</th>
-                <th class="d-none d-md-table-cell">Materiales</th>
-                <th class="d-none d-md-table-cell">Descripción</th>
-                <th class="d-none d-md-table-cell">Dimensiones</th>
-                <th class="d-none d-md-table-cell">Batería</th>
-                <th class="d-none d-md-table-cell">Motor</th>
-                <th class="d-none d-md-table-cell">Componentes</th>
+                <th class="d-none d-xxl-table-cell">Precio</th>
+                <th class="d-none d-xxl-table-cell">Precio oferta</th>
+                <th class="d-none d-xxl-table-cell">Voltage</th>
+                <th class="d-none d-xxl-table-cell">Garantía</th>
+                <th class="d-none d-xxl-table-cell">Precio manufactura</th>
+                <th class="d-none d-xxl-table-cell">Peso</th>
+                <th class="d-none d-xxl-table-cell">Materiales</th>
+                <th class="d-none d-xxl-table-cell">Descripción</th>
+                <th class="d-none d-xxl-table-cell">Dimensiones</th>
+                <th class="d-none d-xxl-table-cell">Batería</th>
+                <th class="d-none d-xxl-table-cell">Motor</th>
+                <th class="d-none d-xxl-table-cell">>Componentes</th>
+                <th>Acciones</th>
+
             </tr>
         </thead>
         
         @foreach ($products as $product)
             <tr>
                 <td>{{ $product->name }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->price }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->offerPrice }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->voltage }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->guarantee }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->manufacturing_price }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->weigth }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->materials }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->description }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->dimensions }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->battery }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->engine }}</td>
-                <td class="d-none d-md-table-cell">{{ $product->components }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->price }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->offerPrice }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->voltage }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->guarantee }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->manufacturing_price }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->weigth }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->materials }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->description }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->dimensions }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->battery }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->engine }}</td>
+                <td class="d-none d-xxl-table-cell">{{ $product->components }}</td>
                 <td>
-                    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#details{{$product->id}}" aria-expanded="false" aria-controls="details{{$product->id}}">
+                    <button class="btn btn-primary d-inline-block d-xxl-none" type="button" data-bs-toggle="collapse" data-bs-target="#details{{$product->id}}" aria-expanded="false" aria-controls="details{{$product->id}}">
                         Ver Datos
                     </button>
-                </td>
-                <div class="collapse" id="details{{$product->id}}">
-                    <div class="card card-body">
-                        Precio: {{ $product->price }} <br>
-                        Precio Oferta: {{ $product->offerPrice }} <br>
-                        <!-- Agrega más detalles según sea necesario -->
-                    </div>
-                </div>
-                <td><a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
+                
+                
+               <a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
                         data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm"> Editar </a>
-                </td>
-                <td>
+      
                     <form action="{{ route('layouts.deleteProduct', $product->id) }}" method="POST" class="d-inline">
                         @method('DELETE')
                         @csrf

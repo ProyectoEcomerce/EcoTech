@@ -297,3 +297,15 @@ h2.display-4::after {
     font-size: 18px;
     color: #666;
 }
+
+//RESPONSIVE TABLA PRODUCTOS
+@media (min-width: 1600px) {
+    .d-xxl-table-cell {
+        display: table-cell !important;
+    }
+}
+
+.tabla-productos th, .tabla-productos td {
+    text-align: center;
+    vertical-align: middle;
+}
