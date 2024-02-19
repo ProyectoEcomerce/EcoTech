@@ -13,11 +13,13 @@ class ProductController extends Controller
     //listar los productos
     public function getProducts()
     {
+
         $products = Product::paginate(6); // Paginación de 6 productos
         return view('welcome', compact('products'));
     }
 
     public function create(Request $request){
+        
         DB::beginTransaction();
         try{
             $request->validate([
@@ -52,6 +54,12 @@ class ProductController extends Controller
             $newProduct->engine=$request->engine;
             $newProduct->components=$request->components;
             $newProduct->save();
+
+// Dentro del try del método create, después de $newProduct->save();
+
+if($request->has('categories')) {
+    $newProduct->categories()->sync($request->categories);
+}
 
             if($request->hasFile('image')){
                 foreach($request->file('image') as $img){ //Iteramos por el array de imagenes
@@ -107,6 +115,11 @@ class ProductController extends Controller
             $updateProduct->engine=$request->engine;
             $updateProduct->components=$request->components;
             $updateProduct->save();
+            // Dentro del try del método update, después de $updateProduct->save();
+
+if($request->has('categories')) {
+    $updateProduct->categories()->sync($request->categories);
+}
             DB::commit();
             return back() -> with('mensaje', 'Producto editado exitosamente');
         }catch(\Exception $e){

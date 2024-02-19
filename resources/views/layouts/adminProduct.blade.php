@@ -13,35 +13,48 @@
             <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
-                <th>Precio</th>
-                <th>Precio oferta</th>
-                <th>Voltage</th>
-                <th>Garantía</th>
-                <th>Precio manufactura</th>
-                <th>Peso</th>
-                <th>Materiales</th>
-                <th>Descripción</th>
-                <th>Dimensiones</th>
-                <th>Batería</th>
-                <th>Motor</th>
-                <th>Componentes</th>
+                <th class="d-none d-md-table-cell">Precio</th>
+                <th class="d-none d-md-table-cell">Precio oferta</th>
+                <th class="d-none d-md-table-cell">Voltage</th>
+                <th class="d-none d-md-table-cell">Garantía</th>
+                <th class="d-none d-md-table-cell">Precio manufactura</th>
+                <th class="d-none d-md-table-cell">Peso</th>
+                <th class="d-none d-md-table-cell">Materiales</th>
+                <th class="d-none d-md-table-cell">Descripción</th>
+                <th class="d-none d-md-table-cell">Dimensiones</th>
+                <th class="d-none d-md-table-cell">Batería</th>
+                <th class="d-none d-md-table-cell">Motor</th>
+                <th class="d-none d-md-table-cell">Componentes</th>
             </tr>
         </thead>
+        
         @foreach ($products as $product)
             <tr>
                 <td>{{ $product->name }}</td>
-                <td>{{ $product->price }}</td>
-                <td>{{ $product->offerPrice }}</td>
-                <td>{{ $product->voltage }}</td>
-                <td>{{ $product->guarantee }}</td>
-                <td>{{ $product->manufacturing_price }}</td>
-                <td>{{ $product->weigth }}</td>
-                <td>{{ $product->materials }}</td>
-                <td>{{ $product->description }}</td>
-                <td>{{ $product->dimensions }}</td>
-                <td>{{ $product->battery }}</td>
-                <td>{{ $product->engine }}</td>
-                <td>{{ $product->components }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->price }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->offerPrice }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->voltage }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->guarantee }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->manufacturing_price }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->weigth }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->materials }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->description }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->dimensions }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->battery }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->engine }}</td>
+                <td class="d-none d-md-table-cell">{{ $product->components }}</td>
+                <td>
+                    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#details{{$product->id}}" aria-expanded="false" aria-controls="details{{$product->id}}">
+                        Ver Datos
+                    </button>
+                </td>
+                <div class="collapse" id="details{{$product->id}}">
+                    <div class="card card-body">
+                        Precio: {{ $product->price }} <br>
+                        Precio Oferta: {{ $product->offerPrice }} <br>
+                        <!-- Agrega más detalles según sea necesario -->
+                    </div>
+                </div>
                 <td><a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
                         data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm"> Editar </a>
                 </td>
@@ -53,6 +66,7 @@
                     </form>
                 </td>
             </tr>
+
         @endforeach
     </table>
     </div>
@@ -94,6 +108,25 @@
                         <input type="text" name="components" value="{{ old('components') }}" placeholder="Componentes"
                             class="form-control mb-2">
                         <input type="file" name="image[]" accept="image/" class="form-control mb-2" multiple>
+
+                        <div class="mb-2">
+                            <p>Categorías:</p>
+                            <div class="form-check">
+                                <!-- Checkbox para 'Ninguna categoría' -->
+                                <input class="form-check-input" type="checkbox" name="no_category" value="none" id="noCategory" onclick="handleNoCategory()">
+                                <label class="form-check-label" for="noCategory">
+                                    Ninguna categoría
+                                </label>
+                            </div>
+                            @foreach ($categories as $category)
+                                <div class="form-check">
+                                    <input class="form-check-input category-checkbox" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                                    <label class="form-check-label" for="category{{ $category->id }}">
+                                        {{ $category->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
 
                         <button class="btn btn-primary btn-block" type="submit">
                             Crear nuevo producto
@@ -149,6 +182,28 @@
 
                             <input type="text" name="components" class="form-control mb-2"
                                 value="{{ $product->components }}" placeholder="Componentes" autofocus>
+
+
+                                <div class="mb-2">
+                                    <p>Categorías:</p>
+                                    <div class="form-check">
+                                        <!-- Checkbox para 'Ninguna categoría' -->
+                                        <input class="form-check-input" type="checkbox" name="no_category" value="none" id="noCategory" onclick="handleNoCategory()">
+                                        <label class="form-check-label" for="noCategory">
+                                            Ninguna categoría
+                                        </label>
+                                    </div>
+                                    @foreach ($categories as $category)
+                                        <div class="form-check">
+                                            <input class="form-check-input category-checkbox" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                                            <label class="form-check-label" for="category{{ $category->id }}">
+                                                {{ $category->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                
+
                             <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
                         </form>
                     </div>
@@ -158,3 +213,20 @@
     @endforeach
 
 @endsection
+<script>
+    function handleNoCategory() {
+        // Si 'Ninguna categoría' está seleccionado, deselecciona todos los otros checkboxes
+        if (document.getElementById('noCategory').checked) {
+            document.querySelectorAll('.category-checkbox').forEach((checkbox) => {
+                checkbox.checked = false;
+            });
+        }
+    }
+
+    // Añade un listener a cada checkbox de categoría para deseleccionar 'Ninguna categoría' si alguna categoría es seleccionada
+    document.querySelectorAll('.category-checkbox').forEach((checkbox) => {
+        checkbox.addEventListener('click', () => {
+            document.getElementById('noCategory').checked = false;
+        });
+    });
+</script>
