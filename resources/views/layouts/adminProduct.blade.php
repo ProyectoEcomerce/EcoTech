@@ -72,6 +72,7 @@
                             class="form-control mb-2" autofocus>
                         <input type="text" name="offerPrice" value="{{ old('offerPrice') }}"
                             placeholder="Precio especial" class="form-control mb-2">
+                            
                         <input type="text" name="voltage" value="{{ old('voltage') }}" placeholder="Voltage"
                             class="form-control mb-2">
                         <input type="text" name="guarantee" value="{{ old('guarantee') }}" placeholder="Garantía"
@@ -93,9 +94,11 @@
                         <input type="text" name="components" value="{{ old('components') }}" placeholder="Componentes"
                             class="form-control mb-2">
                         <input type="file" name="image[]" accept="image/" class="form-control mb-2" multiple>
+
                         <button class="btn btn-primary btn-block" type="submit">
                             Crear nuevo producto
                         </button>
+                        
                     </form>
                 </div>
             </div>
