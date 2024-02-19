@@ -70,7 +70,7 @@
                 @endforeach
                   <div class="card-body">
                       <h5 class="card-title">{{ $product->name }}</h5>
-                      <p class="card-text">{{ $product->description }}</p>
+                      <p class="card-text">{{ substr($product->description,0,120) }}...</p>
                       <p class="card-text">{{ $product->price }}€</p>
                       <div class="d-grid gap-2 pb-1">
                           <a href="{{route('show.item', $product->id)}}" class="btn btn-primary" id="boton-card" role="button">{{__("Ver producto")}}</a>

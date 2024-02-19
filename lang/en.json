@@ -31,5 +31,18 @@
     "Cantidad:":"Amount:",
     "Eliminar":"Delete",
     "Comprar":"Pucharse",
-    "Tu carrito está vacío":"Your cart is empty"
+    "Tu carrito está vacío":"Your cart is empty",
+    "años" : "years",
+    "año" : "year",
+    "Voltaje: ":"Voltage: ",
+    "Garantía: ": "Guarantee: ",
+    "Costo de montaje: ": "Manufacturing price: ",
+    "Peso: ":"Weigth: ",
+    "Materiales: ":"Materials: ",
+    "Dimensiones: ":"Dimensions: ",
+    "Bateria: ":"Battery: ",
+    "Motor: ":"Engine: ",
+    "Componentes: ":"Components: ",
+    "Especificaciones":"Specifications"
+
 }

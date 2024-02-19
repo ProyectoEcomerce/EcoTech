@@ -28,14 +28,17 @@
             </tr>
         </thead>
         @foreach ($products as $product)
+        @php
+            $guaranteeText= ($product->guarantee > 1 )? __("años") : __("año");
+        @endphp
             <tr>
                 <td>{{ $product->name }}</td>
-                <td>{{ $product->price }}</td>
-                <td>{{ $product->offerPrice }}</td>
-                <td>{{ $product->voltage }}</td>
-                <td>{{ $product->guarantee }}</td>
-                <td>{{ $product->manufacturing_price }}</td>
-                <td>{{ $product->weigth }}</td>
+                <td>{{ $product->price }}€</td>
+                <td>{{ $product->offerPrice }}€</td>
+                <td>{{ $product->voltage }}V</td>
+                <td>{{ $product->guarantee }} {{$guaranteeText}}</td>
+                <td>{{ $product->manufacturing_price }}€</td>
+                <td>{{ $product->weigth }}kg</td>
                 <td>{{ $product->materials }}</td>
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->dimensions }}</td>
@@ -68,17 +71,17 @@
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre del producto"
                             class="form-control mb-2">
-                        <input type="text" name="price" value="{{ old('price') }}" placeholder="Precio"
+                        <input type="number" name="price" value="{{ old('price') }}" placeholder="Precio"
                             class="form-control mb-2" autofocus>
-                        <input type="text" name="offerPrice" value="{{ old('offerPrice') }}"
+                        <input type="number" name="offerPrice" value="{{ old('offerPrice') }}"
                             placeholder="Precio especial" class="form-control mb-2">
-                        <input type="text" name="voltage" value="{{ old('voltage') }}" placeholder="Voltage"
+                        <input type="number" name="voltage" value="{{ old('voltage') }}" placeholder="Voltage"
                             class="form-control mb-2">
-                        <input type="text" name="guarantee" value="{{ old('guarantee') }}" placeholder="Garantía"
+                        <input type="number" name="guarantee" value="{{ old('guarantee') }}" placeholder="Garantía"
                             class="form-control mb-2">
-                        <input type="text" name="manufacturing_price" value="{{ old('manufacturing_price') }}"
+                        <input type="number" name="manufacturing_price" value="{{ old('manufacturing_price') }}"
                             placeholder="Precio de manufactura" class="form-control mb-2">
-                        <input type="text" name="weigth" value="{{ old('weigth') }}" placeholder="Peso"
+                        <input type="number" name="weigth" value="{{ old('weigth') }}" placeholder="Peso"
                             class="form-control mb-2">
                         <input type="text" name="materials" value="{{ old('materials') }}" placeholder="Materiales"
                             class="form-control mb-2">
@@ -117,17 +120,17 @@
                             {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                             <input type="text" name="name" class="form-control mb-2" value="{{ $product->name }}"
                                 placeholder="Nombre" autofocus>
-                            <input type="text" name="price" class="form-control mb-2"
+                            <input type="number" name="price" class="form-control mb-2"
                                 value="{{ $product->price }}" placeholder="Precio" autofocus>
-                            <input type="text" name="offerPrice" placeholder="Precio oferta"
+                            <input type="number" name="offerPrice" placeholder="Precio oferta"
                                 class="form-control mb-2" value="{{ $product->offerPrice }}">
-                            <input type="text" name="voltage" class="form-control mb-2"
+                            <input type="number" name="voltage" class="form-control mb-2"
                                 value="{{ $product->voltage }}" placeholder="Voltage" autofocus>
-                            <input type="text" name="guarantee" class="form-control mb-2"
+                            <input type="number" name="guarantee" class="form-control mb-2"
                                 value="{{ $product->guarantee }}" placeholder="Garantía" autofocus>
-                            <input type="text" name="manufacturing_price" class="form-control mb-2"
+                            <input type="number" name="manufacturing_price" class="form-control mb-2"
                                 value="{{ $product->manufacturing_price }}" placeholder="Manufactura" autofocus>
-                            <input type="text" name="weigth" class="form-control mb-2"
+                            <input type="number" name="weigth" class="form-control mb-2"
                                 value="{{ $product->weigth }}" placeholder="Peso" autofocus>
                             <input type="text" name="materials" class="form-control mb-2"
                                 value="{{ $product->materials }}" placeholder="Materiales" autofocus>

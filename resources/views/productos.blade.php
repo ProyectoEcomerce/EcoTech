@@ -47,20 +47,24 @@
         </div>
     </div>
 
+    @php
+        $guaranteeText= ($product->guarantee > 1 )? __("años") : __("año");
+    @endphp
+
     <div class="row">
         <div class="col">
             <div class="card border-0">
                 <div class="card-body">
-                    <h5 class="card-title">Especificaciones</h5>
-                    <p class="card-text">{{$product->voltage}}</p>
-                    <p class="card-text">{{$product->guarantee}}</p>
-                    <p class="card-text">{{$product->manufacturing_price}}</p>
-                    <p class="card-text">{{$product->weigth}}</p>
-                    <p class="card-text">{{$product->materials}}</p>
-                    <p class="card-text">{{$product->dimensions}}</p>
-                    <p class="card-text">{{$product->battery}}</p>
-                    <p class="card-text">{{$product->engine}}</p>
-                    <p class="card-text">{{$product->components}}</p>
+                    <h5 class="card-title">{{__("Especificaciones")}}</h5>
+                    <p class="card-text">{{__("Voltaje: ")}}{{$product->voltage}} V</p>
+                    <p class="card-text">{{__("Garantía: ")}}{{$product->guarantee}} {{$guaranteeText}}</p>
+                    <p class="card-text">{{__("Costo de montaje: ")}}{{$product->manufacturing_price}} €</p>
+                    <p class="card-text">{{__("Peso: ")}}{{$product->weigth}} kg</p>
+                    <p class="card-text">{{__("Materiales: ")}}{{$product->materials}}</p>
+                    <p class="card-text">{{__("Dimensiones: ")}}{{$product->dimensions}}</p>
+                    <p class="card-text">{{__("Bateria: ")}}{{$product->battery}}</p>
+                    <p class="card-text">{{__("Motor: ")}}{{$product->engine}}</p>
+                    <p class="card-text">{{__("Componentes: ")}}{{$product->components}}</p>
                 </div>
             </div>
         </div>
