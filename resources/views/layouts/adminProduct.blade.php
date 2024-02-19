@@ -10,7 +10,7 @@
     
     
     <div class="table-responsive mx-4 my-2">
-        <table class="table table-hover table-striped tabla-productos">
+        <table class="table table-hover  tabla-productos">
             <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
@@ -55,7 +55,7 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-primary btn-sm d-inline-block d-xxl-none" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
+                    <button class="btn btn-primary btn-sm d-inline-block d-xxl-none" id="btn-tabla-productos" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
                         Ver Datos
                     </button>
                     

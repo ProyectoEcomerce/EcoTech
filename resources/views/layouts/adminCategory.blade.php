@@ -83,78 +83,7 @@
     </div>
     @endforeach
 
-    <div class="container mt-5">
-        <!-- Título de la sección -->
-        <h2 class="mb-4">Añadir y Eliminar Productos de Categorías</h2>
-    
-        <!-- Tabla de categorías con botones de añadir/eliminar -->
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Nombre de la Categoría</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($categories as $category)
-                    <tr>
-                        <td>{{ $category->name }}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#addProductsModal{{ $category->id }}">
-                                Añadir/Eliminar Productos
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-@foreach ($categories as $category)
-<div class="modal fade" id="addProductsModal{{ $category->id }}" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Gestionar Productos en {{ $category->name }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="manageProductsForm{{ $category->id }}" method="POST" class="px-4 py-3">
-                    @csrf
-                    <label for="productSelect{{ $category->id }}" class="form-label">Selecciona los productos</label>
-                    <select id="productSelect{{ $category->id }}" name="product_ids[]" class="form-select" multiple>
-                        @foreach ($allProducts as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                        @endforeach
-                    </select>
-                </form>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <!-- Botón para añadir productos a la categoría -->
-                <div>
-                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.addProducts', $category->id) }}" class="btn btn-secondary me-2">Añadir Seleccionados</button>
-                    <!-- Botón para eliminar productos de la categoría -->
-                    <button type="submit" form="manageProductsForm{{ $category->id }}" formaction="{{ route('category.removeProducts', $category->id) }}" class="btn btn-danger">Eliminar Seleccionados</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 
-
-<div class="container">
-    @foreach ($categories as $category)
-        <h3 class="category-name">{{ $category->name }}</h3>
-        <ul class="products-list">
-            @foreach ($category->products as $product)
-                <li>{{ $product->name }}</li>
-            @endforeach
-        </ul>
-    @endforeach
-</div>
 
 @endsection
 
