@@ -39,10 +39,10 @@
                         @if (Route::has('login'))
                             @auth
                                 @if (auth()->user()->hasRole('admin'))
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.index') }}"
-                                            class="nav-link">{{ __('Panel de Administración') }}</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.index') }}" class="nav-link">{{ __('Panel de Administración') }}</a>
+                                </li>
+                                
                                 @endif
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="/">{{ __('Inicio') }}</a>
