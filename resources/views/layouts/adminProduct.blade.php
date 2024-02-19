@@ -12,6 +12,7 @@
     <div class="table-responsive mx-4 my-2">
         <table class="table table-hover  tabla-productos">
             <thead class="table-dark">
+                
             <tr>
                 <th>Nombre</th>
                 <th class="d-none d-xxl-table-cell">Precio</th>
@@ -55,7 +56,7 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-primary btn-sm d-inline-block d-xxl-none" id="btn-tabla-productos" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
+                    <button class="btn btn-secondary btn-sm d-inline-block d-xxl-none" id="btn-tabla-productos" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
                         Ver Datos
                     </button>
                     
@@ -80,10 +81,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewDetailsModalLabel{{ $product->id }}">Detalles del Producto</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="viewDetailsModalLabel{{ $product->id }}">
+                        Detalles del producto: {{ $product->name }}
+                    </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                 </div>
                 <div class="modal-body">
                     <p><strong>Nombre:</strong> {{ $product->name }}</p>
@@ -121,8 +123,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title">Añadir Producto</h1>
-                    <button type="button" class="close" data-dismiss="modal">&times; </button>
+                    <h5 class="modal-title">Añadir producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('layouts.createProduct') }}" method="POST" enctype="multipart/form-data">
@@ -175,7 +177,7 @@
                             @endforeach
                         </div>
 
-                        <button class="btn btn-primary btn-block" type="submit">
+                        <button class="btn btn-secondary btn-block" type="submit">
                             Crear nuevo producto
                         </button>
                         
@@ -190,8 +192,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2>Editando la nota {{ $product->name }}</h2>
-                        <button type="button" class="close" data-dismiss="modal">&times; </button>
+                        <h5>Editando el producto: {{ $product->name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="{{ route('layouts.updateProduct', $product->id) }}" method="POST">
@@ -251,7 +253,7 @@
                                 </div>
                                 
 
-                            <button class="btn btn-primary btn-block" type="submit">Guardar cambios</button>
+                            <button class="btn btn-secondary btn-block" type="submit">Guardar cambios</button>
                         </form>
                     </div>
                 </div>

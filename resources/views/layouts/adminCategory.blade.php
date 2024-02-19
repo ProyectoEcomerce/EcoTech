@@ -39,8 +39,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title">Añadir Categoría</h1>
-                    <button type="button" class="close" data-dismiss="modal">&times; </button>
+                    <h1 class="modal-title">Añadir categoría</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
                 <div class="modal-body">
@@ -48,7 +48,7 @@
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre de la categoria" class="form-control mb-2">
 
-                        <button class="btn btn-primary btn-block" type="submit">
+                        <button class="btn btn-secondary btn-block" type="submit">
                             Crear nueva categoría
                         </button>
 
@@ -65,7 +65,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Editando la nota {{ $category->name }}</h2>
+                    <h2>Editando la categoría: {{ $category->name }}</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
