@@ -45,12 +45,12 @@ Fortify::verifyEmailView(function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware('admin')->group(function () {
-    Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.index');
+    Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.product');
     Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
     Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
     Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
-    Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.index');
+    Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.category');
     Route::post('createCategory', [CategoryController::class, 'create'])->name('layouts.createCategory');
     Route::put('edit_category/{id}', [CategoryController::class, 'update'])->name('layouts.updateCategory');
     Route::delete('delete_category/{id}', [CategoryController::class, 'delete'])->name('layouts.deleteCategory');
@@ -58,6 +58,9 @@ Route::middleware('admin')->group(function () {
     Route::post('categories/{category}/remove-products', [CategoryController::class, 'removeProducts'])->name('category.removeProducts');
 
     Route::get('/categorias-productos', [ProductController::class, 'index'])->name('categorias.productos');
+
+    //RUTA PARA VISTA DE PANEL DE PRODUCTOS Y CATEGORIAS
+    Route::view('/panel', 'panel')->name('admin.index');
 
 });
 
