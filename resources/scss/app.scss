@@ -301,13 +301,14 @@ h2.display-4::after {
 //RESPONSIVE TABLA PRODUCTOS
 @media (min-width: 1600px) {
     .d-xxl-table-cell {
-        display: table-cell !important;
+        display: table-cell;
     }
 }
 
 .tabla-productos th, .tabla-productos td {
     text-align: center;
     vertical-align: middle;
+    
 }
 
 #btn-tabla-productos{    

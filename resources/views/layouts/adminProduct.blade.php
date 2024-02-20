@@ -10,7 +10,7 @@
     
     
     <div class="table-responsive mx-4 my-2">
-        <table class="table table-hover  tabla-productos">
+        <table class="table table table-hover tabla-productos" style="font-size: 14px;">
             <thead class="table-dark">
                 
             <tr>
