@@ -4,7 +4,7 @@
 @section('content')
     <h1 class="text-center">Productos</h1>
     <div class="d-flex justify-content-center">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#createProductModal" class="btn btn-success mb-5">Añadir
+        <a href="#" data-bs-toggle="modal" data-bs-target="#createProductModal" class="btn btn-success mb-5"><i class="fas fa-plus"></i> Añadir
             producto</a>
     </div>
     
@@ -57,17 +57,17 @@
                 </td>
                 <td>
                     <button class="btn btn-secondary btn-sm d-inline-block d-xxl-none" id="btn-tabla-productos" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
-                        Ver Datos
+                        <i class="fas fa-eye"></i>
                     </button>
                     
                 
                <a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
-                        data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm" id="btn-tabla-productos"> Editar </a>
+                        data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm" id="btn-tabla-productos"><i class="fas fa-edit"></i>  </a>
       
                     <form action="{{ route('layouts.deleteProduct', $product->id) }}" method="POST" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button class="btn btn-danger btn-sm" type="submit" id="btn-tabla-productos">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" type="submit" id="btn-tabla-productos"><i class="fas fa-trash"></i> </button>
                     </form>
                 </td>
             </tr>

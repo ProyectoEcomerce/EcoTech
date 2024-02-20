@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Categorías</h1>
     <div class="d-flex justify-content-between mb-2">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Añadir categoría</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal"><i class="fas fa-plus"></i> Añadir categoría</button>
     </div>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -21,11 +21,11 @@
                 <tr>
                     <td>{{ $category->name}}</td>
                     <td>
-                        <a href="#editCategoryModal{{$category->id}}" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{$category->id}}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="#editCategoryModal{{$category->id}}" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{$category->id}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('layouts.deleteCategory', $category->id) }}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
-                            <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                            <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>
