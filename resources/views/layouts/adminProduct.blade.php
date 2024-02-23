@@ -116,6 +116,13 @@
                             @endforeach
                         @endif
                     </p>
+                    <p><strong>Estado de visibilidad</strong>
+                        @if($product->show)
+                            El produto es visible
+                        @else
+                            El producto no es visible
+                        @endif
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -180,6 +187,10 @@
                                     </label>
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="form-check form-switch">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Visibilidad del producto</label>
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="show" {{$product->show ? 'checked': ''}}>
                         </div>
 
                         <button class="btn btn-secondary btn-block" type="submit">
