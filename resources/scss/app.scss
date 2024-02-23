@@ -94,7 +94,7 @@ footer {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-  }
+}
   
   .carousel-caption {
     background-color: rgba(0,0,0,0.5); /* Fondo semitransparente */
@@ -107,6 +107,9 @@ footer {
     filter: invert(100%);
   }  
 
+.carousel-image {
+    margin: auto;
+}
 /**/
 .offcanvas-header {
     background-color: #f8f9fa;
