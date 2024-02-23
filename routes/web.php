@@ -48,7 +48,7 @@ Route::middleware('admin')->group(function () {
     Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.product');
     Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
     Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
-    Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+    //Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
 
     Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.category');
     Route::post('createCategory', [CategoryController::class, 'create'])->name('layouts.createCategory');

@@ -138,7 +138,7 @@ class ProductController extends Controller
     }
     
 
-    public function delete($id){
+    /*public function delete($id){
         $deleteProduct=Product::findOrFail($id);
         DB::beginTransaction();
         try{
@@ -153,7 +153,7 @@ class ProductController extends Controller
             DB::rollBack();
             return back()->withErrors('No se pudo eliminar el producto');
         }
-    }
+    }*/
 
     public function adminIndex(){
         $products = Product::paginate(9); // Paginación de 9 productos
