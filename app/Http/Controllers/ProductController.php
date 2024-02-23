@@ -167,6 +167,18 @@ class ProductController extends Controller
  
     }
 
-    
+    public function changeVisibility(Request $request, $id){
+        DB::beginTransaction();
+        try{
+            $updateVisibility=Product::findOrFail($id);
+            $updateVisibility->show = !$updateVisibility->show; //Toggle de el boolean
+            $updateVisibility->save();
+            DB::commit();
+            return redirect()->back();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->withErrors('No se pudo eliminar el producto');
+        }
+    }
 }
 

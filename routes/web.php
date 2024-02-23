@@ -49,6 +49,7 @@ Route::middleware('admin')->group(function () {
     Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
     Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
     //Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+    Route::post('edit_product/{id}', [ProductController::class, 'changeVisibility'])->name('product.changeVisibility');
 
     Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.category');
     Route::post('createCategory', [CategoryController::class, 'create'])->name('layouts.createCategory');
