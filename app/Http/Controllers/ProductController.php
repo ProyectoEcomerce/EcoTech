@@ -55,11 +55,11 @@ class ProductController extends Controller
             $newProduct->components=$request->components;
             $newProduct->save();
 
-// Dentro del try del método create, después de $newProduct->save();
+            // Dentro del try del método create, después de $newProduct->save();
 
-if($request->has('categories')) {
-    $newProduct->categories()->sync($request->categories);
-}
+            if($request->has('categories')) {
+                $newProduct->categories()->sync($request->categories);
+            }
 
             if($request->hasFile('image')){
                 foreach($request->file('image') as $img){ //Iteramos por el array de imagenes
@@ -98,7 +98,8 @@ if($request->has('categories')) {
                 'dimensions'=>'required',
                 'battery'=>'required',
                 'engine'=>'required',
-                'components'=>'required'
+                'components'=>'required',
+                'show'=>'boolean'
             ]);
             $updateProduct=Product::findOrFail($id);
             $updateProduct->name=$request->name;
@@ -114,7 +115,7 @@ if($request->has('categories')) {
             $updateProduct->battery=$request->battery;
             $updateProduct->engine=$request->engine;
             $updateProduct->components=$request->components;
-            $updateProduct->save();
+
     
             // Verificar si se seleccionó "Ninguna categoría"
             if($request->input('no_category') == 'none') {
@@ -125,6 +126,8 @@ if($request->has('categories')) {
                 $categoryIds = $request->input('categories', []);
                 $updateProduct->categories()->sync($categoryIds);
             }
+            $updateProduct->show=boolval($request->show);
+            $updateProduct->save();
     
             DB::commit();
             return back()->with('mensaje', 'Producto editado exitosamente');

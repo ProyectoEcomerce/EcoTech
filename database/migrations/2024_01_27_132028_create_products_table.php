@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('engine', 65);
             $table->string('components', 105);
             $table->integer('favouriteCounter')->default(0);
+            $table->boolean('show')->default(true);
         });
     }
 

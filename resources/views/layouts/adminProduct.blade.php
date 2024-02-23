@@ -256,7 +256,10 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="show" {{$product->show ? 'checked': ''}}>
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Cambiar Visibilidad</label>
+                                </div>
 
                             <button class="btn btn-secondary btn-block" type="submit">Guardar cambios</button>
                         </form>

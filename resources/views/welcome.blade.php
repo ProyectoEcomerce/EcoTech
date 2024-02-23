@@ -63,6 +63,7 @@
     <p class="lead text-muted">{{__("La mejor selección para tus necesidades")}}</p>    
     <div class="row g-4">
         @foreach ($products as $product)
+        @if($product->show)
           <div class="col-12 col-md-4">
               <div class="card">
                 @foreach($product->image()->paginate(1) as $img)
@@ -104,6 +105,7 @@
                   </div>
               </div>
           </div>
+          @endif
         @endforeach
     </div>
 </div>
