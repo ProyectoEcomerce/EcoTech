@@ -20,22 +20,25 @@
 @section('content')
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
-    @foreach ($products->sortByDesc('favouriteCounter')->take(8) as $product)
+    @foreach ($carouselProducts as $carouselProduct)
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}" aria-label="Slide {{ $loop->index + 1 }}"></button>
      @endforeach
   </div>
 
     <div class="carousel-inner">
-      @foreach ($products->sortByDesc('favouriteCounter')->take(8) as $product)
+      @foreach ($carouselProducts as $carouselProduct)
       <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-        <a href="{{route('show.item', $product->id)}}">
-        @foreach($product->image()->paginate(1) as $img)
-            <img class="d-block w-auto h-auto carousel-image" src="{{ asset($img->product_photo) }}" alt="{{ $product->name }}">
+        <a href="{{route('show.item', $carouselProduct->id)}}">
+        @php
+          $images = $carouselProduct->image;
+        @endphp
+        @foreach($images->take(1) as $img)
+            <img class="d-block w-auto h-auto carousel-image" src="{{ asset($img->product_photo) }}" alt="{{ $carouselProduct->name }}">
         @endforeach
         <div class="carousel-caption d-none d-md-block" >
           
-          <h5>{{$product->name}}</h5>
-          <p>{{$product->price}}€</p>
+          <h5>{{$carouselProduct->name}}</h5>
+          <p>{{$carouselProduct->price}}€</p>
         </div>
         </a> 
       </div>
@@ -62,8 +65,13 @@
         @if($product->show)
           <div class="col-12 col-md-4">
               <div class="card">
-                @foreach($product->image()->paginate(1) as $img)
-                  <img class="card-img-top img-fluid" src="{{ asset($img->product_photo) }}" alt="{{ $product->name }}">
+                @php
+                    // Obtener todas las imágenes para este producto
+                    $images = $product->image;
+                @endphp
+                @foreach ($images->take(1) as $img)
+                    <!-- Cogemos solo la 1º imagen -->
+                    <img class="card-img-top img-fluid" src="{{ asset($img->product_photo) }}" alt="{{ $product->name }}">
                 @endforeach
                   <div class="card-body">
                       <h5 class="card-title">{{ $product->name }}</h5>
@@ -103,6 +111,9 @@
           </div>
           @endif
         @endforeach
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      {{ $products->links('pagination::bootstrap-4') }}
     </div>
 </div>
 </main>

@@ -13,9 +13,11 @@ class ProductController extends Controller
     //listar los productos
     public function getProducts()
     {
+        $products = Product::where('show', true)->paginate(3);; // Paginación de 3 productos
 
-        $products = Product::paginate(6); // Paginación de 6 productos
-        return view('welcome', compact('products'));
+        $carouselProducts= Product::where('show', true)->orderByDesc('favouriteCounter')->take(8)->get();
+
+        return view('welcome', compact('products','carouselProducts'));
     }
 
     public function create(Request $request){
@@ -154,11 +156,6 @@ class ProductController extends Controller
             return back()->withErrors('No se pudo eliminar el producto');
         }
     }*/
-
-    public function adminIndex(){
-        $products = Product::paginate(9); // Paginación de 9 productos
-        return view('layouts.adminProduct', compact('products'));
-    }
 
     public function showProduct($id){
         $product=Product::findOrFail($id);
