@@ -25,7 +25,7 @@
                         <form action="{{ route('layouts.deleteCategory', $category->id) }}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
-                            <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('¿Seguro que quieres eliminar esta categoría?')"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre de la categoria" class="form-control mb-2">
 
-                        <button class="btn btn-secondary btn-block" type="submit">
+                        <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres crear la categoría?')">
                             Crear nueva categoría
                         </button>
 
@@ -75,7 +75,7 @@
                         {{-- Cláusula para obtener un token de formulario al enviarlo --}}
                         <input type="text" name="name" class="form-control mb-2" value="{{ $category->name }}"
                         placeholder="Nombre" autofocus>
-                        <button class="btn btn-secondary btn-block" type="submit">Guardar cambios</button>
+                        <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres editar la categoria '+'{{ $category->name}}'+'?')">Guardar cambios</button>
                     </form>
                 </div>
             </div>
