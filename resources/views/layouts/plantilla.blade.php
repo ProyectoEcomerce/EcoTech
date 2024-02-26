@@ -59,22 +59,28 @@
                                 </li>
                             @endauth
                         @endif
+                        <!-- Idiomas -->
                         <li class="nav-item">
                             <div class="dropdown">
-                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ __('Lenguajes') }}
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if(App::getLocale() == 'es')
+                                        🇪🇸 
+                                    @else
+                                        🇬🇧 
+                                    @endif
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('changeLanguage', ['locale' => 'es']) }}">{{ __('Español') }}</a>
-                                    </li>
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('changeLanguage', ['locale' => 'en']) }}">{{ __('Ingles') }}</a>
-                                    </li>
+                                    <!-- Si el idioma actual es español, muestra la opción para cambiar a inglés y viceversa -->
+                                    @if(App::getLocale() == 'es')
+                                        <li><a class="dropdown-item" href="{{ route('changeLanguage', ['locale' => 'en']) }}">🇬🇧 English</a></li>
+                                    @else
+                                        <li><a class="dropdown-item" href="{{ route('changeLanguage', ['locale' => 'es']) }}">🇪🇸 Español</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </li>
+                        
+                        
                     </ul>
                 </div>
             </div>
@@ -93,7 +99,11 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $category->id }}">
                             @foreach ($category->products as $product)
-                                <li><a class="dropdown-item" href="#">{{ $product->name }}</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('show.item', $product->id) }}">
+                                        {{ $product->name }}
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -101,6 +111,7 @@
             </div>
         </div>
     </div>
+    
 
 
 
