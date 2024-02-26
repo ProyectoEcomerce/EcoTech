@@ -263,8 +263,8 @@
                                     @endforeach
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="show" {{$product->show ? 'checked': ''}}>
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Cambiar Visibilidad</label>
+                                    <input class="form-check-input" type="checkbox"  name="show" {{$product->show ? 'checked': ''}}>
+                                    <label class="form-check-label" >Cambiar Visibilidad</label>
                                 </div>
 
                             <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres guardar los cambios del producto: '+ '{{$product->name}}' +'?')">

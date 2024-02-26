@@ -20,6 +20,7 @@ class ProductController extends Controller
         return view('welcome', compact('products','carouselProducts'));
     }
 
+    //Crear nuevo producto
     public function create(Request $request){
         
         DB::beginTransaction();
@@ -84,6 +85,7 @@ class ProductController extends Controller
         
     }
 
+    //Actualizar producto como admin
     public function update(Request $request, $id){
         DB::beginTransaction();
         try{
@@ -157,13 +159,13 @@ class ProductController extends Controller
         }
     }*/
 
+    //Mostrar producto concreto con su información
     public function showProduct($id){
         $product=Product::findOrFail($id);
         return view('productos', compact('product') );
-
- 
     }
 
+    //Ocultar producto
     public function changeVisibility(Request $request, $id){
         DB::beginTransaction();
         try{
@@ -178,6 +180,7 @@ class ProductController extends Controller
         }
     }
 
+    //Mostrar productos en la vista admin
     public function adminIndex(){
         $products = Product::paginate(6); // Paginación de 9 productos
         return view('layouts.adminProduct', compact('products'));
