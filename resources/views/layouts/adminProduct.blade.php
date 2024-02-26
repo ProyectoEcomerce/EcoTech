@@ -62,7 +62,7 @@
       
                     <form class="d-inline-block" method="POST" action="{{route('product.changeVisibility', $product->id)}}">
                         @csrf
-                        <button class="btn btn-secondary btn-sm d-inline-block" type="submit">
+                        <button class="btn btn-secondary btn-sm d-inline-block" type="submit" onclick="return confirm('¿Quieres cambiar la visibilidad del producto a '+ '{{$product->show ? 'oculto' : 'visible' }}' +'?')">
                             <i class="fas {{ $product->show ? 'fa-eye' : 'fa-eye-slash' }}"></i>
                         </button>
                     </form>
@@ -188,7 +188,7 @@
                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="show" {{$product->show ? 'checked': ''}}>
                         </div>
 
-                        <button class="btn btn-secondary btn-block" type="submit">
+                        <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres crear este nuevo producto?')">
                             Crear nuevo producto
                         </button>
                         
@@ -267,12 +267,17 @@
                                     <label class="form-check-label" for="flexSwitchCheckDefault">Cambiar Visibilidad</label>
                                 </div>
 
-                            <button class="btn btn-secondary btn-block" type="submit">Guardar cambios</button>
+                            <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres guardar los cambios del producto: '+ '{{$product->name}}' +'?')">
+                                Guardar cambios
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
+    <div class="d-flex justify-content-center mt-4">
+        {{ $products->links('pagination::bootstrap-4') }}
+      </div>
 
 @endsection

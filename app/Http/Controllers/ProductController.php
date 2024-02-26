@@ -177,5 +177,10 @@ class ProductController extends Controller
             return back()->withErrors('No se pudo eliminar el producto');
         }
     }
+
+    public function adminIndex(){
+        $products = Product::paginate(6); // Paginación de 9 productos
+        return view('layouts.adminProduct', compact('products'));
+    }
 }
 
