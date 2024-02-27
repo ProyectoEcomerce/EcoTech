@@ -59,4 +59,14 @@ class OrderController extends Controller
         return $pdf->download('invoice.pdf');
     }
 
+    public function showBuyView()
+    {
+        $user = auth()->user();
+        $addresses = $user->addresses;
+        $cart = $user->cart;
+        $products = $cart->products;
+
+        // Pasa las variables a la vista
+        return view('orders.buy', compact('user', 'addresses', 'cart', 'products'));
+    }
 }
