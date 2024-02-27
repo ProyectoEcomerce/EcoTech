@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\WishlistController;
 
 use App\Models\Cart;
@@ -59,6 +60,9 @@ Route::middleware('admin')->group(function () {
     Route::post('categories/{category}/remove-products', [CategoryController::class, 'removeProducts'])->name('category.removeProducts');
 
     Route::get('/categorias-productos', [ProductController::class, 'index'])->name('categorias.productos');
+
+    Route::get('adminCoupon', [CouponController::class, 'adminCoupon'])->name('admin.coupon');
+    Route::post('createCoupon', [CouponController::class, 'create'])->name('layouts.createCoupon');
 
     //RUTA PARA VISTA DE PANEL DE PRODUCTOS Y CATEGORIAS
     Route::view('/panel', 'panel')->name('admin.index');
