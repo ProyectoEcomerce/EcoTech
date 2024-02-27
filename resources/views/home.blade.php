@@ -51,6 +51,20 @@
                     </a>
                 </div>
 
+                <!-- Métodos de pago -->
+                <!-- Métodos de pago -->
+                <div class="col">
+                    <a href="{{ route('payment.methods') }}" class="card-link text-decoration-none">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-credit-card"></i> {{ __('Métodos de pago') }}</h5>
+                                <p class="card-text">{{ __('Añadir o eliminar métodos de pago') }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
                 <!-- Edición de cuenta -->
                 <div class="col">
                     <a href="{{ route('account.edit') }}" class="card-link text-decoration-none">
@@ -90,12 +104,11 @@
 @endsection
 
 @section('scripts')
-<script>
-    function confirmLogout() {
-        if (confirm("{{ __('¿Estás seguro de que quieres cerrar sesión?') }}")) {
-            document.getElementById('logout-form').submit();
+    <script>
+        function confirmLogout() {
+            if (confirm("{{ __('¿Estás seguro de que quieres cerrar sesión?') }}")) {
+                document.getElementById('logout-form').submit();
+            }
         }
-    }
-</script>
+    </script>
 @endsection
-

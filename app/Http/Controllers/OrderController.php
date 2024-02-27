@@ -65,8 +65,10 @@ class OrderController extends Controller
         $addresses = $user->addresses;
         $cart = $user->cart;
         $products = $cart->products;
+        $totalAmount = $cart->getTotalAmount();
+
 
         // Pasa las variables a la vista
-        return view('orders.buy', compact('user', 'addresses', 'cart', 'products'));
+        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount'));
     }
 }

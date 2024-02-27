@@ -72,6 +72,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->roles()->where('role', $roleName)->exists();
     }
+    public function paymentMethods()
+    {
+        return $this->hasMany(PaymentMethods::class);
+    }
 
     protected static function boot(){
         parent::boot();

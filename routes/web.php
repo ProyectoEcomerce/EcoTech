@@ -9,6 +9,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\PaymentMethodController;
+
 
 use App\Models\Cart;
 use Illuminate\Support\Facades\App;
@@ -61,12 +63,11 @@ Route::middleware('admin')->group(function () {
 
     //RUTA PARA VISTA DE PANEL DE PRODUCTOS Y CATEGORIAS
     Route::view('/panel', 'panel')->name('admin.index');
-
 });
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
 
-Route::middleware('auth', 'verified')->group(function(){
+Route::middleware('auth', 'verified')->group(function () {
     Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
     Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
     Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
@@ -119,7 +120,9 @@ Route::middleware('auth', 'verified')->group(function(){
     // Ruta para procesar el cambio de contraseña
     Route::put('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword')->middleware('auth');
 
-    
+    //MÉTODOS DE PAGO
+    Route::get('/metodos-de-pago', [PaymentMethodController::class, 'index'])->name('payment.methods');
+    Route::get('/metodos-de-pago/crear', [PaymentMethodController::class, 'create'])->name('payment.methods.create');
 });
 
 // Ruta para cerrar sesión
