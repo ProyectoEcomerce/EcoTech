@@ -316,3 +316,18 @@ h2.display-4::after {
 #btn-tabla-productos{    
     margin: 2%;
 }
+
+//RESPONSIVE CARD CART
+.card-title {
+    font-size: 1rem; /* Tamaño de la fuente */
+    font-weight: bold; /* Negrita para el título */
+}
+
+.card-text {
+    font-size: 0.9rem; /* Tamaño de la fuente para el texto */
+    margin-bottom: 0.25rem; /* Espaciado debajo de cada línea de texto */
+}
+
+.m-70{
+    margin: 70px;
+}
