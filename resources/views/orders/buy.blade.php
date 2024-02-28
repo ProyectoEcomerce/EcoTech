@@ -27,7 +27,12 @@
                 <div class="col-md-4">
                     <div class="card">
                         <button class="btn btn-warning m-3">Comprar ahora</button>
+                        @if($validCoupon)
                         <h5 class="text-danger">Importe total: {{ number_format($totalAmount, 2) }} €</h5>
+                        <h5 class="text-danger">Importe total: {{ number_format($totalAmount - ($totalAmount * $couponDiscount / 100), 2)  }} €</h5>
+                        @else
+                        <h5 class="text-danger">Importe total: {{ number_format($totalAmount, 2) }} €</h5>
+                        @endif
                     </div>
                 </div>
 
@@ -67,6 +72,23 @@
                     @empty
                         <p>No hay productos en el carrito.</p>
                     @endforelse
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <h3 class="text-success">4. Aplicar cupón</h3>
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Introduce tu código de descuento</h5>
+                            <form action="{{ route('orders.buy') }}" method="POST">
+                                @csrf 
+                                <div class=" d-inline-grid">
+                                    <input type="text" name="code" class="card-text mb-2">
+                                    <button class="btn btn-secondary btn-block" type="submit">Canjear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         @else
