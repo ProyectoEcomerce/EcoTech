@@ -29,7 +29,7 @@
                         @if($validCoupon)
                         <form method="POST" action="{{route('cart.purchase')}}">
                             @csrf
-                            <input type="number" name="discount" value="{{$couponDiscount}}" hidden>
+                            <input type="number" name="discount" value="{{$couponSearch->id}}" hidden>
                             <button class="btn btn-warning m-3" type="submit">Comprar ahora</button>
                         </form>
                         <div class=" row text-center">
@@ -41,7 +41,7 @@
                                     <h5 class="text-danger old-price">{{ number_format($totalAmount, 2) }} €</h5>
                                 </div>
                                 <div class="row">
-                                <h5 class="text-danger">{{ number_format($totalAmount - ($totalAmount * $couponDiscount / 100), 2)  }} €</h5>
+                                <h5 class="text-danger">{{ number_format($totalAmount - ($totalAmount * $couponSearch->discount / 100), 2)  }} €</h5>
                                 </div>
 
                             </div>
@@ -100,6 +100,15 @@
                     <div class="card mb-2">
                         <div class="card-body">
                             <h5 class="card-title">Introduce tu código de descuento</h5>
+                            @if($validCoupon)
+                            <form action="{{ route('orders.buy') }}" method="POST">
+                                @csrf 
+                                <div class=" d-inline-grid">
+                                    <input type="text" name="cancel" class="card-text mb-2" value="false" hidden>
+                                    <button class="btn btn-secondary btn-block" type="submit">Cancelar cupón</button>
+                                </div>
+                            </form>
+                            @else
                             <form action="{{ route('orders.buy') }}" method="POST">
                                 @csrf 
                                 <div class=" d-inline-grid">
@@ -107,6 +116,7 @@
                                     <button class="btn btn-secondary btn-block" type="submit">Canjear</button>
                                 </div>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>

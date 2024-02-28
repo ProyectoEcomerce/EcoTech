@@ -7,7 +7,9 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
+use App\Models\Coupon;
 use App\Models\Order;
+use Carbon\Carbon;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -143,7 +145,21 @@ class CartController extends Controller
                 }, 0);
 
                 if($request->has('discount')){
-                    $totalPrice=$totalPrice - ($totalPrice * $request->discount / 100);
+                    $couponId=$request->discount;
+                    $couponSearch = Coupon::find($couponId);
+                    if($couponSearch->usesCounter < $couponSearch->limitUses ){
+                        $expirationDate= Carbon::parse($couponSearch->expiration);
+        
+                        if($expirationDate->isFuture()){
+                            $totalPrice=$totalPrice - ($totalPrice * $couponSearch->discount / 100);
+                            $couponSearch->increment('usesCounter');
+                        }else{
+                            return redirect()->back()->withErrors('El cupón ha caducado.');
+                        }
+                    }else{
+                        return redirect()->back()->withErrors('Este cupón ya ha sido usado');
+                    }
+
                 }
 
                 Log::info('Productos en el carrito: ' . $cart->products->count());

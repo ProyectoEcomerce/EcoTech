@@ -69,7 +69,7 @@ class OrderController extends Controller
         $products = $cart->products;
         $totalAmount = $cart->getTotalAmount();
         $validCoupon = false;
-        $couponDiscount = 0;
+        $couponSearch = 0;
 
 
         if($request->has('code')){
@@ -84,7 +84,6 @@ class OrderController extends Controller
     
                     if($expirationDate->isFuture()){
                         $validCoupon=true;
-                        $couponDiscount=$couponSearch->discount;
                     }else{
                         $validCoupon=false;
 
@@ -98,9 +97,13 @@ class OrderController extends Controller
 
             }
         }
+
+        if($request->has('cancel')){
+            $validCoupon=false;
+        }
         
 
         // Pasa las variables a la vista
-        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponDiscount'));
+        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponSearch'));
     }
 }
