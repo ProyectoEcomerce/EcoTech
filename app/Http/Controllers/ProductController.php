@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Offer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -17,7 +19,13 @@ class ProductController extends Controller
 
         $carouselProducts= Product::where('show', true)->orderByDesc('favouriteCounter')->take(8)->get();
 
-        return view('welcome', compact('products','carouselProducts'));
+        $now = Carbon::now();
+
+        $offers = Offer::where('usesCounter', '<', 'limitUses')
+                        ->whereDate('expiration', '>', $now)
+                        ->get();
+
+        return view('welcome', compact('products','carouselProducts', 'offers'));
     }
 
     //Crear nuevo producto

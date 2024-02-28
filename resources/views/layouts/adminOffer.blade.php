@@ -47,8 +47,10 @@
                 <div class="modal-body">
                     <form action="{{ route('layouts.createOffer') }}" method="POST">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
-                        <input type="text" name="type" value="{{ old('type') }}" placeholder="Código de descuento"
-                            class="form-control mb-2">
+                        <select name="type" class="form-control mb-2" required>
+                            <option value="products" {{ old('type') === 'products' ? 'selected' : '' }}>Productos</option>
+                            <option value="categories" {{ old('type') === 'categories' ? 'selected' : '' }}>Categorías</option>
+                        </select>
                         <input type="text" name="applied" value="{{ old('applied') }}" placeholder="Código de descuento"
                             class="form-control mb-2">
                         <input type="number" name="discount" value="{{ old('discount') }}" placeholder="Descuento"
