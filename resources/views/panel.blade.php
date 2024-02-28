@@ -44,6 +44,18 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Ofertas -->
+            <div class="col">
+                <a href="{{ route('admin.offer') }}" class="card-link text-decoration-none">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-list"></i> {{ __('Ofertas') }}</h5>
+                            <p class="card-text">{{ __('Gestión, creación, actualización y eliminación de ofertas') }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
             </main>
 
 @endsection
