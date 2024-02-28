@@ -142,6 +142,10 @@ class CartController extends Controller
                     return $carry + ($product->pivot->amount * $product->price);
                 }, 0);
 
+                if($request->has('discount')){
+                    $totalPrice=$totalPrice - ($totalPrice * $request->discount / 100);
+                }
+
                 Log::info('Productos en el carrito: ' . $cart->products->count());
 
 
@@ -173,14 +177,15 @@ class CartController extends Controller
                 // Enviar correo electrónico de confirmación
 
 
-                return back()->with('success', 'Los productos han sido comprados correctamente');
+                return redirect('/');
+                //return back()->with('success', 'Los productos han sido comprados correctamente');
             } catch (\Exception $e) {
                 DB::rollback();
                 // Considera loguear el error con Log::error($e);
                 return back()->withErrors('Hubo un problema al procesar tu compra.');
             }
         }
-
-        return back()->withErrors('No hay un carrito para comprar.');
+        return redirect('/');
+        //return back()->withErrors('No hay un carrito para comprar.');
     }
 }

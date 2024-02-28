@@ -26,11 +26,31 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <button class="btn btn-warning m-3">Comprar ahora</button>
                         @if($validCoupon)
-                        <h5 class="text-danger">Importe total: {{ number_format($totalAmount, 2) }} €</h5>
-                        <h5 class="text-danger">Importe total: {{ number_format($totalAmount - ($totalAmount * $couponDiscount / 100), 2)  }} €</h5>
+                        <form method="POST" action="{{route('cart.purchase')}}">
+                            @csrf
+                            <input type="number" name="discount" value="{{$couponDiscount}}" hidden>
+                            <button class="btn btn-warning m-3" type="submit">Comprar ahora</button>
+                        </form>
+                        <div class=" row text-center">
+                            <div class="col">
+                                <h5 class="text-danger">Importe total: </h5>
+                            </div>
+                            <div class="col d-block">
+                                <div class="row">
+                                    <h5 class="text-danger old-price">{{ number_format($totalAmount, 2) }} €</h5>
+                                </div>
+                                <div class="row">
+                                <h5 class="text-danger">{{ number_format($totalAmount - ($totalAmount * $couponDiscount / 100), 2)  }} €</h5>
+                                </div>
+
+                            </div>
+                        </div>
                         @else
+                        <form method="POST" action="{{route('cart.purchase')}}">
+                            @csrf
+                            <button class="btn btn-warning m-3" type="submit">Comprar ahora</button>
+                        </form>
                         <h5 class="text-danger">Importe total: {{ number_format($totalAmount, 2) }} €</h5>
                         @endif
                     </div>
