@@ -128,6 +128,10 @@ Route::middleware('auth', 'verified')->group(function () {
     //MÉTODOS DE PAGO
     Route::get('/metodos-de-pago', [PaymentMethodController::class, 'index'])->name('payment.methods');
     Route::get('/metodos-de-pago/crear', [PaymentMethodController::class, 'create'])->name('payment.methods.create');
+    Route::post('/metodos-de-pago', [PaymentMethodController::class, 'store'])->name('payment.methods.store');
+    Route::delete('/payment-methods/{id}', [PaymentMethodController::class, 'destroy'])->name('payment.methods.destroy');
+    Route::post('/ruta-para-cambiar-metodo-de-pago', [PaymentMethodController::class, 'changePaymentMethod'])->name('payment_methods.change');
+
 });
 
 // Ruta para cerrar sesión

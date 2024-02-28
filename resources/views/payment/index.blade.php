@@ -13,11 +13,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $paymentMethod->card_holder_name }}</h5>
                         <p class="card-text">
-                            Finaliza en {{ $paymentMethod->card_last_four }}, {{ $paymentMethod->card_brand }} <br>
-                            Expira: {{ $paymentMethod->expiry_month }}/{{ $paymentMethod->expiry_year }}
-                        </p>
-                        <!-- Botón para editar el método de pago -->
-                        <a href="{{ route('payment.methods.edit', $paymentMethod->id) }}" class="btn btn-secondary">Editar</a>
+                            **** **** **** {{ substr($paymentMethod->card_number, -4) }} <br>
+                            Expira el {{$paymentMethod->expiry_date}} <br>
+                        </p>                        
                         <!-- Botón para borrar el método de pago -->
                         <form action="{{ route('payment.methods.destroy', $paymentMethod->id) }}" method="POST" style="display: inline-block;">
                             @csrf

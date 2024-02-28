@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
@@ -68,6 +70,8 @@ class OrderController extends Controller
         $cart = $user->cart;
         $products = $cart->products;
         $totalAmount = $cart->getTotalAmount();
+        $firstPaymentMethod = $user->paymentMethods()->first();
+        $paymentMethods = $user->paymentMethods;
         $validCoupon = false;
         $couponSearch = 0;
 
@@ -104,6 +108,6 @@ class OrderController extends Controller
         
 
         // Pasa las variables a la vista
-        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponSearch'));
+        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponSearch','firstPaymentMethod', 'paymentMethods'));
     }
 }
