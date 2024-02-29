@@ -10,10 +10,11 @@
     
     
     <div class="table-responsive mx-4 my-2">
-        <table class="table table-hover  tabla-productos">
+        <table class="table table table-hover tabla-productos" style="font-size: 14px;">
             <thead class="table-dark">
                 
             <tr>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th class="d-none d-xxl-table-cell">Precio</th>
                 <th class="d-none d-xxl-table-cell">Precio oferta</th>
@@ -38,6 +39,14 @@
             $guaranteeText= ($product->guarantee > 1 )? __("años") : __("año");
         @endphp
             <tr>
+                <!-- MUESTRA LAS IMAGENES DE LOS PRODUCTOS -->
+                <td>
+                    @if($product->image && $product->image->isNotEmpty()) 
+                        <img src="{{ asset($product->image->first()->product_photo) }}" alt="Imagen del producto" style="width: 50px; height: 50px;">
+                    @else
+                        Sin Imagen
+                    @endif
+                </td>
                 <td>{{ $product->name }}</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->price }}€</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->offerPrice }}€</td>
