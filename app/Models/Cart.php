@@ -21,4 +21,11 @@ class Cart extends Model
         return $this->belongsToMany(Product::class, 'carts_products')->withPivot('amount');
     }
 
+    public function getTotalAmount()
+    {
+        return $this->products->sum(function ($product) {
+            return $product->price * $product->pivot->amount;
+        });
+    }
+
 }

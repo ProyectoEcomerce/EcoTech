@@ -94,7 +94,7 @@ footer {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-  }
+}
   
   .carousel-caption {
     background-color: rgba(0,0,0,0.5); /* Fondo semitransparente */
@@ -107,6 +107,9 @@ footer {
     filter: invert(100%);
   }  
 
+.carousel-image {
+    margin: auto;
+}
 /**/
 .offcanvas-header {
     background-color: #f8f9fa;
@@ -313,4 +316,24 @@ h2.display-4::after {
 
 #btn-tabla-productos{    
     margin: 2%;
+}
+
+//RESPONSIVE CARD CART
+.card-title {
+    font-size: 1rem; /* Tamaño de la fuente */
+    font-weight: bold; /* Negrita para el título */
+}
+
+.card-text {
+    font-size: 0.9rem; /* Tamaño de la fuente para el texto */
+    margin-bottom: 0.25rem; /* Espaciado debajo de cada línea de texto */
+}
+
+.m-70{
+    margin: 70px;
+}
+
+.old-price{
+    text-decoration: line-through;
+    font-size: smaller;
 }

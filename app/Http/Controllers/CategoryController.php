@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
+    //Listar categorias en la vista Categorias
     public function getCategories()
     {
         $categories = Category::paginate(6);
         return view('layouts.adminCategory', compact('categories'));
     }
 
+    //Crear nueva categoría
     public function create(Request $request)
     {
         $request->validate(['name' => 'required']);
@@ -24,6 +26,7 @@ class CategoryController extends Controller
         return back()->with('mensaje', 'Categoría creada');
     }
 
+    //Actualizar categoría
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -35,6 +38,7 @@ class CategoryController extends Controller
         return back()->with('mensaje', 'Categoría editada correctamente');
     }
 
+    //Eliminar categoría
     public function delete($id)
     {
 
@@ -44,6 +48,7 @@ class CategoryController extends Controller
         return back()->with('mensaje', 'Categoría eliminada exitosamente.');
     }
 
+    //
     public function adminIndex()
     {
         $categories = Category::paginate(9);

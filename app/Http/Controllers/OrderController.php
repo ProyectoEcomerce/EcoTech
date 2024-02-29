@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -59,4 +61,49 @@ class OrderController extends Controller
         return $pdf->download('invoice.pdf');
     }
 
+    public function showBuyView(Request $request)
+    {
+        $user = auth()->user();
+        $addresses = $user->addresses;
+        $cart = $user->cart;
+        $products = $cart->products;
+        $totalAmount = $cart->getTotalAmount();
+        $validCoupon = false;
+        $couponSearch = 0;
+
+
+        if($request->has('code')){
+            $cuponIntroducido=$request->code;
+            $coupons=Coupon::all();
+    
+            $couponSearch= $coupons->where('code', $cuponIntroducido)->first();
+    
+            if($couponSearch){
+                if($couponSearch->usesCounter < $couponSearch->limitUses ){
+                    $expirationDate= Carbon::parse($couponSearch->expiration);
+    
+                    if($expirationDate->isFuture()){
+                        $validCoupon=true;
+                    }else{
+                        $validCoupon=false;
+
+                    }
+                }else{
+                    $validCoupon=false;
+
+                }
+            }else{
+                $validCoupon=false;
+
+            }
+        }
+
+        if($request->has('cancel')){
+            $validCoupon=false;
+        }
+        
+
+        // Pasa las variables a la vista
+        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponSearch'));
+    }
 }

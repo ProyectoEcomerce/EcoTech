@@ -7,7 +7,9 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
+use App\Models\Coupon;
 use App\Models\Order;
+use Carbon\Carbon;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -142,6 +144,24 @@ class CartController extends Controller
                     return $carry + ($product->pivot->amount * $product->price);
                 }, 0);
 
+                if($request->has('discount')){
+                    $couponId=$request->discount;
+                    $couponSearch = Coupon::find($couponId);
+                    if($couponSearch->usesCounter < $couponSearch->limitUses ){
+                        $expirationDate= Carbon::parse($couponSearch->expiration);
+        
+                        if($expirationDate->isFuture()){
+                            $totalPrice=$totalPrice - ($totalPrice * $couponSearch->discount / 100);
+                            $couponSearch->increment('usesCounter');
+                        }else{
+                            return redirect()->back()->withErrors('El cupón ha caducado.');
+                        }
+                    }else{
+                        return redirect()->back()->withErrors('Este cupón ya ha sido usado');
+                    }
+
+                }
+
                 Log::info('Productos en el carrito: ' . $cart->products->count());
 
 
@@ -173,14 +193,15 @@ class CartController extends Controller
                 // Enviar correo electrónico de confirmación
 
 
-                return back()->with('success', 'Los productos han sido comprados correctamente');
+                return redirect('/');
+                //return back()->with('success', 'Los productos han sido comprados correctamente');
             } catch (\Exception $e) {
                 DB::rollback();
                 // Considera loguear el error con Log::error($e);
                 return back()->withErrors('Hubo un problema al procesar tu compra.');
             }
         }
-
-        return back()->withErrors('No hay un carrito para comprar.');
+        return redirect('/');
+        //return back()->withErrors('No hay un carrito para comprar.');
     }
 }

@@ -15,20 +15,16 @@
                 
             <tr>
                 <th>Imagen</th>
+                <th >Id</th>
                 <th>Nombre</th>
                 <th class="d-none d-xxl-table-cell">Precio</th>
                 <th class="d-none d-xxl-table-cell">Precio oferta</th>
                 <th class="d-none d-xxl-table-cell">Voltaje</th>
                 <th class="d-none d-xxl-table-cell">Garantía</th>
-                <th class="d-none d-xxl-table-cell">Precio manufactura</th>
                 <th class="d-none d-xxl-table-cell">Peso</th>
                 <th class="d-none d-xxl-table-cell">Materiales</th>
-                <th class="d-none d-xxl-table-cell">Descripción</th>
                 <th class="d-none d-xxl-table-cell">Dimensiones</th>
-                <th class="d-none d-xxl-table-cell">Batería</th>
-                <th class="d-none d-xxl-table-cell">Motor</th>
-                <th class="d-none d-xxl-table-cell">Componentes</th>
-                <th class="d-none d-xxl-table-cell">Categoría/s</th>
+                <th>Categoría/s</th>
                 <th>Acciones</th>
 
             </tr>
@@ -47,20 +43,16 @@
                         Sin Imagen
                     @endif
                 </td>
+                <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->price }}€</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->offerPrice }}€</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->voltage }}V</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->guarantee }} {{$guaranteeText}}</td>
-                <td class="d-none d-xxl-table-cell">{{ $product->manufacturing_price }}€</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->weigth }}kg</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->materials }}</td>
-                <td class="d-none d-xxl-table-cell">{{ $product->description }}</td>
                 <td class="d-none d-xxl-table-cell">{{ $product->dimensions }}</td>
-                <td class="d-none d-xxl-table-cell">{{ $product->battery }}</td>
-                <td class="d-none d-xxl-table-cell">{{ $product->engine }}</td>
-                <td class="d-none d-xxl-table-cell">{{ $product->components }}</td>
-                <td class="d-none d-xxl-table-cell">
+                <td>
                     @if($product->categories->isEmpty())
                         Ninguna
                     @else
@@ -68,19 +60,22 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-secondary btn-sm d-inline-block d-xxl-none" id="btn-tabla-productos" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
-                        <i class="fas fa-eye"></i>
+                    <button class="btn btn-info btn-sm d-inline-block" id="btn-tabla-productos" type="button" data-bs-toggle="modal" data-bs-target="#viewDetailsModal{{ $product->id }}">
+                        <i class="far fa-list-alt"></i>
                     </button>
                     
                 
-               <a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
-                        data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm" id="btn-tabla-productos"><i class="fas fa-edit"></i>  </a>
+                    <a href="#editProductModal{{ $product->id }}" data-bs-toggle="modal"
+                        data-bs-target="#editProductModal{{ $product->id }}" class="btn btn-warning btn-sm d-inline-block" id="btn-tabla-productos"><i class="fas fa-edit"></i> 
+                    </a>
       
-                    <form action="{{ route('layouts.deleteProduct', $product->id) }}" method="POST" class="d-inline">
-                        @method('DELETE')
+                    <form class="d-inline-block" method="POST" action="{{route('product.changeVisibility', $product->id)}}">
                         @csrf
-                        <button class="btn btn-danger btn-sm" type="submit" id="btn-tabla-productos"><i class="fas fa-trash"></i> </button>
+                        <button class="btn btn-secondary btn-sm d-inline-block" type="submit" onclick="return confirm('¿Quieres cambiar la visibilidad del producto a '+ '{{$product->show ? 'oculto' : 'visible' }}' +'?')">
+                            <i class="fas {{ $product->show ? 'fa-eye' : 'fa-eye-slash' }}"></i>
+                        </button>
                     </form>
+                    
                 </td>
             </tr>
         @endforeach
@@ -123,6 +118,13 @@
                             @foreach($product->categories as $category)
                                 {{ $category->name }}@if(!$loop->last), @endif
                             @endforeach
+                        @endif
+                    </p>
+                    <p><strong>Estado de visibilidad</strong>
+                        @if($product->show)
+                            El produto es visible
+                        @else
+                            El producto no es visible
                         @endif
                     </p>
                 </div>
@@ -190,8 +192,12 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="form-check form-switch">
+                            <label class="form-check-label">Visibilidad del producto</label>
+                            <input class="form-check-input" type="checkbox"name="show" {{$product->show ? 'checked': ''}}>
+                        </div>
 
-                        <button class="btn btn-secondary btn-block" type="submit">
+                        <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres crear este nuevo producto?')">
                             Crear nuevo producto
                         </button>
                         
@@ -258,21 +264,29 @@
                                     </div>
                                     @foreach ($categories as $category)
                                         <div class="form-check">
-                                            <input class="form-check-input category-checkbox" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                                            <input class="form-check-input category-checkbox" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}" {{$product->categories->contains($category->id) ? 'checked': ''}}>
                                             <label class="form-check-label" for="category{{ $category->id }}">
                                                 {{ $category->name }}
                                             </label>
                                         </div>
                                     @endforeach
                                 </div>
-                                
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox"  name="show" {{$product->show ? 'checked': ''}}>
+                                    <label class="form-check-label" >Cambiar Visibilidad</label>
+                                </div>
 
-                            <button class="btn btn-secondary btn-block" type="submit">Guardar cambios</button>
+                            <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres guardar los cambios del producto: '+ '{{$product->name}}' +'?')">
+                                Guardar cambios
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
+    <div class="d-flex justify-content-center mt-4">
+        {{ $products->links('pagination::bootstrap-4') }}
+      </div>
 
 @endsection

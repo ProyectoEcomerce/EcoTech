@@ -8,7 +8,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\PaymentMethodController;
+
 
 use App\Models\Cart;
 use Illuminate\Support\Facades\App;
@@ -48,7 +52,8 @@ Route::middleware('admin')->group(function () {
     Route::get('adminProduct', [ProductController::class, 'adminIndex'])->name('admin.product');
     Route::post('createProduct', [ProductController::class, 'create'])->name('layouts.createProduct');
     Route::put('edit_product/{id}', [ProductController::class, 'update'])->name('layouts.updateProduct');
-    Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+    //Route::delete('delete_product/{id}', [ProductController::class, 'delete'])->name('layouts.deleteProduct');
+    Route::post('edit_product/{id}', [ProductController::class, 'changeVisibility'])->name('product.changeVisibility');
 
     Route::get('adminCategory', [CategoryController::class, 'adminIndex'])->name('admin.category');
     Route::post('createCategory', [CategoryController::class, 'create'])->name('layouts.createCategory');
@@ -59,14 +64,19 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/categorias-productos', [ProductController::class, 'index'])->name('categorias.productos');
 
+    Route::get('adminCoupon', [CouponController::class, 'adminCoupon'])->name('admin.coupon');
+    Route::post('createCoupon', [CouponController::class, 'create'])->name('layouts.createCoupon');
+
+    Route::get('adminOffer', [OfferController::class, 'adminOffer'])->name('admin.offer');
+    Route::post('createOffer', [OfferController::class, 'create'])->name('layouts.createOffer');
+
     //RUTA PARA VISTA DE PANEL DE PRODUCTOS Y CATEGORIAS
     Route::view('/panel', 'panel')->name('admin.index');
-
 });
 
 Route::get('/', [ProductController::class, 'getProducts']); //Mostrar productos
 
-Route::middleware('auth', 'verified')->group(function(){
+Route::middleware('auth', 'verified')->group(function () {
     Route::post('additem', [CartController::class, 'addItem'])->name('cart.additem');
     Route::post('clearcart', [CartController::class, 'clearCart'])->name('cart.clearcart');
     Route::post('removeitem', [CartController::class, 'removeItem'])->name('cart.removeitem');
@@ -82,6 +92,9 @@ Route::middleware('auth', 'verified')->group(function(){
     Route::get('/orders/{order}', [OrderController::class, 'view'])->name('orders.view')->middleware('auth');
     Route::put('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
     Route::put('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice')->middleware('auth');
+
+    Route::post('/orders/buy', [OrderController::class, 'showBuyView'])->name('orders.buy');
+
 
     // Ruta para generar la factura de un pedido como PDF (no funciona)
     //Route::post('/invoice/{order}', [OrderController::class, 'generateInvoice'])->name('orders.invoice');
@@ -116,7 +129,9 @@ Route::middleware('auth', 'verified')->group(function(){
     // Ruta para procesar el cambio de contraseña
     Route::put('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword')->middleware('auth');
 
-    
+    //MÉTODOS DE PAGO
+    Route::get('/metodos-de-pago', [PaymentMethodController::class, 'index'])->name('payment.methods');
+    Route::get('/metodos-de-pago/crear', [PaymentMethodController::class, 'create'])->name('payment.methods.create');
 });
 
 // Ruta para cerrar sesión

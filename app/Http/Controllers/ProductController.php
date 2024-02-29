@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Offer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -13,10 +17,21 @@ class ProductController extends Controller
     //listar los productos
     public function getProducts()
     {
-        $products = Product::paginate(6); // Paginación de 6 productos
-        return view('welcome', compact('products'));
+        $products = Product::where('show', true)->paginate(3);; // Paginación de 3 productos
+
+        $carouselProducts= Product::where('show', true)->orderByDesc('favouriteCounter')->take(8)->get();
+
+        $now = Carbon::now();
+
+        $offers = Offer::where('limitUses', '>', 'usesCounter')
+                        ->whereDate('expiration', '>', $now)
+                        ->with(['product','category'])
+                        ->get();
+
+        return view('welcome', compact('products','carouselProducts', 'offers'));
     }
 
+    //Crear nuevo producto
     public function create(Request $request){
         
         DB::beginTransaction();
@@ -54,11 +69,11 @@ class ProductController extends Controller
             $newProduct->components=$request->components;
             $newProduct->save();
 
-// Dentro del try del método create, después de $newProduct->save();
+            // Dentro del try del método create, después de $newProduct->save();
 
-if($request->has('categories')) {
-    $newProduct->categories()->sync($request->categories);
-}
+            if($request->has('categories')) {
+                $newProduct->categories()->sync($request->categories);
+            }
 
             if($request->hasFile('image')){
                 foreach($request->file('image') as $img){ //Iteramos por el array de imagenes
@@ -81,6 +96,7 @@ if($request->has('categories')) {
         
     }
 
+    //Actualizar producto como admin
     public function update(Request $request, $id){
         DB::beginTransaction();
         try{
@@ -113,7 +129,7 @@ if($request->has('categories')) {
             $updateProduct->battery=$request->battery;
             $updateProduct->engine=$request->engine;
             $updateProduct->components=$request->components;
-            $updateProduct->save();
+
     
             // Verificar si se seleccionó "Ninguna categoría"
             if($request->input('no_category') == 'none') {
@@ -124,6 +140,8 @@ if($request->has('categories')) {
                 $categoryIds = $request->input('categories', []);
                 $updateProduct->categories()->sync($categoryIds);
             }
+            $updateProduct->show=boolval($request->show);
+            $updateProduct->save();
     
             DB::commit();
             return back()->with('mensaje', 'Producto editado exitosamente');
@@ -134,7 +152,7 @@ if($request->has('categories')) {
     }
     
 
-    public function delete($id){
+    /*public function delete($id){
         $deleteProduct=Product::findOrFail($id);
         DB::beginTransaction();
         try{
@@ -149,20 +167,38 @@ if($request->has('categories')) {
             DB::rollBack();
             return back()->withErrors('No se pudo eliminar el producto');
         }
-    }
+    }*/
 
-    public function adminIndex(){
-        $products = Product::paginate(9); // Paginación de 9 productos
-        return view('layouts.adminProduct', compact('products'));
-    }
-
+    //Mostrar producto concreto con su información
     public function showProduct($id){
         $product=Product::findOrFail($id);
-        return view('productos', compact('product') );
-
- 
+        $now = Carbon::now();
+        $offers = Offer::where('limitUses', '>', 'usesCounter')
+        ->whereDate('expiration', '>', $now)
+        ->with(['product','category'])
+        ->get();
+        return view('productos', compact('product', 'offers') );
     }
 
-    
+    //Ocultar producto
+    public function changeVisibility(Request $request, $id){
+        DB::beginTransaction();
+        try{
+            $updateVisibility=Product::findOrFail($id);
+            $updateVisibility->show = !$updateVisibility->show; //Toggle de el boolean
+            $updateVisibility->save();
+            DB::commit();
+            return redirect()->back();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->withErrors('No se pudo eliminar el producto');
+        }
+    }
+
+    //Mostrar productos en la vista admin
+    public function adminIndex(){
+        $products = Product::paginate(6); // Paginación de 9 productos
+        return view('layouts.adminProduct', compact('products'));
+    }
 }
 

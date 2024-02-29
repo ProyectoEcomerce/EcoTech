@@ -8,7 +8,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/scss/app.scss',
                 'resources/js/app.js',
-                'resources/js/carrito,js'
+                'resources/js/carrito.js',
+                'resources/js/confirmAction.js',
             ],
             refresh: true,
         }),

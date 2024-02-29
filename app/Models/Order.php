@@ -23,6 +23,9 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'orders_products', 'order_id', 'product_id')->withPivot('amount');
     }
 
+    public function coupon(){
+        return $this->hasOne(Coupon::class);
+    }
 
 
 }
