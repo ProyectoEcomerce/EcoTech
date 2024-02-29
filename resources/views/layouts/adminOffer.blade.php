@@ -24,10 +24,13 @@
         </thead>
         
         @foreach ($offers as $offer)
+        @php
+            $applied=$offer->product->first()->pivot->product_id;
+        @endphp
             <tr>
                 <td>{{ $offer->id }}</td>
                 <td>{{ $offer->type }}</td>
-                <td>{{ $offer->applied }}</td>
+                <td>{{ $applied }}</td>
                 <td>{{ $offer->discount }}%</td>
                 <td>{{ $offer->expiration }}</td>
                 <td>{{ $offer->limitUses }}</td>

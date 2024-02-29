@@ -10,10 +10,10 @@ class Offer extends Model
     use HasFactory;
 
     public function product(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'offer_product');
     }
 
     public function category(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'offer_product');
     }
 }

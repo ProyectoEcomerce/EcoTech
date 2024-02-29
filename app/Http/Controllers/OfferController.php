@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,11 +27,15 @@ class OfferController extends Controller
     
             $newOffer= new Offer();
             $newOffer->type=$request->type;
-            $newOffer->applied=$request->applied;
             $newOffer->discount=$request->discount;
             $newOffer->expiration=$request->expiration;
             $newOffer->limitUses=$request->limitUses;
             $newOffer->save();
+
+            $appliedProducts = explode(',', $request->applied);
+            $newOffer->product()->sync($appliedProducts);
+
+
 
             // Dentro del try del método create, después de $newProduct->save();
 

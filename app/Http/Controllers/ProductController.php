@@ -21,8 +21,9 @@ class ProductController extends Controller
 
         $now = Carbon::now();
 
-        $offers = Offer::where('usesCounter', '<', 'limitUses')
+        $offers = Offer::where('limitUses', '>', 'usesCounter')
                         ->whereDate('expiration', '>', $now)
+                        ->with('product')
                         ->get();
 
         return view('welcome', compact('products','carouselProducts', 'offers'));
