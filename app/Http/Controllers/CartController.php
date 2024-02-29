@@ -140,6 +140,7 @@ class CartController extends Controller
             DB::beginTransaction();
             try {
                 // Calcular el total del precio de los productos en el carrito
+                Log::info('Calculando el precio total de los productos en el carrito');
                 $totalPrice = $cart->products->reduce(function ($carry, $product) {
                     return $carry + ($product->pivot->amount * $product->price);
                 }, 0);
@@ -171,6 +172,7 @@ class CartController extends Controller
                     'status' => 'pendiente', // Estado inicial del pedido
                     'user_id' => $user->id
                 ]);
+                 Log::info('Pedido creado con id: ' . $order->id);
 
                 // Asociar los productos del carrito con el pedido y registrar cantidades
                 foreach ($cart->products as $product) {
@@ -180,8 +182,10 @@ class CartController extends Controller
                         'amount' => $product->pivot->amount,
                     ]);
                 }
+                Log::info('Productos asociados al pedido');
 
                 Mail::to($user->email)->send(new OrderConfirmation($cart));
+                Log::info('Correo electrónico de confirmación enviado');
 
                 // Vaciar el carrito
                 $cart->products()->detach();
