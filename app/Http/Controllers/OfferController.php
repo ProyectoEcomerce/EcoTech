@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -11,7 +12,8 @@ class OfferController extends Controller
 {
     public function adminOffer() {
         $offers=Offer::paginate(6);
-        return view('layouts.adminOffer', compact('offers'));
+        $categories=Category::all();
+        return view('layouts.adminOffer', compact('offers', 'categories'));
     }
 
     public function create(Request $request){
@@ -33,9 +35,12 @@ class OfferController extends Controller
             $newOffer->save();
 
             $appliedProducts = explode(',', $request->applied);
-            $newOffer->product()->sync($appliedProducts);
-
-
+            if($newOffer->type == "products"){
+                $newOffer->product()->sync($appliedProducts);
+            }else if($newOffer->type == "categories"){
+                $newOffer->category()->sync($appliedProducts);
+            }
+            
 
             // Dentro del try del método create, después de $newProduct->save();
 

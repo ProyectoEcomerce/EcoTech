@@ -18,6 +18,6 @@ class Category extends Model
     }
     
     public function offer(){
-        return $this->hasOne(Offer::class, 'offer_product');
+        return $this->belongsTo(Offer::class, 'offer_category');
     }
 }
