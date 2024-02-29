@@ -336,3 +336,9 @@ h2.display-4::after {
     text-decoration: line-through;
     font-size: smaller;
 }
+
+.sticky {
+    position: -webkit-sticky; /* Para soporte de Safari */
+    position: sticky;
+    z-index: 1000; /* Asegura que el div se mantenga por encima de otros contenidos */
+}

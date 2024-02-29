@@ -4,7 +4,7 @@
 
 @section('content')
     @php$totalPedido = 0;
-            @endphp ?> ?>
+            @endphp
     <div class="container mt-4">
         <h2 class="text-center">Pedido número: {{ $order->id }}</h2>
 

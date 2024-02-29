@@ -22,9 +22,8 @@
                             </button>
                         </div>
                     </div>
-                    <hr>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 sticky">
                     <!-- Columna para el botón de comprar y aplicar cupones -->
                     <div class="card">
                         @if ($validCoupon)
@@ -84,7 +83,7 @@
                 </div>
             </div>
             <!-- Acordeón para el resto de direcciones -->
-            <div class="collapse col-md-8" id="addressAccordion">
+            <div class="collapse col-md-8 mb-3" id="addressAccordion">
                 @foreach ($addresses->skip(1) as $address)
                     <div class="card card-body mb-2">
                         <div class="d-flex justify-content-between">
@@ -101,7 +100,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="row m-3">
+            <div class="row mb-3">
                 <div class="col-md-8">
                     <h3 class="text-success">2. Método de pago</h3>
                     <div class="card">
@@ -130,7 +129,7 @@
                                     <p>Fecha de caducidad: {{ \Carbon\Carbon::parse($method->expiry_date)->format('m/Y') }}
                                     </p>
                                     <button class="btn btn-primary select-payment-method"
-                                        data-method-id="{{ $method->id }}">Seleccionar esta dirección</button>
+                                        data-method-id="{{ $method->id }}">Seleccionar este método de pago</button>
                                 </div>
                             @endif
                         @endforeach
