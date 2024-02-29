@@ -184,8 +184,8 @@
                             @endforeach
                         </div>
                         <div class="form-check form-switch">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Visibilidad del producto</label>
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="show" {{$product->show ? 'checked': ''}}>
+                            <label class="form-check-label">Visibilidad del producto</label>
+                            <input class="form-check-input" type="checkbox"name="show" {{$product->show ? 'checked': ''}}>
                         </div>
 
                         <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres crear este nuevo producto?')">
@@ -255,7 +255,7 @@
                                     </div>
                                     @foreach ($categories as $category)
                                         <div class="form-check">
-                                            <input class="form-check-input category-checkbox" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                                            <input class="form-check-input category-checkbox" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}" {{$product->categories->contains($category->id) ? 'checked': ''}}>
                                             <label class="form-check-label" for="category{{ $category->id }}">
                                                 {{ $category->name }}
                                             </label>

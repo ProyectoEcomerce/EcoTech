@@ -38,9 +38,16 @@
         <div class="carousel-caption d-none d-md-block" >
           
           <h5>{{$carouselProduct->name}}</h5>
-          @foreach ($offers as $offer )
-              @if ($offer->applied === $carouselProduct->id)
-              <p>Precio con descuento: {{ $carouselProduct->price - ($carouselProduct->price * $offer->discount / 100) }}€</p>
+          @foreach ($offers as $offer)
+            @if ($offer->product->contains($carouselProduct->id))
+              <p>Precio con descuento: {{number_format($carouselProduct->price - ($carouselProduct->price * $offer->discount / 100), 2)}}€</p>
+              @else 
+                @foreach ($carouselProduct->categories as $category)
+                    @if ($offer->category->contains($category->id))
+                        <p>Precio con descuento: {{ number_format($carouselProduct->price - ($carouselProduct->price * $offer->discount / 100), 2) }}€</p>
+                        @break
+                    @endif
+                @endforeach
               @endif
           @endforeach
           <p>{{$carouselProduct->price}}€</p>
@@ -83,7 +90,14 @@
                       <p class="card-text">{{ substr($product->description,0,120) }}...</p>
                     @foreach ($offers as $offer)
                       @if ($offer->product->contains($product->id))
-                      <p>Precio con descuento: {{ $product->price - ($product->price * $offer->discount / 100) }}€</p>
+                          <p>Precio con descuento: {{ number_format($product->price - ($product->price * $offer->discount / 100),2) }}€</p>
+                      @else 
+                          @foreach ($product->categories as $category)
+                              @if ($offer->category->contains($category->id))
+                                  <p>Precio con descuento: {{ number_format($product->price - ($product->price * $offer->discount / 100), 2) }}€</p>
+                                  @break
+                              @endif
+                          @endforeach
                       @endif
                     @endforeach
 

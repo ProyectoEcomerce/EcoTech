@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
@@ -23,7 +25,7 @@ class ProductController extends Controller
 
         $offers = Offer::where('limitUses', '>', 'usesCounter')
                         ->whereDate('expiration', '>', $now)
-                        ->with('product')
+                        ->with(['product','category'])
                         ->get();
 
         return view('welcome', compact('products','carouselProducts', 'offers'));
@@ -111,8 +113,7 @@ class ProductController extends Controller
                 'dimensions'=>'required',
                 'battery'=>'required',
                 'engine'=>'required',
-                'components'=>'required',
-                'show'=>'boolean'
+                'components'=>'required'
             ]);
             $updateProduct=Product::findOrFail($id);
             $updateProduct->name=$request->name;
@@ -171,7 +172,12 @@ class ProductController extends Controller
     //Mostrar producto concreto con su información
     public function showProduct($id){
         $product=Product::findOrFail($id);
-        return view('productos', compact('product') );
+        $now = Carbon::now();
+        $offers = Offer::where('limitUses', '>', 'usesCounter')
+        ->whereDate('expiration', '>', $now)
+        ->with(['product','category'])
+        ->get();
+        return view('productos', compact('product', 'offers') );
     }
 
     //Ocultar producto

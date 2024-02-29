@@ -29,6 +29,18 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <p class="card-text">{{$product->price}}€</p>
+                    @foreach ($offers as $offer)
+                      @if ($offer->product->contains($product->id))
+                          <p>Precio con descuento: {{ number_format($product->price - ($product->price * $offer->discount / 100),2) }}€</p>
+                      @else 
+                          @foreach ($product->categories as $category)
+                              @if ($offer->category->contains($category->id))
+                                  <p>Precio con descuento: {{ number_format($product->price - ($product->price * $offer->discount / 100), 2) }}€</p>
+                                  @break
+                              @endif
+                          @endforeach
+                      @endif
+                    @endforeach
                     <p class="card-text">{{$product->description}}</p>
                     @auth
                     <form action="{{ route('cart.additem') }}" method="POST">
