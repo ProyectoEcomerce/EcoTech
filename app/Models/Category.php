@@ -17,4 +17,7 @@ class Category extends Model
         return $this->belongsToMany(Product::class, 'categories_products');
     }
     
+    public function offer(){
+        return $this->hasOne(Offer::class);
+    }
 }

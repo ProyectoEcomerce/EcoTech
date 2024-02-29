@@ -32,6 +32,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'categories_products');
     }
     
-
-    
+    public function offer(){
+        return $this->hasOne(Offer::class);
+    }
 }
