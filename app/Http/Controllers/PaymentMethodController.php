@@ -69,4 +69,11 @@ class PaymentMethodController extends Controller
 
         return response()->json(['success' => false], 400);
     }
+
+    public function cambiarMetodoPago(Request $request, $id)
+    {
+        // Lógica para cambiar el método de pago
+        // Similar al método cambiarDireccion, utiliza el $id para encontrar el método de pago y actualizarlo
+        return response()->json(['success' => true, 'message' => 'Método de pago actualizado correctamente.']);
+    }
 }

@@ -124,12 +124,20 @@
                         @foreach ($paymentMethods as $method)
                             @if ($method->id !== $firstPaymentMethod->id)
                                 <div class="card card-body mb-2">
-                                    <p>Titular: {{ $method->card_holder_name }}</p>
-                                    <p>Número de tarjeta: **** **** **** {{ substr($method->card_number, -4) }}</p>
-                                    <p>Fecha de caducidad: {{ \Carbon\Carbon::parse($method->expiry_date)->format('m/Y') }}
-                                    </p>
-                                    <button class="btn btn-primary select-payment-method"
-                                        data-method-id="{{ $method->id }}">Seleccionar este método de pago</button>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>Titular: {{ $method->card_holder_name }}</p>
+                                            <p>Número de tarjeta: **** **** **** {{ substr($method->card_number, -4) }}</p>
+                                            <p>Fecha de caducidad:
+                                                {{ \Carbon\Carbon::parse($method->expiry_date)->format('m/Y') }}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-primary select-payment-method m-70"
+                                                data-method-id="{{ $method->id }}">Seleccionar este método de
+                                                pago</button>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
                         @endforeach
@@ -170,55 +178,28 @@
 
     <script>
         $(document).ready(function() {
-            $('.select-address').on('click', function() {
+            $('.select-address').click(function() {
                 var addressId = $(this).data('address-id');
                 $.ajax({
-                    url: '/cambiar-direccion-envio', // URL del endpoint que maneja el cambio de dirección
+                    url: '/cambiar-direccion/' + addressId,
                     type: 'POST',
                     data: {
-                        'address_id': addressId,
-                        '_token': $('meta[name="csrf-token"]').attr('content') // Token CSRF
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        address_id: addressId
                     },
                     success: function(response) {
-                        // Actualizar la dirección de envío mostrada al usuario
-                        alert('La dirección de envío ha sido actualizada.');
-                        // Opcionalmente, recargar la página o actualizar parte de la página con la nueva dirección
+                        if (response.message) {
+                            alert(response.message);
+                        } else {
+                            alert("Dirección actualizada correctamente.");
+                        }
                     },
-                    error: function(error) {
-                        // Manejar errores, por ejemplo, mostrar un mensaje
-                        console.log(error);
-                        alert('Hubo un error al cambiar la dirección de envío.');
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + status + " " + error);
                     }
                 });
             });
-        });
 
-        document.querySelectorAll('.select-payment-method').forEach(function(button) {
-            button.addEventListener('click', function() {
-                var methodId = this.getAttribute('data-method-id');
-                fetch('/ruta-para-cambiar-metodo-de-pago', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            methodId: methodId
-                        })
-                    })
-                    .then(function(response) {
-                        return response.json();
-                    })
-                    .then(function(data) {
-                        if (data.success) {
-                            window.location.reload();
-                        }
-                    })
-                    .catch(function(error) {
-                        console.error('Error:', error);
-                    });
-            });
         });
     </script>
 
