@@ -14,6 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
 
 </head>
 
@@ -76,11 +78,11 @@
                             <div class="dropdown">
                                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if(App::getLocale() == 'es')
-                                        🇪🇸 
+                                        <span class="flag-icon flag-icon-es"></span>
                                     @else
-                                        🇬🇧 
+                                        <span class="flag-icon flag-icon-gb"></span>
                                     @endif
-                                </button>
+                                </button>                                
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                                     <!-- Si el idioma actual es español, muestra la opción para cambiar a inglés y viceversa -->
                                     @if(App::getLocale() == 'es')
