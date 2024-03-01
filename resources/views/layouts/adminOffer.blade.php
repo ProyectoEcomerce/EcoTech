@@ -101,22 +101,22 @@
                         <form action="{{ route('layouts.updateOffer', $offer->id) }}" method="POST">
                             @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
                             @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
-                        <select name="type" class="form-control mb-2" required>
+                        <select name="type2" class="form-control mb-2" required>
                             <option value="products" {{ $offer->type === 'products' ? 'selected' : '' }}>Productos</option>
                             <option value="categories" {{ $offer->type === 'categories' ? 'selected' : '' }}>Categorías</option>
                         </select>
                         @php
                         if ($offer->type === 'products') {
-                            $applied = $offer->product->first()->pivot->product_id;
+                            $applied = $offer->product->pluck('pivot.product_id')->implode(', ');
                         } elseif ($offer->type === 'categories') {
-                            $applied = $offer->category->first()->pivot->category_id; 
+                            $applied = $offer->category->pluck('pivot.category_id')->implode(', '); 
                         }
                         @endphp
-                        <div class="form-group mb-2" id="appliedProducts">
+                        <div class="form-group mb-2" id="appliedProducts{{$offer->id}}">
                             <input type="text" name="applied" value="{{ $applied }}" placeholder="Aplicación de descuento" class="form-control">
                         </div>
                     
-                        <div class="form-group mb-2" id="appliedCategories">
+                        <div class="form-group mb-2" id="appliedCategories{{$offer->id}}">
                             @foreach ($categories as $category)
                             <label for="applied">{{$category->name}}</label>
                             <input class="form-check-input" type="checkbox" name="applied" id="applied" value="{{$category->id}}" {{$category->offer->contains($category->id) ? 'checked': ''}}>
@@ -145,7 +145,6 @@
 <script>
     $(document).ready(function(){
         // Oculta inicialmente los campos de productos y categorías
-        $('#appliedProducts').hide();
         $('#appliedCategories').hide();
 
         // Muestra u oculta los campos según el tipo seleccionado
@@ -161,4 +160,24 @@
             }
         });
     });
+
+    $(document).ready(function(){
+    @foreach($offers as $offer)
+        // Oculta inicialmente los campos de productos y categorías
+        $('#appliedCategories{{$offer->id}}').hide();
+
+        // Muestra u oculta los campos según el tipo seleccionado
+        $('select[name="type2"]').change(function(){
+            let selectedType = $(this).val();
+
+            if(selectedType === 'products') {
+                $('#appliedProducts{{$offer->id}}').show();
+                $('#appliedCategories{{$offer->id}}').hide();
+            } else if(selectedType === 'categories') {
+                $('#appliedProducts{{$offer->id}}').hide();
+                $('#appliedCategories{{$offer->id}}').show();
+            }
+        });
+    @endforeach
+});
 </script>
