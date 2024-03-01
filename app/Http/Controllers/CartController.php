@@ -158,6 +158,9 @@ class CartController extends Controller
                     }
                     return $carry + ($product->pivot->amount * $discountedPrice);
                 }, 0);
+                $original_price = $cart->products->reduce(function ($carry, $product) {
+                    return $carry + ($product->pivot->amount * $product->price);
+                }, 0);
 
                 if($request->has('discount')){
                     $couponId=$request->discount;
@@ -179,10 +182,10 @@ class CartController extends Controller
 
                 Log::info('Productos en el carrito: ' . $cart->products->count());
 
-
                 // Crear un nuevo pedido
                 $order = Order::create([
                     'total_price' => $totalPrice,
+                    'original_price'=>$original_price,
                     'status' => 'pendiente', // Estado inicial del pedido
                     'user_id' => $user->id
                 ]);

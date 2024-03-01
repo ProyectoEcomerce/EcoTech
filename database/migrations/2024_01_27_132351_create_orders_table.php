@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->decimal('total_price', 8,2);
+            $table->decimal('original_price', 8,2);
             $table->enum('status', ['pendiente', 'entregado', 'devuelto', 'cancelado']);
             $table->foreignId('user_id')->references('id')->on('users');
         });

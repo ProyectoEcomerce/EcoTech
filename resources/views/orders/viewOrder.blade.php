@@ -26,7 +26,12 @@
             </div>
         @endforeach
         <div class="text-center">
+            @if(number_format($order->total_price, 2)  !=  number_format($order->original_price, 2) )
             <h4>Total del Pedido: {{ number_format($order->total_price, 2, ',', '.') }}€</h4>
+            <h4>Precio sin descuentos: {{ number_format($order->original_price, 2, ',', '.') }}€</h4>
+            @else
+            <h4>Total del Pedido: {{ number_format($order->total_price, 2, ',', '.') }}€</h4>
+            @endif
         </div>
 
         <div class="d-flex">
