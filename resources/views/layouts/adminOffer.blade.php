@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('title', 'adminCoupon')
+@section('title', 'adminOffer')
 
 @section('content')
     <h1 class="text-center">Ofertas</h1>
@@ -80,7 +80,7 @@
                             class="form-control mb-2">
 
                         <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres crear este nuevo producto?')">
-                            Crear nuevo cupón
+                            Crear nueva oferta
                         </button>
                         
                     </form>
@@ -163,8 +163,13 @@
 
     $(document).ready(function(){
     @foreach($offers as $offer)
+        @if($offer->type == "products")
+            $('#appliedCategories{{$offer->id}}').hide();
+        @elseif ($offer->type == "categories")
+            $('#appliedProducts{{$offer->id}}').hide();
+        @endif
         // Oculta inicialmente los campos de productos y categorías
-        $('#appliedCategories{{$offer->id}}').hide();
+
 
         // Muestra u oculta los campos según el tipo seleccionado
         $('select[name="type2"]').change(function(){
