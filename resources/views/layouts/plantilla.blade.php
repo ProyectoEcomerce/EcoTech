@@ -21,7 +21,7 @@
 
 
     <header>
-        <nav class="navbar navbar-expand-lg" style="background-color: #83B271;">
+        <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #83B271;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
                     <img src="/img/logo.png" alt="Logo" width="50" height="50">
