@@ -20,15 +20,16 @@
                 <th>Fecha de caducidad</th>
                 <th>Límite de usos</th>
                 <th>Usos aplicados</th>
+                <td>Acciones</td>
             </tr>
         </thead>
         
         @foreach ($offers as $offer)
         @php
             if ($offer->type === 'products') {
-                $applied = $offer->product->first()->pivot->product_id;
+                $applied = $offer->product->pluck('pivot.product_id')->implode(', ');
             } elseif ($offer->type === 'categories') {
-                $applied = $offer->category->first()->pivot->category_id; 
+                $applied = $offer->category->pluck('pivot.category_id')->implode(', '); 
             }
         @endphp
             <tr>
@@ -39,6 +40,9 @@
                 <td>{{ $offer->expiration }}</td>
                 <td>{{ $offer->limitUses }}</td>
                 <td>{{ $offer->usesCounter }}</td>
+                <td><a href="#editOfferModal{{ $offer->id }}" data-bs-toggle="modal"
+                    data-bs-target="#editOfferModal{{ $offer->id }}" class="btn btn-warning btn-sm d-inline-block" id="btn-tabla-productos"><i class="fas fa-edit"></i> 
+                </a></td>
             </tr>
         @endforeach
     </table>
@@ -84,6 +88,56 @@
             </div>
         </div>
     </div>
+
+    @foreach ($offers as $offer)
+        <div class="modal fade" id="editOfferModal{{ $offer->id }}">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Editando la oferta: {{ $offer->id  }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('layouts.updateOffer', $offer->id) }}" method="POST">
+                            @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
+                            @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <select name="type" class="form-control mb-2" required>
+                            <option value="products" {{ $offer->type === 'products' ? 'selected' : '' }}>Productos</option>
+                            <option value="categories" {{ $offer->type === 'categories' ? 'selected' : '' }}>Categorías</option>
+                        </select>
+                        @php
+                        if ($offer->type === 'products') {
+                            $applied = $offer->product->first()->pivot->product_id;
+                        } elseif ($offer->type === 'categories') {
+                            $applied = $offer->category->first()->pivot->category_id; 
+                        }
+                        @endphp
+                        <div class="form-group mb-2" id="appliedProducts">
+                            <input type="text" name="applied" value="{{ $applied }}" placeholder="Aplicación de descuento" class="form-control">
+                        </div>
+                    
+                        <div class="form-group mb-2" id="appliedCategories">
+                            @foreach ($categories as $category)
+                            <label for="applied">{{$category->name}}</label>
+                            <input class="form-check-input" type="checkbox" name="applied" id="applied" value="{{$category->id}}" {{$category->offer->contains($category->id) ? 'checked': ''}}>
+                            @endforeach
+                        </div>
+                        <input type="number" name="discount" value="{{ $offer->discount }}" placeholder="Descuento"
+                            class="form-control mb-2" autofocus>
+                        <input type="date" name="expiration" value="{{ $offer->expiration }}"
+                            placeholder="Fecha de expiración" class="form-control mb-2">
+                        <input type="number" name="limitUses" value="{{ $offer->limitUses }}" placeholder="Límite de usos"
+                            class="form-control mb-2">
+
+                            <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres guardar los cambios de la oferta: '+ '{{$offer->id}}' +'?')">
+                                Guardar cambios
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
 @endsection
 

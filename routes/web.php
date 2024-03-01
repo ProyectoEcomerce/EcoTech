@@ -66,9 +66,11 @@ Route::middleware('admin')->group(function () {
 
     Route::get('adminCoupon', [CouponController::class, 'adminCoupon'])->name('admin.coupon');
     Route::post('createCoupon', [CouponController::class, 'create'])->name('layouts.createCoupon');
+    Route::put('updateCoupon/{id}', [CouponController::class, 'update'])->name('layouts.updateCoupon');
 
     Route::get('adminOffer', [OfferController::class, 'adminOffer'])->name('admin.offer');
     Route::post('createOffer', [OfferController::class, 'create'])->name('layouts.createOffer');
+    Route::put('updateOffer/{id}', [OfferController::class, 'update'])->name('layouts.updateOffer');
 
     //RUTA PARA VISTA DE PANEL DE PRODUCTOS Y CATEGORIAS
     Route::view('/panel', 'panel')->name('admin.index');

@@ -40,5 +40,32 @@ class CouponController extends Controller
         }
         
     }
+
+    public function update(Request $request, $id){
+        DB::beginTransaction();
+        try{
+            $request->validate([
+                'code'=>'required',
+                'discount'=>'required|integer',
+                'expiration'=>'required|date',
+                'limitUses'=>'required|integer'
+            ]);
+    
+            $updateCoupon= Coupon::findOrFail($id);
+            $updateCoupon->code=$request->code;
+            $updateCoupon->discount=$request->discount;
+            $updateCoupon->expiration=$request->expiration;
+            $updateCoupon->limitUses=$request->limitUses;
+            $updateCoupon->save();
+
+            // Dentro del try del método create, después de $newProduct->save();
+
+            DB::commit();
+            return back() -> with('mensaje', 'Cupón creado');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->withErrors('No se pudo crear el cupón');
+        }
+    }
     
 }

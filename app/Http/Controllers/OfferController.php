@@ -52,4 +52,40 @@ class OfferController extends Controller
         }
         
     }
+
+    public function update(Request $request, $id){
+        DB::beginTransaction();
+        try{
+            $request->validate([
+                'type'=>'required',
+                'applied'=>'required',
+                'discount'=>'required|integer',
+                'expiration'=>'required|date',
+                'limitUses'=>'required|integer'
+            ]);
+    
+            $updateOffer=Offer::findOrFail($id);
+            $updateOffer->type=$request->type;
+            $updateOffer->discount=$request->discount;
+            $updateOffer->expiration=$request->expiration;
+            $updateOffer->limitUses=$request->limitUses;
+            $updateOffer->save();
+
+            $appliedProducts = explode(',', $request->applied);
+            if($updateOffer->type == "products"){
+                $updateOffer->product()->sync($appliedProducts);
+            }else if($updateOffer->type == "categories"){
+                $updateOffer->category()->sync($appliedProducts);
+            }
+            
+
+            // Dentro del try del método create, después de $newProduct->save();
+
+            DB::commit();
+            return back() -> with('mensaje', 'Oferta creada');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->withErrors('No se pudo crear el la oferta');
+        }
+    }
 }

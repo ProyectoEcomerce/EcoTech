@@ -19,6 +19,7 @@
                 <th>Fecha de caducidad</th>
                 <th>Límite de usos</th>
                 <th>Usos aplicados</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         
@@ -30,6 +31,9 @@
                 <td>{{ $coupon->expiration }}</td>
                 <td>{{ $coupon->limitUses }}</td>
                 <td>{{ $coupon->usesCounter }}</td>
+                <td><a href="#editCouponModal{{ $coupon->id }}" data-bs-toggle="modal"
+                    data-bs-target="#editCouponModal{{ $coupon->id }}" class="btn btn-warning btn-sm d-inline-block" id="btn-tabla-productos"><i class="fas fa-edit"></i> 
+                </a></td>
             </tr>
         @endforeach
     </table>
@@ -63,5 +67,36 @@
             </div>
         </div>
     </div>
+
+    @foreach ($coupons as $coupon)
+    <div class="modal fade" id="editCouponModal{{ $coupon->id }}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Editando la oferta: {{ $coupon->id  }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('layouts.updateCoupon', $coupon->id) }}" method="POST">
+                        @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
+                            @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                            <input type="text" name="code" value="{{ $coupon->code }}" placeholder="Código de descuento"
+                                class="form-control mb-2">
+                            <input type="number" name="discount" value="{{ $coupon->discount }}" placeholder="Descuento"
+                                class="form-control mb-2" autofocus>
+                            <input type="date" name="expiration" value="{{ $coupon->expiration }}"
+                                placeholder="Fecha de expiración" class="form-control mb-2">
+                            <input type="number" name="limitUses" value="{{ $coupon->limitUses }}" placeholder="Límite de usos"
+                                class="form-control mb-2">
+                        
+                        <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres guardar los cambios de la oferta: '+ '{{$coupon->id}}' +'?')">
+                            Guardar cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
 
 @endsection
