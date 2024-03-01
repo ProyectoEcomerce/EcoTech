@@ -43,16 +43,25 @@
                             @auth
                                 @if (auth()->user()->hasRole('admin'))
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.index') }}" class="nav-link">{{ __('Panel de Administración') }}</a>
+                                    <a href="{{ route('admin.index') }}" class="nav-link">
+                                        <i class="fa fa-cogs"></i> {{ __('Administración') }}
+                                    </a>
                                 </li>
+                                
                                 
                                 @endif
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/">{{ __('Inicio') }}</a>
+                                    <a class="nav-link active" aria-current="page" href="/">
+                                        <i class="fas fa-home"></i> {{ __('Inicio') }}
+                                    </a>
                                 </li>
+                                
                                 <li class="nav-item">
-                                    <a href="{{ url('/home') }}" class="nav-link">{{ __('Mi cuenta') }}</a>
+                                    <a href="{{ url('/home') }}" class="nav-link">
+                                        <i class="fas fa-user"></i> {{ __('Cuenta') }}
+                                    </a>
                                 </li>
+                                
                             @else
                                 <li class="nav-item">
                                     <a href="{{ route('login') }}" class="nav-link">{{ __('Iniciar sesión') }}</a>
