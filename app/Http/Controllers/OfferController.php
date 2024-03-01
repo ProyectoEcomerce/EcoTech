@@ -57,7 +57,7 @@ class OfferController extends Controller
         DB::beginTransaction();
         try{
             $request->validate([
-                'type'=>'required',
+                'type2'=>'required',
                 'applied'=>'required',
                 'discount'=>'required|integer',
                 'expiration'=>'required|date',
@@ -65,11 +65,21 @@ class OfferController extends Controller
             ]);
     
             $updateOffer=Offer::findOrFail($id);
-            $updateOffer->type=$request->type;
+            $originalType= $updateOffer->type;
+            $updateOffer->type=$request->type2;
             $updateOffer->discount=$request->discount;
             $updateOffer->expiration=$request->expiration;
             $updateOffer->limitUses=$request->limitUses;
             $updateOffer->save();
+            
+            //Eliminar relacion de oferta si se cambia de tipo
+            if ($request->type2 != $originalType) {
+                if ($originalType == "products") {
+                    $updateOffer->product()->detach();
+                } elseif ($originalType == "categories") {
+                    $updateOffer->category()->detach();
+                }
+            }
 
             $appliedProducts = explode(',', $request->applied);
             if($updateOffer->type == "products"){
