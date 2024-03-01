@@ -94,4 +94,14 @@ class AddressController extends Controller
             return back()->withErrors('No se pudo eliminar la dirección');
         }
     }
+
+    public function cambiarDireccion(Request $request, $id)
+    {
+        $address = Address::find($id);
+        $address->update($request->all());
+
+
+        return response()->json(['success' => 'Dirección actualizada correctamente.']);
+    }
+
 }
