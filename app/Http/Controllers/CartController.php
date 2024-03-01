@@ -141,7 +141,21 @@ class CartController extends Controller
             try {
                 // Calcular el total del precio de los productos en el carrito
                 $totalPrice = $cart->products->reduce(function ($carry, $product) {
-                    return $carry + ($product->pivot->amount * $product->price);
+                    $discountedPrice = $product->price;
+                    foreach ($product->offer as $offer){
+                        if ($offer->product->contains($product->id)){
+                            $discountedPrice = $product->price - ($product->price * $offer->discount / 100);
+                            break;
+                        }else{ 
+                            foreach ($product->categories as $category){
+                                if ($offer->category->contains($category->id)){
+                                    $discountedPrice = $product->price - ($product->price * $offer->discount / 100);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    return $carry + ($product->pivot->amount * $discountedPrice);
                 }, 0);
 
                 if($request->has('discount')){

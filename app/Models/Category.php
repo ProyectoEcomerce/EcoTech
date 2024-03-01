@@ -18,6 +18,6 @@ class Category extends Model
     }
     
     public function offer(){
-        return $this->belongsTo(Offer::class, 'offer_category');
+        return $this->belongsToMany(Offer::class, 'offer_category');
     }
 }

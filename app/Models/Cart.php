@@ -24,7 +24,21 @@ class Cart extends Model
     public function getTotalAmount()
     {
         return $this->products->sum(function ($product) {
-            return $product->price * $product->pivot->amount;
+            $discountedPrice = $product->price;
+            foreach ($product->offer as $offer){
+                    if ($offer->product->contains($product->id)){
+                        $discountedPrice = $product->price - ($product->price * $offer->discount / 100);
+                        break;
+                    }else{ 
+                        foreach ($product->categories as $category){
+                            if ($offer->category->contains($category->id)){
+                                $discountedPrice = $product->price - ($product->price * $offer->discount / 100);
+                                break;
+                            }
+                        }
+                    }
+            }
+            return $discountedPrice * $product->pivot->amount;
         });
     }
 

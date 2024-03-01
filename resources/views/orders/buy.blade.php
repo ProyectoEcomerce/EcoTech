@@ -85,8 +85,34 @@
                                 <p class="card-text">{{ $product->description }}</p>
                                 <p>Cantidad: {{ $product->pivot->amount }}</p>
                                 <p>Precio unitario: {{ number_format($product->price, 2) }}€</p>
-                                <p class="text-danger text-decoration-underline">Subtotal:
-                                    {{ number_format($product->pivot->amount * $product->price, 2) }}€</p>
+                                @php
+                                    $discountedPrice = $product->price; // Inicializa con el precio regular
+                                @endphp
+                                @foreach ($offers as $offer)
+                                  @if ($offer->product->contains($product->id))
+                                    @php
+                                        $discountedPrice = number_format($product->price - ($product->price * $offer->discount / 100),2);
+                                    @endphp
+                                      <p>Precio con descuento: {{ number_format($product->price - ($product->price * $offer->discount / 100),2) }}€</p>
+                                  @else 
+                                      @foreach ($product->categories as $category)
+                                          @if ($offer->category->contains($category->id))
+                                            @php
+                                                $discountedPrice = number_format($product->price - ($product->price * $offer->discount / 100),2);
+                                            @endphp
+                                              <p>Precio con descuento: {{ number_format($product->price - ($product->price * $offer->discount / 100), 2) }}€</p>
+                                              @break
+                                          @endif
+                                      @endforeach
+                                  @endif
+                                @endforeach
+                                    @if ($discountedPrice != $product->price)
+                                        <p class="text-danger text-decoration-underline">Subtotal:
+                                            {{ number_format($product->pivot->amount * $discountedPrice, 2) }}€</p>
+                                    @else
+                                        <p class="text-danger text-decoration-underline">Subtotal:
+                                            {{ number_format($product->pivot->amount * $product->price, 2) }}€</p>
+                                    @endif
                             </div>
                         </div>
                     @empty

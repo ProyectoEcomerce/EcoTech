@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Offer;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,7 @@ class OrderController extends Controller
         $validCoupon = false;
         $couponSearch = 0;
 
+        $offers=Offer::all();
 
         if($request->has('code')){
             $cuponIntroducido=$request->code;
@@ -104,6 +106,6 @@ class OrderController extends Controller
         
 
         // Pasa las variables a la vista
-        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponSearch'));
+        return view('orders.buy', compact('user', 'addresses', 'cart', 'products', 'totalAmount', 'validCoupon', 'couponSearch', 'offers'));
     }
 }
