@@ -146,32 +146,46 @@
                 <div class="modal-body">
                     <form action="{{ route('layouts.createProduct') }}" method="POST" enctype="multipart/form-data">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <label for="name">Nombre del producto</label>
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre del producto"
                             class="form-control mb-2">
+                        <label for="price">Precio</label>
                         <input type="number" name="price" value="{{ old('price') }}" placeholder="Precio"
                             class="form-control mb-2" autofocus step="0.01">
+                        <label for="offerPrice">Precio especial</label>
                         <input type="number" name="offerPrice" value="{{ old('offerPrice') }}"
                             placeholder="Precio especial" class="form-control mb-2" step="0.01">
+                        <label for="voltage">Voltage</label>
                         <input type="number" name="voltage" value="{{ old('voltage') }}" placeholder="Voltage"
                             class="form-control mb-2">
+                        <label for="guarantee">Garantía</label>
                         <input type="number" name="guarantee" value="{{ old('guarantee') }}" placeholder="Garantía"
                             class="form-control mb-2">
+                        <label for="manufacturing_price">Precio de manufactura</label>
                         <input type="number" name="manufacturing_price" value="{{ old('manufacturing_price') }}"
                             placeholder="Precio de manufactura" class="form-control mb-2" step="0.01">
+                        <label for="weigth">Peso</label>
                         <input type="number" name="weigth" value="{{ old('weigth') }}" placeholder="Peso"
                             class="form-control mb-2" step="0.01">
+                        <label for="materials">Materiales</label>
                         <input type="text" name="materials" value="{{ old('materials') }}" placeholder="Materiales"
                             class="form-control mb-2">
+                        <label for="description">Descripción</label>
                         <input type="text" name="description" value="{{ old('description') }}" placeholder="Descripción"
                             class="form-control mb-2">
+                        <label for="dimensions">Dimensiones</label>
                         <input type="text" name="dimensions" value="{{ old('dimensions') }}" placeholder="Dimensiones"
                             class="form-control mb-2">
+                        <label for="battery">Batería</label>
                         <input type="text" name="battery" value="{{ old('battery') }}" placeholder="Batería"
                             class="form-control mb-2">
+                        <label for="engine">Motor</label>
                         <input type="text" name="engine" value="{{ old('engine') }}" placeholder="Motor"
                             class="form-control mb-2">
+                        <label for="components">Componentes</label>
                         <input type="text" name="components" value="{{ old('components') }}" placeholder="Componentes"
                             class="form-control mb-2">
+                        <label for="image">Imagenes</label>
                         <input type="file" name="image[]" accept="image/" class="form-control mb-2" multiple>
 
                         <div class="mb-2">
@@ -220,35 +234,43 @@
                             @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
                             @csrf
                             {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                            <label for="name">Nombre del producto</label>
                             <input type="text" name="name" class="form-control mb-2" value="{{ $product->name }}"
                                 placeholder="Nombre" autofocus>
+                            <label for="price">Precio</label>
                             <input type="number" name="price" class="form-control mb-2"
                                 value="{{ $product->price }}" placeholder="Precio" autofocus step="0.01">
+                            <label for="offerPrice">Precio especial</label>
                             <input type="number" name="offerPrice" placeholder="Precio oferta"
                                 class="form-control mb-2" value="{{ $product->offerPrice }}" step="0.01">
+                            <label for="voltage">Voltage</label>
                             <input type="number" name="voltage" class="form-control mb-2"
                                 value="{{ $product->voltage }}" placeholder="Voltage" autofocus>
+                            <label for="guarantee">Garantía</label>
                             <input type="number" name="guarantee" class="form-control mb-2"
                                 value="{{ $product->guarantee }}" placeholder="Garantía" autofocus>
+                            <label for="manufacturing_price">Precio de manufactura</label>
                             <input type="number" name="manufacturing_price" class="form-control mb-2"
                                 value="{{ $product->manufacturing_price }}" placeholder="Manufactura" autofocus step="0.01">
+                            <label for="weigth">Peso</label>
                             <input type="number" name="weigth" class="form-control mb-2"
                                 value="{{ $product->weigth }}" placeholder="Peso" autofocus step="0.01">
+                            <label for="materials">Materiales</label>
                             <input type="text" name="materials" class="form-control mb-2"
                                 value="{{ $product->materials }}" placeholder="Materiales" autofocus>
-
+                            <label for="description">Descripción</label>
                             <input type="text" name="description" class="form-control mb-2"
                                 value="{{ $product->description }}" placeholder="Descripción" autofocus>
-
+                            <label for="dimensions">Dimensiones</label>
                             <input type="text" name="dimensions" class="form-control mb-2"
                                 value="{{ $product->dimensions }}" placeholder="Dimensiones" autofocus>
-
+                            <label for="battery">Batería</label>
                             <input type="text" name="battery" class="form-control mb-2"
                                 value="{{ $product->battery }}" placeholder="Batería" autofocus>
-
+                            <label for="engine">Motor</label>
                             <input type="text" name="engine" class="form-control mb-2"
                                 value="{{ $product->engine }}" placeholder="Motor" autofocus>
-
+                            <label for="components">Componentes</label>
                             <input type="text" name="components" class="form-control mb-2"
                                 value="{{ $product->components }}" placeholder="Componentes" autofocus>
 

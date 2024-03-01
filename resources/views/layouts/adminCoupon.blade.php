@@ -49,12 +49,16 @@
                 <div class="modal-body">
                     <form action="{{ route('layouts.createCoupon') }}" method="POST">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <label for="code">Código de descuento</label>
                         <input type="text" name="code" value="{{ old('code') }}" placeholder="Código de descuento"
                             class="form-control mb-2">
+                        <label for="discount">Descuento</label>
                         <input type="number" name="discount" value="{{ old('discount') }}" placeholder="Descuento"
                             class="form-control mb-2" autofocus>
+                        <label for="expiration">Fecha de expiración</label>
                         <input type="date" name="expiration" value="{{ old('expiration') }}"
                             placeholder="Fecha de expiración" class="form-control mb-2">
+                        <label for="limitUses">Límite de usos</label>
                         <input type="number" name="limitUses" value="{{ old('limitUses') }}" placeholder="Límite de usos"
                             class="form-control mb-2">
 
@@ -80,12 +84,16 @@
                     <form action="{{ route('layouts.updateCoupon', $coupon->id) }}" method="POST">
                         @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
                             @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                            <label for="code">Código de descuento</label>
                             <input type="text" name="code" value="{{ $coupon->code }}" placeholder="Código de descuento"
                                 class="form-control mb-2">
+                            <label for="discount">Descuento</label>
                             <input type="number" name="discount" value="{{ $coupon->discount }}" placeholder="Descuento"
                                 class="form-control mb-2" autofocus>
+                            <label for="expiration">Fecha de expiración</label>
                             <input type="date" name="expiration" value="{{ $coupon->expiration }}"
                                 placeholder="Fecha de expiración" class="form-control mb-2">
+                            <label for="limitUses">Límite de usos</label>
                             <input type="number" name="limitUses" value="{{ $coupon->limitUses }}" placeholder="Límite de usos"
                                 class="form-control mb-2">
                         

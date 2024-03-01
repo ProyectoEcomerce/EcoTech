@@ -46,6 +46,7 @@
                 <div class="modal-body">
                     <form action="{{ route('layouts.createCategory') }}" method="POST">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <label for="name">Nombre de la categoría</label>
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nombre de la categoria" class="form-control mb-2">
 
                         <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres crear la categoría?')">
@@ -73,6 +74,7 @@
                         @method('PUT')
                         @csrf
                         {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <label for="name">Nombre de la categoría</label>
                         <input type="text" name="name" class="form-control mb-2" value="{{ $category->name }}"
                         placeholder="Nombre" autofocus>
                         <button class="btn btn-secondary btn-block" type="submit" onclick="return confirm('¿Quieres editar la categoria '+'{{ $category->name}}'+'?')">Guardar cambios</button>

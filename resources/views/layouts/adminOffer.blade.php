@@ -58,24 +58,31 @@
                 <div class="modal-body">
                     <form action="{{ route('layouts.createOffer') }}" method="POST">
                         @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <label for="type">Tipo de oferta</label>
                         <select name="type" class="form-control mb-2" required>
                             <option value="products" {{ old('type') === 'products' ? 'selected' : '' }}>Productos</option>
                             <option value="categories" {{ old('type') === 'categories' ? 'selected' : '' }}>Categorías</option>
                         </select>
                         <div class="form-group mb-2" id="appliedProducts">
+                            <label for="applied">Id del producto</label>
                             <input type="text" name="applied" value="{{ old('applied') }}" placeholder="Aplicación de descuento" class="form-control">
                         </div>
                     
                         <div class="form-group mb-2" id="appliedCategories">
+                            <label for="applied">Categorías disponibles:</label>
+                            <br>
                             @foreach ($categories as $category)
                             <label for="applied">{{$category->name}}</label>
                             <input class="form-check-input" type="checkbox" name="applied" id="applied" value="{{$category->id}}">
                             @endforeach
                         </div>
+                        <label for="discount">Descuento</label>
                         <input type="number" name="discount" value="{{ old('discount') }}" placeholder="Descuento"
                             class="form-control mb-2" autofocus>
+                        <label for="expiration">Fecha de expiración</label>
                         <input type="date" name="expiration" value="{{ old('expiration') }}"
                             placeholder="Fecha de expiración" class="form-control mb-2">
+                        <label for="limitUses">Límite de usos</label>
                         <input type="number" name="limitUses" value="{{ old('limitUses') }}" placeholder="Límite de usos"
                             class="form-control mb-2">
 
@@ -101,6 +108,7 @@
                         <form action="{{ route('layouts.updateOffer', $offer->id) }}" method="POST">
                             @method('PUT') {{-- Necesitamos cambiar al método PUT para editar --}}
                             @csrf {{-- Cláusula para obtener un token de formulario al enviarlo --}}
+                        <label for="type2">Tipo de oferta</label>
                         <select name="type2" class="form-control mb-2" required>
                             <option value="products" {{ $offer->type === 'products' ? 'selected' : '' }}>Productos</option>
                             <option value="categories" {{ $offer->type === 'categories' ? 'selected' : '' }}>Categorías</option>
@@ -113,19 +121,25 @@
                         }
                         @endphp
                         <div class="form-group mb-2" id="appliedProducts{{$offer->id}}">
+                            <label for="applied">Id del producto</label>
                             <input type="text" name="applied" value="{{ $applied }}" placeholder="Aplicación de descuento" class="form-control">
                         </div>
                     
                         <div class="form-group mb-2" id="appliedCategories{{$offer->id}}">
+                            <label for="applied">Categorías disponibles:</label>
+                            <br>
                             @foreach ($categories as $category)
                             <label for="applied">{{$category->name}}</label>
                             <input class="form-check-input" type="checkbox" name="applied" id="applied" value="{{$category->id}}" {{$category->offer->contains($category->id) ? 'checked': ''}}>
                             @endforeach
                         </div>
+                        <label for="discount">Descuento</label>
                         <input type="number" name="discount" value="{{ $offer->discount }}" placeholder="Descuento"
                             class="form-control mb-2" autofocus>
+                        <label for="expiration">Fecha de expiración</label>
                         <input type="date" name="expiration" value="{{ $offer->expiration }}"
                             placeholder="Fecha de expiración" class="form-control mb-2">
+                        <label for="limitUses">Límite de usos</label>
                         <input type="number" name="limitUses" value="{{ $offer->limitUses }}" placeholder="Límite de usos"
                             class="form-control mb-2">
 
